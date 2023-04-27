@@ -1,0 +1,553 @@
+﻿
+@{
+    ViewBag.Title = "Dịch vụ kinh doanh khác";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+        <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách dịch vụ kinh doanh khác
+            </div>
+            <div class="panel-body">
+                <table id="table_DichVuKDK" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap" width="15%">Loại dịch vụ khác</th>
+                            <th class="text-nowrap" width="15%">Ngày hoàn thành</th>
+                            <th class="text-nowrap" width="15%">Tên công trình</th>
+                            <th class="text-nowrap" width="10%">Đội trưởng</th>
+                            <th class="text-nowrap" width="20%">Doanh thu(VND)</th>
+                            <th class="text-nowrap" width="10%">Chi phí(VND)</th>
+                            <th class="text-nowrap" width="15%">Lợi nhuận(VND)</th>
+                            <th class="text-nowrap" width="10%">Thanh toán lần 1</th>
+                            <th class="text-nowrap" width="10%">Thanh toán lần 2</th>
+                            <th class="text-nowrap" width="10%">Thanh toán lần 3</th>
+                            <th class="text-nowrap" width="10%">Ghi chú</th>
+                            <th class="text-nowrap" width="10%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="DichVuKhac" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật thông tin dịch vụ khác</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="frmDichVuKhac">
+                    <input type="hidden" id="iddichvukhac" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="LoaiDichVuKhac" class="control-label">Loại Dịch Vụ Khác: </label>
+                                <select id="LoaiDichVuKhac" name="LoaiDichVuKhac" class="form-control">
+                                    <option value="">--Chọn loại dịch vụ--</option>
+                                    <option value="1">Dịch vụ 1</option>
+                                    <option value="2">Dịch vụ 2</option>
+                                    <option value="3">Dịch vụ 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtNgayHoanThanh">Ngày hoàn thành: </label>
+                                <div id="ngayHoanThanh" class="input-group date" data-date-format="dd/mm/yyyy">
+                                    <input id="NgayHoanThanh" placeholder="dd/mm/yyyy..." class="form-control" type="text">
+                                    <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="TenCongTrinh" class="control-label">Tên công trình: </label>
+                                <input class="form-control" id="TenCongTrinh" name="TenCongTrinh" type="text" />
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="DoiTruong" class="control-label">Đội trưởng: </label>
+                                <input class="form-control" id="DoiTruong" name="DoiTruong" type="text" />
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="DoanhThu" class="control-label">Doanh Thu: </label>
+                                <input class="form-control" id="DoanhThu" name="DoanhThu" type="number" onblur="reSum()" />
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="ChiPhi" class="control-label">Chi phí: </label>
+                                <input class="form-control" id="ChiPhi" name="ChiPhi" type="number" onblur="reSum()" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="LoiNhuan" class="control-label">Lợi nhuận: </label>
+                                <input class="form-control" id="LoiNhuan" name="LoiNhuan" type="number" disabled />
+                            </div>
+                        </div>
+                    </div>
+
+
+                   @* <div class="row">
+                        
+                    </div>
+                    <div class="row">
+                        
+                    </div>*@
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="ThanhToanLan1" class="control-label">Thanh toán lần 1: </label>
+                                <input class="form-control" id="ThanhToanLan1" name="ThanhToanLan1" type="number" onkeyup="checkLoiNhuan()" />
+                                <label id="txtThanhToanLan1" name="txtThanhToanLan1" style="color:red; font-size:10px;"></label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="ThanhToanLan2" class="control-label">Thanh toán lần 2: </label>
+                                <input class="form-control" id="ThanhToanLan2" name="ThanhToanLan2" type="number" onkeyup="checkLoiNhuan()" />
+                                <label id="txtThanhToanLan2" name="txtThanhToanLan2" style="color:red; font-size:10px;"></label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="ThanhToanLan3" class="control-label">Thanh toán lần 3: </label>
+                                <input class="form-control" id="ThanhToanLan3" name="ThanhToanLan3" type="number" onkeyup="checkLoiNhuan()" />
+                                <label id="txtThanhToanLan3" name="txtThanhToanLan3" style="color:red; font-size:10px;"></label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="No" class="control-label">Nợ: </label>
+                                <input class="form-control" id="No" name="No" type="text" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="GhiChu" class="control-label">Ghi chú: </label>
+                                <input class="form-control" id="GhiChu" name="GhiChu" type="text" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        $(document).ready(function () {
+            activeMenu("liDanhMuc", "liDichVuKinhDoanhKhac");
+            loadData();
+            $("#ngayHoanThanh").datepicker({
+                autoclose: true,
+                todayHighlight: true
+            }).datepicker('update', new Date());
+
+        });
+        function loadData() {
+            $("#table_DichVuKDK").DataTable({
+                "ajax": {
+                    "url": "/DichVuKinhDoanhKhac/GetListDichVuKDK",
+                    "type": "GET",
+                    "datatype": "json",
+                    "contentType": "application/json;charset=UTF-8"
+                },
+                "columns": [
+                    {
+                        "data": "id", "render": function (data) {
+                            return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                        }
+                    },
+                    {
+                        "data": "loaiDichVuKhac", "render": function (data) {
+                            console.log(data);
+                            if (data == "1")
+                                return "Dịch vụ 1";
+                            if (data == "2")
+                                return "Dịch vụ 2";
+                            if (data == "3")
+                                return "Dịch vụ 3";
+
+                        }
+                    },
+                    {
+                        "data": "ngayHoanThanh", "render": function (data) {
+                            //console.log(data);
+                            if (data != null || data != "") {
+                                return data.split(' ')[0];
+                            }
+                        }
+                    },
+                    { "data": "tenCongTrinh" },
+
+                    { "data": "doiTruong" },
+                    { "data": "doanhThu" },
+                    { "data": "chiPhi" },
+                    { "data": "loiNhuan" },
+                    { "data": "thanhToanLan1" },
+                    { "data": "thanhToanLan2" },
+                    { "data": "thanhToanLan3" },
+                    { "data": "ghiChu" },
+
+                    {
+                        "data": "id", "render": function (data) {
+                            return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>"
+                        }
+                    }
+                ],
+                destroy: true,
+                ordering: false,
+                paging: true,
+                searching: true,
+                bInfo: false,
+                deferRender: true
+            });
+            //Xử lý nút check all
+            $("#checkall").change(function () {
+                $(".checkitem").prop("checked", $(this).prop("checked"))
+            })
+
+            $("#btnThemMoi").click(function () {
+                $("#DichVuKhac").modal('show');
+                $("#iddichvukhac").val(0);
+                $("#myModalLabel").text("Thêm mới thông tin dịch vụ khác");
+                $("#TenCongTrinh").val("");
+                $("#DoiTruong").val("");
+                $("#NgayHoanThanh").val("");
+                $("#LoaiDichVuKhac").val("");
+                $("#DoanhThu").val("");
+                $("#ChiPhi").val("");
+                $("#LoiNhuan").val("");
+                $("#ThanhToanLan1").val("");
+                $("#ThanhToanLan2").val("");
+                $("#ThanhToanLan3").val("");
+                $("#GhiChu").val("");
+                $("#No").val("");
+
+
+            })
+            //Reset bootstrap validator
+            $('#DichVuKhac').on('hide.bs.modal', function () {
+                $('#frmDichVuKhac').bootstrapValidator('resetForm', true);
+            });
+            //Validate
+
+        }
+        function reSum() {
+
+            let num1 = Number(document.getElementById("DoanhThu").value);
+            let num2 = Number(document.getElementById("ChiPhi").value);
+
+            document.getElementById("LoiNhuan").value = num1 - num2;
+        }
+        function checkLoiNhuan() {
+            let loinhuan = Number(document.getElementById("LoiNhuan").value);
+            if (document.getElementById("ThanhToanLan1").value > loinhuan) {
+                $("#txtThanhToanLan1").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                document.getElementById("btnUpdate").disabled = true;
+
+
+            }
+            else {
+                $("#txtThanhToanLan1").text("");
+                document.getElementById("btnUpdate").disabled = false;
+            }
+            if (document.getElementById("ThanhToanLan2").value > loinhuan) {
+                $("#txtThanhToanLan2").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                document.getElementById("btnUpdate").disabled = true;
+
+
+            }
+            else {
+                $("#txtThanhToanLan2").text("");
+                document.getElementById("btnUpdate").disabled = false;
+            }
+            if (document.getElementById("ThanhToanLan3").value > loinhuan) {
+                $("#txtThanhToanLan3").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                document.getElementById("btnUpdate").disabled = true;
+
+
+            }
+            else {
+                $("#txtThanhToanLan3").text("");
+                document.getElementById("btnUpdate").disabled = false;
+            }
+            
+            @*if (document.getElementById("ThanhToanLan1").value + document.getElementById("ThanhToanLan2").value > loinhuan) {
+                $("#txtThanhToanLan1").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                $("#txtThanhToanLan2").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                document.getElementById("btnUpdate").disabled = true;
+            }
+            else {
+                $("#txtThanhToanLan1").text("");
+                $("#txtThanhToanLan2").text("");
+                document.getElementById("btnUpdate").disabled = false;
+            }
+            if (document.getElementById("ThanhToanLan1").value + document.getElementById("ThanhToanLan3").value > loinhuan) {
+                $("#txtThanhToanLan1").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                $("#txtThanhToanLan3").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                document.getElementById("btnUpdate").disabled = true;
+            }
+            else {
+                $("#txtThanhToanLan1").text("");
+                $("#txtThanhToanLan3").text("");
+                document.getElementById("btnUpdate").disabled = false;
+            }
+            if (document.getElementById("ThanhToanLan2").value + document.getElementById("ThanhToanLan3").value > loinhuan) {
+                $("#txtThanhToanLan2").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                $("#txtThanhToanLan3").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                document.getElementById("btnUpdate").disabled = true;
+            }
+            else {
+                $("#txtThanhToanLan2").text("");
+                $("#txtThanhToanLan3").text("");
+                document.getElementById("btnUpdate").disabled = false;
+            }*@
+            @*if (document.getElementById("ThanhToanLan1").value + document.getElementById("ThanhToanLan2").value + document.getElementById("ThanhToanLan3").value > loinhuan) {
+                $("#txtThanhToanLan1").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                $("#txtThanhToanLan2").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                $("#txtThanhToanLan3").text("Số tiền thanh toán lớn hơn lợi nhuận");
+                document.getElementById("btnUpdate").disabled = true;
+
+
+            }
+            else {
+                $("#txtThanhToanLan1").text("");
+                $("#txtThanhToanLan2").text("");
+                $("#txtThanhToanLan3").text("");
+                document.getElementById("btnUpdate").disabled = false;
+            }*@
+        }
+        function validator() {
+            $('#frmDichVuKhac').bootstrapValidator({
+                message: 'Giá trị không hợp lệ',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    LoaiDichVuKhac: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Chọn loại dịch vụ khác!'
+                            }
+                        }
+                    },
+                    NgayHoanThanh: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Nhập ngày hoàn thành!'
+                            }
+                        }
+                    },
+                   
+                    DoanhThu: {
+                        validators: {
+                            numeric: {
+                                message: 'Vui lòng chỉ sử dụng số.',
+                            },
+                            
+                            
+                        }
+                    },
+                    ChiPhi: {
+                        validators: {
+                            numeric: {
+                                message: 'Vui lòng chỉ sử dụng số.',
+                            },
+
+
+                        }
+                    },
+                    ThanhToanLan1: {
+                        validators: {
+                            numeric: {
+                                message: 'Vui lòng chỉ sử dụng số.',
+                            },
+
+
+                        }
+                    },
+                    ThanhToanLan2: {
+                        validators: {
+                            numeric: {
+                                message: 'Vui lòng chỉ sử dụng số.',
+                            },
+
+
+                        }
+                    },
+                    ThanhToanLan3: {
+                        validators: {
+                            numeric: {
+                                message: 'Vui lòng chỉ sử dụng số.',
+                            },
+
+
+                        }
+                    },
+                }
+
+            });
+            var validatorObj = $('#frmDichVuKhac').data('bootstrapValidator');
+            validatorObj.validate();
+            if (validatorObj.isValid()) {
+                return true;
+            }
+            return false;
+        } 
+        $("#btnUpdate").click(function () {
+            var isValid = validator();
+
+            if (isValid) {
+                var obj = {
+                    id: $("#iddichvukhac").val(),
+                    LoaiDichVuKhac: $("#LoaiDichVuKhac").val(),
+                    NgayHoanThanh: $("#NgayHoanThanh").val(),
+                    TenCongTrinh: $("#TenCongTrinh").val(),
+                    DoiTruong: $("#DoiTruong").val(),
+                    DoanhThu: $("#DoanhThu").val(),
+                    ChiPhi: $("#ChiPhi").val(),
+                    LoiNhuan: $("#LoiNhuan").val(),
+                    ThanhToanLan1: $("#ThanhToanLan1").val(),
+                    ThanhToanLan2: $("#ThanhToanLan2").val(),
+                    ThanhToanLan3: $("#ThanhToanLan3").val(),
+                    No: $("#No").val(),
+                    GhiChu: $("#GhiChu").val()
+                    
+                }
+                $.ajax({
+                    url: "/DichVuKinhDoanhKhac/UpdateDichVuKinhDoanhKhac",
+                    data: JSON.stringify(obj),
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        console.log(data);
+                        if (data == "addsuccess") {
+                            sweetalert("Success", "success", "Thêm mới biến động thành công!")
+                        }
+                        else if (data == "updatesuccess") {
+                            sweetalert("Success", "success", "Cập nhật biến động thành công!")
+                        }
+                        else {
+                            sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật biến động!")
+                        }
+                        loadData();
+                        $("#DichVuKhac").modal('hide');
+                    },
+                    error: function (errormessage) {
+                        sweetalert("", "error", errormessage.responseText);
+                    }
+                });
+            }
+        });
+        function GetById(Id) {
+            $("#DichVuKhac").modal('show');
+            $("#iddichvukhac").val(Id);
+            $.get('/DichVuKinhDoanhKhac/GetDichVuKinhDoanhKhacById', { id: Id }, function (data) {
+                $("#LoaiDichVuKhac").val(data.loaiDichVuKhac);
+                $("#NgayHoanThanh").val(data.ngayHoanThanh);
+                $("#TenCongTrinh").val(data.tenCongTrinh);
+                $("#DoiTruong").val(data.doiTruong);
+                $("#DoanhThu").val(data.doanhThu);
+                $("#ChiPhi").val(data.chiPhi);
+                $("#LoiNhuan").val(data.loiNhuan);
+                $("#ThanhToanLan1").val(data.thanhToanLan1);
+                $("#ThanhToanLan2").val(data.thanhToanLan2);
+                $("#ThanhToanLan3").val(data.thanhToanLan3);
+                $("#No").val(data.no);
+                $("#GhiChu").val(data.ghiChu);
+            }, 'json').fail(function (error) {
+                sweetalert("", "error", error.responseText);
+            })
+        }
+        function DeleteById(Id) {
+            var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+            if (ans) {
+                $.post('/DichVuKinhDoanhKhac/DeleteByID/', { id: Id }, function (data) {
+                    if (data == "True") {
+                        sweetalert("", "success", "Xóa bản ghi thành công!");
+                        loadData();
+                    }
+                }).fail(function (error) {
+                    sweetalert("Lỗi", "error", error.responseText);
+                })
+
+            }
+        }
+
+        //Xóa khi check nhiều dòng
+        $("#btnDeleteSelected").click(function () {
+            var id = $('.checkitem:checked').map(function () {
+                return $(this).val()
+            }).get().join(' ')
+            if (id == "") {
+                sweetalert("Thông báo", "warning", "Bạn chưa chọn đối tượng để xóa");
+            }
+            else {
+                var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
+                if (ans) {
+                    $.post('/DichVuKinhDoanhKhac/DeleteByArrayId/', { id: id }, function (data) {
+                        if (data == "True") {
+                            sweetalert("", "success", "Xóa biến động thành công!")
+                        }
+                        else {
+                            sweetalert("", "warning", "Có lỗi khi xóa!")
+                        }
+                        loadData();
+                    }).fail(function (error) {
+                        sweetalert("Lỗi", "error", error.responseText);
+                    });
+                }
+            }
+        });
+    </script>
+

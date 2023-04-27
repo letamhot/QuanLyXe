@@ -1,0 +1,1135 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý người dùng";
+    ViewBag.ReturnURL = Url.Action("NguoiDung", "Index");
+}
+
+@*<ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="#">Danh mục</a></li>
+        <li class="breadcrumb-item active">Người dùng</li>
+    </ol>*@
+<style>
+    .custom {
+        margin-bottom: 4px;
+    }
+    .modal-lg {
+        max-width: 70%;
+    }
+    .red {
+        color: red;
+    }
+</style>
+<ul class="pull-right list-inline">
+    <li><button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button></li>
+    <li class="dropdown custom-toggle">
+        <button class="btn btn-warning" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-university" aria-hidden="true"></i> Loại tổ chức
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" id="ulloaitc">
+        </ul>
+    </li>
+    <li class="dropdown custom-toggle">
+        <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-file-excel" aria-hidden="true"></i> Import excel
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li><a href="#" id="linkThemNguoiDung"><i class="fa fa-users fa-lg" aria-hidden="true"></i> Thêm người dùng</a></li>
+            <li><a href="#" id="linkCapNhatNguoiDung"><i class="fa fa-edit fa-lg" aria-hidden="true"></i> Cập nhật thông tin người dùng</a></li>
+            <li><a href="#" id="linkTaiKhoanNguoiDung"><i class="fa fa-user-secret fa-lg" aria-hidden="true"></i> Tài khoản người dùng</a></li>
+        </ul>
+    </li>
+</ul>
+<!-- begin page-header -->
+<h1 class="page-header">@ViewBag.Title</h1>
+<!-- end page-header -->
+<hr />
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="tree_donvi"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Danh sách người dùng
+                    </div>
+                    <div class="panel-body">
+                        <input type="hidden" id="iddonvikt" name="iddonvikt" />
+                        <table id="table_nguoidung" class="table table-bordered" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th valign="middle"><input type="checkbox" id="checkall" /></th>
+                                    <th width="20%">Tài khoản</th>
+                                    <th width="20%">Họ tên</th>
+                                    <th width="15%">Điện thoại</th>
+                                    <th width="10%">Nam/Nữ</th>
+                                    <th width="10%">Đơn vị</th>
+                                    <th width="10%">Có TK</th>
+                                    <th width="15%">Thao tác</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="panel-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlNguoiDung" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Cập nhật người dùng</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" id="frmNguoiDung">
+                <input type="hidden" id="idnguoidung" name="idnguoidung" />
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row custom">
+                            <div class="col-md-12">
+                                <input type="text" id="DonVi" name="DonVi" class="form-control" placeholder="Chọn đơn vị..." />
+                                <input type="hidden" id="DonViId" name="DonViId" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3"><input type="text" id="TaiKhoan" name="TaiKhoan" class="form-control" placeholder="Tài khoản..." /></div>
+                            <div class="col-md-3"><input type="text" id="HoTen" name="HoTen" class="form-control" placeholder="(*)Họ tên..." required /></div>
+                            <div class="col-md-3"><input type="text" id="TenKhac" name="TenKhac" class="form-control" placeholder="Tên khác..." /></div>
+                            <div class="col-md-3">
+                                <select id="GioiTinh" name="GioiTinh" class="form-control">
+                                    <option value="" selected>--Giới tính--</option>
+                                    <option value="1">Nam</option>
+                                    <option value="0">Nữ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3"><input type="text" id="CMND" name="CMND" class="form-control" placeholder="Chứng minh nhân dân..." /></div>
+                            <div class="col-md-3">
+                                @*<input type="text" id="NgayCap" name="NgayCap" class="form-control" placeholder="Ngày cấp..." />*@
+                                <div class="input-group date">
+                                    <input type="text" id="NgayCap" name="NgayCap" data-date-format="dd-mm-yyyy" placeholder="Ngày cấp..." class="form-control" />
+                                    <span class="input-group-addon"><i class="fa fa-calendar-alt"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="NoiCap" name="NoiCap" class="form-control">
+                                    <option value="" selected>--Nơi cấp--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="DanToc" name="DanToc" class="form-control">
+                                    <option value="" selected>--Dân tộc--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @*<input type="text" id="NgaySinh" name="NgaySinh" class="form-control" placeholder="Ngày sinh..." />*@
+                                <div class="input-group date">
+                                    <input type="text" id="NgaySinh" name="NgaySinh" placeholder="Ngày sinh..." class="form-control" data-date-format="dd-mm-yyyy" />
+                                    <span class="input-group-addon"><i class="fa fa-calendar-alt"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="NoiSinhTinh" name="NoiSinhTinh" class="form-control">
+                                    <option value="" selected>--Nơi sinh(Tỉnh thành)--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="NoiSinhHuyen" name="NoiSinhHuyen" class="form-control">
+                                    <option value="" selected>--Nơi sinh(Quận huyện)--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="TrinhDoPhoThong" name="TrinhDoPhoThong" class="form-control">
+                                    <option value="" selected>--Trình độ phổ thông--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-4">
+                        <select id="QueQuanTinh" name="QueQuanTinh" class="form-control">
+                            <option value="" selected>--Quê quán(Tỉnh thành)--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="QueQuanHuyen" name="QueQuanHuyen" class="form-control">
+                            <option value="" selected>--Quê quán(Quận huyện)--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="QueQuanXP" name="QueQuanXP" class="form-control">
+                            <option value="" selected>--Quê quán(Xã phường)--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-4">
+                        <select id="ThuongTruTinh" name="ThuongTruTinh" class="form-control">
+                            <option value="" selected>--Thường trú(Tỉnh thành)--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="ThuongTruHuyen" name="ThuongTruHuyen" class="form-control">
+                            <option value="" selected>--Thường trú(Quận huyện)--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="ThuongTrunXP" name="ThuongTrunXP" class="form-control">
+                            <option value="" selected>--Thường trú(Xã phường)--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2"><input type="text" id="DienThoai" name="DienThoai" class="form-control" placeholder="Điện thoại..." /></div>
+                    <div class="col-md-2"><input type="text" id="Email" name="Email" class="form-control" placeholder="Email..." /></div>
+                    <div class="col-md-2">
+                        <select id="TonGiao" name="TonGiao" class="form-control">
+                            <option value="" selected>--Tôn giáo--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="LinhVucChuyenMon" name="LinhVucChuyenMon" class="form-control">
+                            <option value="" selected>--Lĩnh vực chuyên môn--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="HocVi" name="HocVi" class="form-control">
+                            <option value="" selected>--Học vị--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="HocHam" name="HocHam" class="form-control">
+                            <option value="" selected>--Học hàm--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        <select id="LyLuanChinhTri" name="LyLuanChinhTri" class="form-control">
+                            <option value="" selected>--Lý luận chính trị--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="NgoaiNgu" name="NgoaiNgu" class="form-control">
+                            <option value="" selected>--Ngoại ngữ--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2"><input type="text" id="NgayKetNapDoan" name="NgayKetNapDoan" class="form-control" placeholder="Ngày kết nạp đoàn..." /></div>
+                    <div class="col-md-2"><input type="text" id="NoiKetNapDoan" name="NoiKetNapDoan" class="form-control" placeholder="Nơi kết nạp đoàn..." /></div>
+                    <div class="col-md-2"><input type="text" id="NgayKetNapDang" name="NgayKetNapDang" class="form-control" placeholder="Ngày kết nạp đảng..." /></div>
+                    <div class="col-md-2"><input type="text" id="NoiKetNapDang" name="NoiKetNapDang" class="form-control" placeholder="Nơi kết nạp đảng..." /></div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2"><input type="text" id="NoiSinhHoat" name="NoiSinhHoat" class="form-control" placeholder="Nơi sinh hoạt..." /></div>
+                    <div class="col-md-2"><input type="text" id="SoSoDoan" name="SoSoDoan" class="form-control" placeholder="Số sổ đoàn..." /></div>
+                    <div class="col-md-2"><input type="text" id="SoTheDoan" name="SoTheDoan" class="form-control" placeholder="Số thẻ đoàn..." /></div>
+                    <div class="col-md-3">
+                        <select id="Ngach" name="Ngach" class="form-control">
+                            <option value="" selected>--Chọn ngạch--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="NhomMau" name="NhomMau" class="form-control">
+                            <option value="" selected>--Chọn nhóm máu--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="checkbox checkbox-css">
+                            <input type="checkbox" id="cbxChuHo" value="" />
+                            <label for="cbxChuHo">Chủ hộ</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="checkbox checkbox-css">
+                            <input type="checkbox" id="cbxHoNgheo" value="" />
+                            <label for="cbxHoNgheo">Hộ nghèo</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="checkbox checkbox-css">
+                            <input type="checkbox" id="cbxCoViecLam" value="" />
+                            <label for="cbxCoViecLam">Có việc làm</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="checkbox checkbox-css">
+                            <input type="checkbox" id="cbxHoiVien" value="" checked />
+                            <label for="cbxHoiVien">Hội viên HLHTN</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="checkbox checkbox-css">
+                            <input type="checkbox" id="cbxDoanVienDanhDu" value="" checked />
+                            <label for="cbxDoanVienDanhDu">Đoàn viên danh dự</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="checkbox checkbox-css">
+                            <input type="checkbox" id="cbxDangSinhHoat" value="" />
+                            <label for="cbxDangSinhHoat">Đang sinh hoạt</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                <button type="button" class="btn btn-danger" id="btnCloseModal" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlSearch" tabindex="2" role="dialog" aria-labelledby="myModalLabelSearch" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelSearch">Tìm kiếm đơn vị</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="searchCQQL">Tìm kiếm: </label>
+                            <input type="text" class="form-control" id="searchDonVi" name="searchDonVi" placeholder="Tìm kiếm..." />
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="using_json"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnTreeSelected" onclick="GetTreeSelected();"><i class="fa fa-hand-point-right"></i> Chọn</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlAssignRole" tabindex="2" role="dialog" aria-labelledby="myModalLabelAssignRole" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelAssignRole">Cấp quyền cho người dùng</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idnguoidung_for_role" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="cbxNhomQuyen"><i class="fa fa-lg fa-tags"></i> <span style="font-size: 14px;">Thiết lập quyền khai thác chức năng hệ thống</span></label>
+                            <select id="cbxNhomQuyen" name="cbxNhomQuyen" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="tv_donvi"><i class="fa fa-lg fa-tags"></i> Thiết lập quyền khai thác dữ liệu đơn vị</label>
+                            <input type="text" class="form-control" id="tv_role_donvi" name="tv_role_donvi" placeholder="Chọn để cấp quyền khai thác đơn vị..." />
+                            <input type="hidden" id="tv_role_donvi_id" value="0" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="tv_tochuc"><i class="fa fa-lg fa-tags"></i> Thiết lập quyền khai thác dữ liệu tổ chức</label>
+                            <select id="cbxLoaiHinhToChuc" name="cbxLoaiHinhToChuc" class="form-control" style="margin-bottom: 10px;"></select>
+                            <input type="text" class="form-control" id="tv_role_tochuc" name="tv_role_tochuc" placeholder="Chọn để cấp quyền khai thác tổ chức..." />
+                            <input type="hidden" id="tv_role_tochuc_id" value="0" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger fade show m-b-10" id="error_list" style="display: none;">
+                            <span class="close" data-dismiss="alert">&times;</span>
+                            <i class="fas fa-sync fa-spin"></i> Cảnh báo! Vui lòng cấp quyền khai thác đơn vị
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAssignRole"><i class="fa fa-hand-point-right"></i> Lưu quyền</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlSearchDonVi" tabindex="2" role="dialog" aria-labelledby="myModalLabelSearchDonVi" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelSearchDonVi">Chọn đơn vị để cấp quyền</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="role_dv"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnRemoveDonVi"><i class="fa fa-hand-point-right"></i> Xóa đơn vị</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlSearchToChuc" tabindex="2" role="dialog" aria-labelledby="myModalLabelSearchToChuc" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelSearchToChuc">Chọn đơn vị để cấp quyền</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="role_tc"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnRemoveToChuc"><i class="fa fa-hand-point-right"></i> Xóa tổ chức</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlAssignToChuc" tabindex="2" role="dialog" aria-labelledby="myModalLabelAssignToChuc" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelAssignToChuc">Cấu hình tổ chức</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="loaihtc_assignid" />
+                <div class="row">
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" id="txtToChuc" placeholder="Tổ chức ..." />
+                        <input type="hidden" id="txtToChuc_Id" />
+                        <input type="hidden" id="DonViToChucId" />
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-primary" id="btnSaveAssignTc"><i class="fa fa-sync"></i> Cập nhật</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="table_assigntochuc" class="table table-bordered" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th valign="middle"><input type="checkbox" id="checkall_assigntc" /></th>
+                                    <th width="30%">Họ tên</th>
+                                    <th width="20%">Ngày sinh</th>
+                                    <th width="20%">Giới tính</th>
+                                    <th width="30%">Chức vụ vào tổ chức</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlAssignToChuc_Tv" tabindex="2" role="dialog" aria-labelledby="myModalLabelAssignToChuc_Tv" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelAssignToChuc_Tv">Chọn tổ chức</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="tv_assign_tc"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script>
+    var objChucVu;
+    $(document).ready(function () {
+        activeMenu("liHeThong", "liNguoiDung");
+        var session_donvi = @Session["QuyenKTDonVi"].ToString();
+        $("#iddonvikt").val(session_donvi);
+        loadMainTree();
+        loadulloaitc();
+        loadData(session_donvi);
+        loadObjChucVu();
+        $('.datepicker').on('changeDate show', function (e) {
+            // Revalidate the date when user change it
+            $('#frmNguoiDung').bootstrapValidator('revalidateField', 'endDate');
+        });
+        $("#NgayCap").datepicker({ todayHighlight: !0, autoclose: !0 }).datepicker("setDateTime", new Date());
+        $("#NgaySinh").datepicker({ todayHighlight: !0, autoclose: !0 }).datepicker("setDateTime", new Date());
+    });
+
+    function convertDate(data) {
+        var getdate = parseInt(data.replace("/Date(", "").replace(")/", ""));
+        var ConvDate = new Date(getdate);
+        return ConvDate.getDate() + "/" + (ConvDate.getMonth() + 1) + "/" + ConvDate.getFullYear();
+    }
+
+    function loadObjChucVu() {
+        $.ajax({
+            type: 'GET',
+            url: '/ChucVu/GetListChucVu/',
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                objChucVu = result;
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    //Load dữ liệu người dùng
+    function loadData(Id) {
+        $("#table_nguoidung").DataTable({
+            "ajax": {
+                "url": "/NguoiDung/GetListNguoiDung",
+                "data": { iddonvi: Id },
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "NguoiDungId", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                { "data": "TaiKhoan" },
+                { "data": "HoTen" },
+                { "data": "DienThoai" },
+                {
+                    "data": "GioiTinh", "render": function (data) {
+                        if (data)
+                            return "Nam"
+                        else
+                            return "Nữ"
+                    }
+                },
+                { "data": "DonViId" },
+                { "data": "HasAccount" },
+                {
+                    "data": "NguoiDungId", "render": function (data, type, row, meta) {
+                        $('[data-toggle="tooltip"]').tooltip();
+                        if (row["TaiKhoan"] == null) {
+                            return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp" +
+                                "<a class='fa fa-trash' style='color: red;' href='#' data-toggle='tooltip' title='Xóa người dùng' onclick='DeleteById(" + data + ")'></a>";
+                        }
+                        else {
+                            if (row["HasAccount"]) {
+                                return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp" +
+                                    "<a class='fa fa-trash' style='color: red;' href = '#' data-toggle='tooltip' title = 'Xóa người dùng' onclick = 'DeleteById(" + data + ")' ></a>&nbsp;" +
+                                    "<a class='fa fa-user-times' href='#' data-toggle='tooltip' title = 'Xóa user' onclick = 'DeleteUser(" + data + ")'></a>&nbsp;" +
+                                    "<a class='fa fa-key' href='#' data-toggle='tooltip' title = 'Cấp quyền cho tài khoản' onclick = 'SetRole(" + data + ")'></a>&nbsp;" +
+                                    "<a class='fa fa-globe' href='#' data-toggle='tooltip' title = 'Reset mật khẩu' onclick = 'ResetPassword(" + data + ")'></a>";
+                            }
+                            else {
+                                return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp" +
+                                    "<a class='fa fa-trash' style='color: red;' href='#' data-toggle='tooltip' title = 'Xóa' onclick = 'DeleteById(" + data + ")' ></a>&nbsp;" +
+                                    "<a class='fa fa-user-plus' href = '#' data - toggle='tooltip' title = 'Cấp tài khoản user (Mật khẩu mặc định Vnpt@123)' onclick = 'AddUser(" + data + ")' ></a>";
+                            }
+                        }
+                    }
+                }
+            ],
+            "columnDefs": [
+                {
+                    "targets": [6],
+                    "visible": false
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false,
+            deferRender: true
+        });
+    }
+
+    function loadDataDoanVienToChuc(IdTochuc = @Session["QuyenKTToChuc"].ToString(), IdDonvi = @Session["DonViId"].ToString()) {
+        $("#table_assigntochuc").DataTable({
+            "ajax": {
+                "url": "/NguoiDung/GetListDoanVienThuocToChuc",
+                "data": { iddonvi: IdDonvi, idtochuc: IdTochuc },
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "NguoiDungId", "render": function (data, type, row, meta) {
+                        if (row["Selected"]) {
+                            return "<input type='checkbox' class='checkitem_ndtc' value='" + data + "' checked />";
+                        }
+                        return "<input type='checkbox' class='checkitem_ndtc' value='" + data + "' />";
+                    }
+                },
+                { "data": "TenNguoiDung" },
+                {
+                    "data": "NgaySinh", "render": function (data) {
+                        return convertDate(data);
+                    }
+                },
+                { "data": "GioiTinh" },
+                {
+                    "data": "ChucVuId", "render": function (data) {
+                        return loadChucVu(data);
+                    }
+                },
+                { "data": "Selected" }
+                
+            ],
+            "columnDefs": [
+                {
+                    "targets": [5],
+                    "visible": false
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: false,
+            bInfo: false,
+            deferRender: true
+        });
+    }
+    //Xử lý nút check all
+    $("#checkall_assigntc").change(function () {
+        $(".checkitem_ndtc").prop("checked", $(this).prop("checked"))
+    })
+    function loadChucVu(Id) {
+        var html = '<select class="form-control selectitem_ndtc" value = "' + Id + '">';
+        html += '<option value = "0">--Chọn chức vụ vào tổ chức--</option>';
+        $.each(objChucVu.data, function (key, item) {
+            if (item.ChucVuId == Id) {
+                html += '<option value = "' + item.ChucVuId + '" selected>' + item.TenChucVu + '</option>';
+            }
+            else {
+                html += '<option value = "' + item.ChucVuId + '">' + item.TenChucVu + '</option>';
+            }
+        });
+        html += '</select>';
+        return html;
+    }
+
+    $("#btnSaveAssignTc").click(function () {
+        var exist = [];
+        var idchucvuarr = [];
+        var id_all = $('.checkitem_ndtc').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        var id_nguoidung = $('.checkitem_ndtc:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        var a = id_all.split(' ');
+        var b = id_nguoidung.split(' ');
+        for (var i = 0; i < a.length; i++) {
+            for (var j = 0; j < b.length; j++) {
+                if (b[j] == a[i]) {
+                    exist.push(i);
+                    break;
+                }
+            }
+        }
+        console.log(exist);
+        var id_chucvu = $('.selectitem_ndtc').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        var c = id_chucvu.split(' ');
+        for (var k = 0; k < exist.length; k++) {
+            for (var z = 0; z < c.length; z++) {
+                if (z == exist[k]) {
+                    idchucvuarr.push(c[z]);
+                    break;
+                }
+            }
+        }
+        $.post('/NguoiDung/UpdateDoanVienToChuc', { idtochuc: $("#txtToChuc_Id").val(), idnguoidung: id_nguoidung, idchucvu: idchucvuarr.join(' ') }, function (data) {
+            if (data == "True") {
+                sweetalert("", "success", "Bố trí đoàn viên vào tổ chức thành công!")
+            }
+        }).fail(function (error) {
+            sweetalert("Cảnh báo", "error", error.responseJSON);
+        })
+    })
+
+    //$('#mdlNguoiDung').on('hide.bs.modal', function () {
+    //    $('#frmNguoiDung').bootstrapValidator('resetForm', true);
+    //});
+    $("#btnCloseModal").click(function () {
+        $('#frmNguoiDung').bootstrapValidator('resetForm', true);
+    })
+    //Load main tree
+    function loadMainTree() {
+        $('#tree_donvi').jstree({
+            "plugins": ["search"],
+            "checkbox": {
+                "three_state": true,    
+                "keep_selected_style": false
+            },
+            'core': {
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/HTDonVi/LoadTreeDonVi",
+                    "dataType": "json"
+                }
+            }
+        }).on("select_node.jstree", function (e, data) {
+            $("#iddonvikt").val(data.node.id);
+            loadData(data.node.id);
+        });
+    }
+
+    function loadulloaitc() {
+        $.ajax({
+            type: 'GET',
+            url: '/DmLoaiHTC/GetLoaiHinhToChuc/',
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                $.each(result.data, function (key, item) {
+                    html += '<li><a href = "#" onclick="AssignToChuc(' + item.LoaiHinhToChucId + ')">' + item.TenLoaiHinhToChuc + '</a></li>';
+                });
+                $('#ulloaitc').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    function loadselectloaihtc() {
+        $.ajax({
+            type: 'GET',
+            url: '/DmLoaiHTC/GetLoaiHinhToChuc/',
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html = '<option value = "" selected>--Chọn loại hình tổ chức--</option>';
+                $.each(result.data, function (key, item) {
+                    html += '<option value = ' + item.LoaiHinhToChucId + '>' + item.TenLoaiHinhToChuc + '</option>';
+                });
+                $('#cbxLoaiHinhToChuc').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    //Validate
+    function validator() {
+        $('#frmNguoiDung').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                HoTen: {
+                    message: 'Họ tên không chính xác',
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập họ tên!'
+                        }
+                    }
+                },
+                NgaySinh: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập ngày sinh!'
+                        }
+                    }
+                }
+            }
+        });
+        var validatorObj = $('#frmNguoiDung').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+
+    $("#btnThemMoi").click(function () {
+        $("#idnguoidung").val(0);
+        $("#TaiKhoan").val("");
+        $("#HoTen").val("");
+        $("#mdlNguoiDung").modal('show');
+        $("#DonVi").val("");
+        $("#DonViId").val("");
+    })
+
+    function GetById(Id) {
+        $("#idnguoidung").val(Id);
+        $("#mdlNguoiDung").modal('show');
+        $.get('/NguoiDung/GetNguoiDungById', { idnguoidung: Id }, function (data) {
+            $("#DonViId").val(data.DonViId);
+            $("#HoTen").val(data.HoTen);
+            $("#TaiKhoan").val(data.TaiKhoan);
+            getTenDonViById(data.DonViId);
+        }, 'json').fail(function (error) {
+            sweetalert("Cảnh báo", "error", error.responseText);
+        })
+    }
+
+    $("#btnUpdate").click(function () {
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                NguoiDungId: $("#idnguoidung").val(),
+                DonViId: $("#DonViId").val(),
+                HoTen: $("#HoTen").val(),
+                TaiKhoan: $("#TaiKhoan").val(),
+                GioiTinh: $("#GioiTinh").val(),
+                NgayCap: $("#NgayCap").val(),
+                NgaySinh: $("#NgaySinh").val()
+            }
+            $.ajax({
+                url: "/NguoiDung/UpdateNguoiDung",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới người dùng thành công!")
+                        //location.reload()
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật người dùng thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật người dùng!")
+                    }
+                    $("#mdlNguoiDung").modal('hide');
+                    loadData($("#iddonvikt").val());
+                    
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    })
+
+    $("#DonVi").click(function () {
+        loadTreeDonVi();
+    })
+
+    //Load cây đơn vị
+    function loadTreeDonVi() {
+        $('#searchDonVi').val($("#DonVi").val());
+        $("#mdlSearch").modal('show');
+        $('#using_json').jstree({
+            "plugins": ["search"],
+            "checkbox": {
+                "three_state": true,
+                "keep_selected_style": false
+            },
+            'core': {
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/HTDonVi/LoadTreeDonVi",
+                    "dataType": "json"
+                }
+            }
+        });
+        $('#using_json').jstree(true).search($('#searchDonVi').val());
+        var to = null;
+        $('#searchDonVi').keyup(function () {
+            if (to) { clearTimeout(to); }
+            to = setTimeout(function () {
+                var v = $('#searchDonVi').val();
+                $('#using_json').jstree(true).search(v);
+            }, 250);
+        });
+    }
+
+    //Xử lý khi chọn node trên cây đơn vị
+    function GetTreeSelected() {
+        var result;
+        try {
+            result = $('#using_json').jstree('get_selected');
+            $("#DonVi").val($('#using_json').jstree('get_selected', true)[0].text);
+            $("#DonViId").val(result);
+            $("#mdlSearch").modal('hide');
+        }
+        catch (err) {
+            alert("Chưa chọn đơn vị");
+        }
+
+    }
+
+    function AddUser(Id) {
+        var ans = confirm("Bạn muốn cấp tài khoản cho người dùng này?");
+        if (ans) {
+            $.post('/NguoiDung/CapTaiKhoan', { idnguoidung: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Cấp tài khoản thành công")
+                    loadData($("#iddonvikt").val());
+                }
+            })
+        }
+    }
+
+    function DeleteUser(Id) {
+        var ans = confirm("Bạn muốn xóa tài khoản người dùng này?");
+        if (ans) {
+            $.post('/NguoiDung/XoaTaiKhoan', { idnguoidung: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa tài khoản thành công")
+                    loadData($("#iddonvikt").val());
+                }
+            })
+        }
+    }
+
+    function SetRole(Id) {
+        $("#idnguoidung_for_role").val(Id);
+        $("#mdlAssignRole").modal('show');
+        loadNhomQuyen();
+        loadselectloaihtc();
+        $.get('/NguoiDung/GetNguoiDungInfoById', { idnguoidung: Id }, function (data) {
+            $("#cbxNhomQuyen").val(data.NhomQuyenId);
+            $("#tv_role_donvi").val(data.DonVi);
+            $("#tv_role_donvi_id").val(data.Role_DonVi);
+            $("#tv_role_tochuc").val(data.ToChuc);
+            $("#tv_role_tochuc_id").val(data.Role_ToChuc);
+        }, 'json').fail(function (error) {
+            sweetalert("Cảnh báo", "error", error.responseJSON);
+        })
+    }
+
+    $("#tv_role_donvi").click(function () {
+        $("#mdlSearchDonVi").modal('show');
+        $('#role_dv').jstree({
+            "plugins": ["search"],
+            "checkbox": {
+                "three_state": true,
+                "keep_selected_style": false
+            },
+            'core': {
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/HTDonVi/LoadTreeDonVi",
+                    "dataType": "json"
+                }
+            }
+        }).on("select_node.jstree", function (e, data) {
+            $("#tv_role_donvi").val(data.node.text);
+            $("#tv_role_donvi_id").val(data.node.id);
+            $("#mdlSearchDonVi").modal('hide');
+        });
+    })
+
+    $("#tv_role_tochuc").click(function () {
+        $("#mdlSearchToChuc").modal('show');
+    })
+
+    function loadtvtochuc(iddonvi, idloaihtc) {
+        $('#role_tc').jstree("destroy");
+        $('#role_tc').jstree({
+            "plugins": ["search"],
+            "checkbox": {
+                "three_state": true,
+                "keep_selected_style": false
+            },
+            'core': {
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/HTDonVi/LoadTreeToChuc",
+                    "data": { iddonvi_root: iddonvi, idloaihtc: idloaihtc },
+                    "dataType": "json"
+                }
+            }
+        }).on("select_node.jstree", function (e, data) {
+            $("#tv_role_tochuc").val(data.node.text);
+            $("#tv_role_tochuc_id").val(data.node.id);
+            $("#mdlSearchToChuc").modal('hide');
+        });
+    }
+
+    function loadtvassigntc(iddonvi, idloaihtc) {
+        $('#tv_assign_tc').jstree("destroy");
+        $('#tv_assign_tc').jstree({
+            "plugins": ["search"],
+            "checkbox": {
+                "three_state": true,
+                "keep_selected_style": false
+            },
+            'core': {
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/HTDonVi/LoadTreeToChuc",
+                    "data": { iddonvi_root: iddonvi, idloaihtc: idloaihtc },
+                    "dataType": "json"
+                }
+            }
+        }).on("select_node.jstree", function (e, data) {
+            $("#txtToChuc").val(data.node.text);
+            $("#txtToChuc_Id").val(data.node.id);
+            getDonViIdByToChucId(data.node.id);
+            $("#mdlAssignToChuc_Tv").modal('hide');
+            });
+        var to = null;
+        if (to) { clearTimeout(to); }
+        to = setTimeout(function () {
+            $('#tv_assign_tc').jstree(true).search($("#txtToChuc").val());
+        }, 250);
+    }
+
+    $("#cbxLoaiHinhToChuc").change(function () {
+        if ($("#tv_role_donvi_id").val() == "") {
+            $("#error_list").css("display", "block");
+            $("#cbxLoaiHinhToChuc").val("");
+        }
+        else {
+            $("#error_list").css("display", "none");
+            loadtvtochuc($("#tv_role_donvi_id").val(), $("#cbxLoaiHinhToChuc").val());
+        }
+    })
+
+    $("#linkThemNguoiDung").click(function () {
+
+    })
+    
+    function loadNhomQuyen() {
+        $.ajax({
+            type: 'GET',
+            url: '/NhomQuyen/GetNhomQuyen/',
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html = '<option value = "0" selected>--Chọn nhóm quyền--</option>';
+                $.each(result.data, function (key, item) {
+                    html += '<option value = ' + item.NhomQuyenId + '>' + item.TenNhomQuyen + '</option>';
+                });
+                $('#cbxNhomQuyen').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    $("#btnAssignRole").click(function () {
+        $.post('/NguoiDung/SetRoleForId', { idnguoidung: $("#idnguoidung_for_role").val(), idnhomquyen: $('#cbxNhomQuyen').val(), id_role_donvi: $("#tv_role_donvi_id").val(), id_role_tochuc: $("#tv_role_tochuc_id").val() }, function (data) {
+            if (data == "True") {
+                sweetalert("", "success", "Cấp quyền người dùng thành công!")
+            }
+            else {
+                sweetalert("", "warning", "Có lỗi khi cấp quyền người dùng!")
+            }
+        }).fail(function (error) {
+            sweetalert(error.responseJSON)
+        })
+    })
+
+    $("#txtToChuc").click(function () {
+        $("#mdlAssignToChuc_Tv").modal('show');
+        loadtvassigntc(@Session["QuyenKTDonVi"].ToString(), $("#loaihtc_assignid").val());
+    })
+
+    function AssignToChuc(Id) {
+        $("#mdlAssignToChuc").modal('show');
+        $("#loaihtc_assignid").val(Id);
+        $("#txtToChuc_Id").val(@Session["QuyenKTToChuc"].ToString());
+        getTenToChucById($("#txtToChuc_Id").val());
+        preloadDataDoanVienToChuc(Id, @Session["DonViId"].ToString());
+        loadDataDoanVienToChuc();
+        
+    }
+
+    function getTenDonViById(Id) {
+        $.get('/HTDonVi/GetNameDonViById', { DonViId: Id }, function (data) {
+            $("#DonVi").val(data);
+        }).fail(function (error) {
+            alert(error.responseText);
+        })
+    }
+
+    function getTenToChucById(Id) {
+        $.get('/NguoiDung/GetTenToChucById', { idtochuc: Id }, function (data) {
+            $("#txtToChuc").val(data);
+        }).fail(function (error) {
+            alert(error.responseText);
+        })
+    }
+
+    function getDonViIdByToChucId(Id) {
+        $.get('/NguoiDung/getDonViIdByToChucId', { idtochuc: Id }, function (data) {
+            loadDataDoanVienToChuc(Id, data);
+
+        }).fail(function (error) {
+            alert(error.responseText);
+        });
+    }
+
+    function preloadDataDoanVienToChuc(idloaihtc, iddonvi) {
+        $.get('/NguoiDung/getPreDonViIdByToChucId', { idloaihtc: idloaihtc, iddonvi: iddonvi }, function (data) {
+            loadDataDoanVienToChuc(data);
+        }).fail(function (error) {
+            alert(error.responseText);
+        });
+    }
+
+</script>

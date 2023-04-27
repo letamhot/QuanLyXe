@@ -1,0 +1,372 @@
+﻿
+@{
+    ViewBag.Title = "Chi phí sửa chửa xe";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+        <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách Chi phí sửa chửa xe
+            </div>
+            <div class="panel-body">
+                <table id="table_ChiPhiSuaXe" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap" width="15%">Ngày nhập</th>
+                            <th class="text-nowrap" width="15%">Vật tư</th>
+                            <th class="text-nowrap" width="20%">Số lượng</th>
+                            <th class="text-nowrap" width="20%">Đơn vị tính</th>
+                            <th class="text-nowrap" width="20%">Đơn giá</th>
+                            <th class="text-nowrap" width="20%">Thành tiền</th>
+                            <th class="text-nowrap" width="10%">Ghi chú</th>
+                            <th class="text-nowrap" width="10%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ChiPhiSuaXe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật thông tin chi phí sửa xe</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="frmChiPhiSuaXe">
+                    <input type="hidden" id="idchiphisuaxe" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtNgayNhap">Ngày nhập: </label>
+                                <div id="ngayNhap" class="input-group date" data-date-format="dd/mm/yyyy">
+                                    <input id="NgayNhap" placeholder="dd/mm/yyyy..." class="form-control" type="text">
+                                    <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="VatTu" class="control-label">Vật tư: </label>
+                                <input class="form-control" id="VatTu" name="VatTu" type="text" />
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="SoLuong" class="control-label">Số lượng: </label>
+                                <input class="form-control" id="SoLuong" name="SoLuong" type="number" onblur="reSum()" />
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="DonViTinh" class="control-label">Đơn vị tính: </label>
+                                <input class="form-control" id="DonViTinh" name="DonViTinh" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="DonGia" class="control-label">Đơn giá: </label>
+                                <input class="form-control" id="DonGia" name="DonGia" type="number" onblur="reSum()" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ThanhTien" class="control-label">Thành tiền: </label>
+                                <input class="form-control" id="ThanhTien" name="ThanhTien" type="number" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="GhiChu" class="control-label">Ghi chú: </label>
+                                <input class="form-control" id="GhiChu" name="GhiChu" type="number" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        activeMenu("liDanhMuc", "liChiPhiSuaChuaXe");
+        loadData();
+        $("#ngayNhap").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date());
+
+    });
+    function loadData() {
+        $("#table_ChiPhiSuaXe").DataTable({
+            "ajax": {
+                "url": "/ChiPhiSuaChuaXe/GetListChiPhiSuaXe",
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "id", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                {
+                    "data": "ngayNhap", "render": function (data) {
+                        //console.log(data);
+                        if (data != null || data != "") {
+                            return data.split(' ')[0];
+                        }
+                    }
+                },
+                { "data": "vatTu" },
+                
+                { "data": "soLuong" },
+                { "data": "donViTinh" },
+                { "data": "donGia" },
+                { "data": "thanhTien" },
+                { "data": "ghiChu" },
+
+                {
+                    "data": "id", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false,
+            deferRender: true
+        });
+        //Xử lý nút check all
+        $("#checkall").change(function () {
+            $(".checkitem").prop("checked", $(this).prop("checked"))
+        })
+
+        $("#btnThemMoi").click(function () {
+            $("#ChiPhiSuaXe").modal('show');
+            $("#idchiphisuaxe").val(0);
+            $("#myModalLabel").text("Thêm mới thông tin chi phí sửa xe");
+            $("#VatTu").val("");
+            $("#NgayNhap").val("");
+            $("#DonViTinh").val("");
+            $("#SoLuong").val("");
+            $("#DonGia").val("");
+            $("#ThanhTien").val("");
+            $("#GhiChu").val("");
+
+
+        })
+        //Reset bootstrap validator
+        $('#ChiPhiSuaXe').on('hide.bs.modal', function () {
+            $('#frmChiPhiSuaXe').bootstrapValidator('resetForm', true);
+        });
+        //Validate
+
+    }
+    function validator() {
+        $('#frmChiPhiSuaXe').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                NgayNhap: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập vào ngày nhập xe!'
+                        }
+                    }
+                },
+                VatTu: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập vật tư!'
+                        }
+                    }
+                },
+                SoLuong: {
+
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập vào số lượng!'
+                        },
+                        numeric: {
+                            message: 'Vui lòng chỉ sử dụng số.',
+                        },
+                    }
+                },
+                DonGia: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập đơn giá!'
+                        },
+                        numeric: {
+                            message: 'Vui lòng chỉ sử dụng số.',
+                        },
+                    }
+                },
+                
+
+
+
+            }
+
+        });
+        var validatorObj = $('#frmChiPhiSuaXe').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+    function reSum() {
+
+        let num1 = Number(document.getElementById("DonGia").value);
+        let num2 = Number(document.getElementById("SoLuong").value);
+
+        document.getElementById("ThanhTien").value = num1 * num2;
+
+        
+
+
+    }
+    $("#btnUpdate").click(function () {
+
+
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                id: $("#idchiphisuaxe").val(),
+                NgayNhap: $("#NgayNhap").val(),
+                VatTu: $("#VatTu").val(),
+                SoLuong: $("#SoLuong").val(),
+                DonViTinh: $("#DonViTinh").val(),
+                DonGia: $("#DonGia").val(),
+                ThanhTien: $("#ThanhTien").val(),
+                GhiChu: $("#GhiChu").val(),
+            }
+            $.ajax({
+                url: "/ChiPhiSuaChuaXe/UpdateChiPhiSuaXe",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới biến động thành công!")
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật biến động thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật biến động!")
+                    }
+                    loadData();
+                    $("#ChiPhiSuaXe").modal('hide');
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    });
+    function GetById(Id) {
+        $("#ChiPhiSuaXe").modal('show');
+        $("#idchiphisuaxe").val(Id);
+        $("#myModalLabel").text("Chỉnh sửa thông tin chi phí sửa xe");
+
+        $.get('/ChiPhiSuaChuaXe/GetChiPhiSuaXeById', { id: Id }, function (data) {
+            console.log(data);
+            $("#NgayNhap").val(data.ngayNhap);
+            $("#VatTu").val(data.vatTu);
+            $("#SoLuong").val(data.soLuong);
+            $("#DonViTinh").val(data.donViTinh);
+            $("#DonGia").val(data.donGia);
+            $("#ThanhTien").val(data.thanhTien);
+            $("#GhiChu").val(data.ghiChu);
+        }, 'json').fail(function (error) {
+            sweetalert("", "error", error.responseText);
+        })
+    }
+    function DeleteById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/ChiPhiSuaChuaXe/DeleteByID/', { idchiphisuaxe: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa bản ghi thành công!");
+                    loadData();
+                }
+            }).fail(function (error) {
+                sweetalert("Lỗi", "error", error.responseText);
+            })
+
+        }
+    }
+
+    //Xóa khi check nhiều dòng
+    $("#btnDeleteSelected").click(function () {
+        var id = $('.checkitem:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        if (id == "") {
+            sweetalert("Thông báo", "warning", "Bạn chưa chọn đối tượng để xóa");
+        }
+        else {
+            var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
+            if (ans) {
+                $.post('/ChiPhiSuaChuaXe/DeleteByArrayId/', { idchiphisuaxe: id }, function (data) {
+                    if (data == "True") {
+                        sweetalert("", "success", "Xóa biến động thành công!")
+                    }
+                    else {
+                        sweetalert("", "warning", "Có lỗi khi xóa!")
+                    }
+                    loadData();
+                }).fail(function (error) {
+                    sweetalert("Lỗi", "error", error.responseText);
+                });
+            }
+        }
+    });
+</script>

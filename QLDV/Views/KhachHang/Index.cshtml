@@ -1,0 +1,389 @@
+﻿
+@{
+    ViewBag.Title = "Khách hàng";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+        <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách khách hàng
+            </div>
+            <div class="panel-body">
+                <table id="table_khachhang" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap" width="25%">Mã khách hàng</th>
+                            <th class="text-nowrap" width="15%">Tên khách hàng</th>
+                            <th class="text-nowrap" width="15%">Loại khách hàng</th>
+                            <th class="text-nowrap" width="25%">Địa chỉ</th>
+                            <th class="text-nowrap" width="20%">Số điện thoại</th>
+                            <th class="text-nowrap" width="15%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="KhachHang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật khách hàng</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="frmKhachHang">
+                    <input type="hidden" id="idkhachhang" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="MaKhachHang" class="control-label">Mã khách hàng: </label>
+                                <input class="form-control" id="MaKhachHang" name="MaKhachHang" type="text" onkeyup="ExistKhachHangMaKH()" />
+                                <label id="txtMaKH" name="txtMaKH" style="color:red; font-size:10px;"></label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="TenKhachHang" class="control-label">Tên khách hàng: </label>
+                                <input class="form-control" id="TenKhachHang" name="TenKhachHang" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="LoaiKhachHang" class="control-label">Loại khách hàng: </label>
+                                <select id="LoaiKhachHang" name="LoaiKhachHang" class="form-control" >
+                                    <option value="0">--Chọn loại khách hàng--</option>
+                                    <option value="1">Khách hàng tiềm năng</option>
+                                    <option value="2">Khách hàng cũ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="DiaChi" class="control-label">Địa chỉ: </label>
+                                <input class="form-control" id="DiaChi" name="DiaChi" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="SoDienThoai" class="control-label">Số điện thoại: </label>
+                                <input class="form-control" id="SoDienThoai" name="SoDienThoai" type="text" onkeyup="ExistkhachhangPhone()" />
+                                <label id="txtPhone" name="txtPhone" style="color:red; font-size:10px;"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        activeMenu("liDanhMuc", "liDmKhachHang");
+        loadData();
+    });
+    function loadData() {
+        $("#table_khachhang").DataTable({
+            "ajax": {
+                "url": "/KhachHang/GetListKhachHang",
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "id", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                { "data": "maKhachHang" },
+                { "data": "tenKhachHang" },
+                {
+                    "data": "loaiKhachHang", "render": function (data) {
+                        if (data == 1) {
+                            return "Khách hàng tiềm năng"
+                        }
+                        else if (data == 2) {
+                            return "Khách hàng cũ"
+                        }
+                    }
+                },
+                { "data": "diaChi" },
+                { "data": "soDienThoai" },
+
+                {
+                    "data": "id", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false,
+            deferRender: true
+        });
+        //Xử lý nút check all
+        $("#checkall").change(function () {
+            $(".checkitem").prop("checked", $(this).prop("checked"))
+        })
+
+        $("#btnThemMoi").click(function () {
+            $("#KhachHang").modal('show');
+            $("#idkhachhang").val(0);
+            $("#myModalLabel").text("Thêm mới khách hàng");
+            $("#MaKhachHang").text("");
+            $("#TenKhachHang").text("");
+            $("#DiaChi").text("");
+            $("#SoDienThoai").text("");
+        })
+        //Reset bootstrap validator
+        $('#KhachHang').on('hide.bs.modal', function () {
+            $('#frmKhachHang').bootstrapValidator('resetForm', true);
+        });
+        //Validate
+
+    }    
+    function validator() {
+        $('#frmKhachHang').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                MaKhachHang: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập mã lái xe!'
+                        }
+                    }
+                },
+                TenKhachHang: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập tên lái xe!'
+                        }
+                    }
+                },
+                DiaChi: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập địa chỉ!'
+                        }
+                    }
+                },
+                SoDienThoai: {
+                    validators: {
+                        numeric: {
+                            message: 'Vui lòng chỉ sử dụng số.',
+                        },
+                        stringLength: {
+                            min: 9,
+                            message: 'Vui lòng nhập 9 chữ số trở lên.'
+                        },
+                        notEmpty: {
+                            message: 'Xin vui lòng nhập một số điện thoại hợp lệ.'
+                        }
+                    }
+                },
+            }
+
+        });
+        var validatorObj = $('#frmKhachHang').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+    function ExistkhachhangPhone() {
+        var to = null;
+        if (to) { clearTimeout(to); }
+        to = setTimeout(function () {
+            $.get("/KhachHang/ExistKhachHangPhone/", { SoDienThoai: $("#SoDienThoai").val() }, function (data) {
+                console.log(data);
+                if ($("#idkhachhang").val() == 0) {
+                    if (data == "True") {
+                        $("#txtPhone").text("");
+                        document.getElementById("btnUpdate").disabled = false;
+                    }
+                    else {
+                        if ($("#SoDienThoai").val() == "") {
+                            $("#txtPhone").text("");
+                            document.getElementById("btnUpdate").disabled = false;
+                        }
+                        else {
+
+                            $("#txtPhone").text("Số điện thoại đã trùng");
+
+                            document.getElementById("btnUpdate").disabled = true;
+                        }
+
+
+                    }
+                }
+                else {
+                    $("#txtPhone").text("");
+                    document.getElementById("btnUpdate").disabled = false;
+                }
+                
+            })
+        }, 500);
+
+    }
+    function ExistKhachHangMaKH() {
+        var to = null;
+        if (to) { clearTimeout(to); }
+        to = setTimeout(function () {
+            $.get("/KhachHang/ExistKhachHangMaKH/", { MaKhachHang: $("#MaKhachHang").val() }, function (data) {
+                console.log(data);
+                if ($("#idkhachhang").val() == 0) {
+                    if (data == "True") {
+                        $("#txtMaKH").text("");
+                        document.getElementById("btnUpdate").disabled = false;
+                    }
+                    else {
+                        if ($("#MaKhachHang").val() == "") {
+                            $("#txtMaKH").text("");
+                            document.getElementById("btnUpdate").disabled = false;
+                        }
+                        else {
+
+                            $("#txtMaKH").text("Mã khách hàng đã trùng trong hệ thống");
+
+                            document.getElementById("btnUpdate").disabled = true;
+                        }
+
+
+                    }
+                }
+                else {
+                    $("#txtMaKH").text("");
+                    document.getElementById("btnUpdate").disabled = false;
+                }
+                
+
+            })
+        }, 500);
+
+    }
+    $("#btnUpdate").click(function () {
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                id: $("#idkhachhang").val(),
+                MaKhachHang: $("#MaKhachHang").val(),
+                TenKhachHang: $("#TenKhachHang").val(),
+                LoaiKhachHang: $("#LoaiKhachHang").val(),
+                DiaChi: $("#DiaChi").val(),
+                SoDienThoai: $("#SoDienThoai").val()
+            }
+            $.ajax({
+                url: "/KhachHang/UpdateKhachHang",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới biến động thành công!")
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật biến động thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật biến động!")
+                    }
+                    loadData();
+                    $("#KhachHang").modal('hide');
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    });
+    function GetById(Id) {
+        $("#KhachHang").modal('show');
+        $("#idkhachhang").val(Id);
+        $.get('/KhachHang/GetKhachHangById', { id: Id }, function (data) {
+            $("#MaKhachHang").val(data.maKhachHang);
+            $("#TenKhachHang").val(data.tenKhachHang);
+            $("#LoaiKhachHang").val(data.loaiKhachHang);
+            $("#DiaChi").val(data.diaChi);
+            $("#SoDienThoai").val(data.soDienThoai);
+        }, 'json').fail(function (error) {
+            sweetalert("", "error", error.responseText);
+        })
+    }
+    function DeleteById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/KhachHang/DeleteByID/', { idkhachhang: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa bản ghi thành công!");
+                    loadData();
+                }
+            }).fail(function (error) {
+                sweetalert("Lỗi", "error", error.responseText);
+            })
+
+        }
+    }
+
+    //Xóa khi check nhiều dòng
+    $("#btnDeleteSelected").click(function () {
+        var id = $('.checkitem:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        if (id == "") {
+            sweetalert("Thông báo", "warning", "Bạn chưa chọn đối tượng để xóa");
+        }
+        else {
+            var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
+            if (ans) {
+                $.post('/KhachHang/DeleteByArrayId/', { idkhachhang: id }, function (data) {
+                    if (data == "True") {
+                        sweetalert("", "success", "Xóa biến động thành công!")
+                    }
+                    else {
+                        sweetalert("", "warning", "Có lỗi khi xóa!")
+                    }
+                    loadData();
+                }).fail(function (error) {
+                    sweetalert("Lỗi", "error", error.responseText);
+                });
+            }
+        }
+    });
+    
+</script>

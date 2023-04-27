@@ -1,0 +1,352 @@
+﻿
+@{
+    ViewBag.Title = "Menu";
+}
+
+<ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+    <li class="breadcrumb-item"><a href="#">Danh mục</a></li>
+    <li class="breadcrumb-item active">Menu</li>
+</ol>
+<!-- begin page-header -->
+<h1 class="page-header">@ViewBag.Title</h1>
+<!-- end page-header -->
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+        <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách menu
+            </div>
+            <div class="panel-body">
+                <table id="table_menu" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap" width="25%">Tên menu</th>
+                            <th class="text-nowrap" width="15%">Controller</th>
+                            <th class="text-nowrap" width="15%">Action</th>
+                            <th class="text-nowrap" width="15%">Class</th>
+                            <th class="text-nowrap" width="15%">Style</th>
+                            <th class="text-nowrap" width="15%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="Menu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật menu</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="frmMenu">
+                    <div class="form-group row m-b-15">
+                        <label for="TenQuyen" class="col-md-3 col-form-label">Tên menu: </label>
+                        <div class="col-md-9">
+                            <input type="hidden" id="idquyenmenu" />
+                            <input class="form-control" id="TenQuyen" name="TenQuyen" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-b-15">
+                        <label for="QuyenCha" class="col-md-3 col-form-label">Quyền cha: </label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="QuyenCha" name="QuyenCha" type="text" />
+                            <input type="hidden" id="QuyenChaId" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-b-15">
+                        <label for="Controller" class="col-md-3 col-form-label">Controller: </label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Controller" name="Controller" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-b-15">
+                        <label for="Action" class="col-md-3 col-form-label">Action: </label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Action" name="Action" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-b-15">
+                        <label for="Class" class="col-md-3 col-form-label">Class: </label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Class" name="Class" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-b-15">
+                        <label for="Styles" class="col-md-3 col-form-label">Styles: </label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Styles" name="Styles" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="mdlSearch" tabindex="2" role="dialog" aria-labelledby="myModalLabelSearch" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelSearch">Tìm kiếm quyền cha</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="searchCQQL">Tìm kiếm: </label>
+                            <input type="text" class="form-control" id="searchQuyenCha" name="searchQuyenCha" placeholder="Tìm kiếm..." />
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="using_json"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script>
+    $(document).ready(function () {
+        activeMenu("liDanhMuc", "liQuyenMenu");
+        validator();
+        loadData();
+    });
+
+    function loadData() {
+        $("#table_menu").DataTable({
+            "ajax": {
+                "url": "/QuyenMenu/GetListQuyen",
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "QuyenMenuId", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                { "data": "TenQuyen" },
+                { "data": "Controller" },
+                { "data": "Action" },
+                { "data": "Class" },
+                { "data": "Styles" },
+                {
+                    "data": "QuyenMenuId", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false,
+            deferRender: true
+        });
+    }
+
+    //Xử lý nút check all
+    $("#checkall").change(function () {
+        $(".checkitem").prop("checked", $(this).prop("checked"))
+    })
+
+    $("#btnThemMoi").click(function () {
+        $("#Menu").modal('show');
+        $("#idquyenmenu").val(0);
+        $("#myModalLabel").text("Thêm mới Menu");
+    })
+
+    function GetById(Id) {
+        $("#Menu").modal('show');
+        $("#idquyenmenu").val(Id);
+        $.get('/QuyenMenu/GetQuyenById', { QuyenMenuId: Id }, function (data) {
+            $("#TenQuyen").val(data.TenQuyen);
+            $("#QuyenChaId").val(data.QuyenCha);
+            $("#Controller").val(data.Controller);
+            $("#Action").val(data.Action);
+            $("#Class").val(data.Class);
+            $("#Styles").val(data.Styles);
+            getTenQuyenById(data.QuyenCha);
+        }, 'json').fail(function (error) {
+            sweetalert("", "error", error.responseText);
+        })
+    }
+
+    //Reset bootstrap validator
+    $('#Menu').on('hide.bs.modal', function () {
+        $('#frmMenu').bootstrapValidator('resetForm', true);
+    });
+    //Validate
+    function validator() {
+        $('#frmMenu').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                TenQuyen: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập tên quyền!'
+                        }
+                    }
+                }
+            }
+        });
+        var validatorObj = $('#frmMenu').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+
+    $("#btnUpdate").click(function () {
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                QuyenMenuId: $("#idquyenmenu").val(),
+                TenQuyen: $("#TenQuyen").val(),
+                QuyenCha: $("#QuyenChaId").val(),
+                Controller: $("#Controller").val(),
+                Action: $("#Action").val(),
+                Class: $("#Class").val(),
+                Styles: $("#Styles").val()
+            }
+            $.ajax({
+                url: "/QuyenMenu/UpdateQuyen",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới biến động thành công!")
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật biến động thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật biến động!")
+                    }
+                    loadData();
+                    $("#Menu").modal('hide');
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    });
+
+    function DeleteById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/QuyenMenu/DeleteByID/', { idquyenmenu: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa bản ghi thành công!");
+                    loadData();
+                }
+            }).fail(function (error) {
+                sweetalert("Lỗi", "error", error.responseText);
+            })
+
+        }
+    }
+
+    //Xóa khi check nhiều dòng
+    $("#btnDeleteSelected").click(function () {
+        var id = $('.checkitem:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        if (id == "") {
+            sweetalert("Thông báo", "warning", "Bạn chưa chọn đối tượng để xóa");
+        }
+        else {
+            var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
+            if (ans) {
+                $.post('/QuyenMenu/DeleteByArrayId/', { idquyenmenu: id }, function (data) {
+                    if (data == "True") {
+                        sweetalert("", "success", "Xóa biến động thành công!")
+                    }
+                    else {
+                        sweetalert("", "warning", "Có lỗi khi xóa!")
+                    }
+                    loadData();
+                }).fail(function (error) {
+                    sweetalert("Lỗi", "error", error.responseText);
+                });
+            }
+        }
+    });
+    $("#QuyenCha").click(function () {
+        loadTreeDonVi();
+    })
+    function loadTreeDonVi() {
+        $('#searchQuyenCha').val($("#QuyenCha").val());
+        $("#mdlSearch").modal('show');
+        $('#using_json').jstree("destroy");
+        $('#using_json').jstree({
+            "plugins": ["search"],
+            "checkbox": {
+                "three_state": true,
+                "keep_selected_style": false
+            },
+            'core': {
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/QuyenMenu/LoadTreeQuyen",
+                    "dataType": "json"
+                }
+            }
+        }).on("select_node.jstree", function (e, data) {
+            $("#QuyenCha").val(data.node.text);
+            $("#QuyenChaId").val(data.node.id);
+            $("#mdlSearch").modal('hide');
+        });
+        $('#using_json').jstree(true).search($('#searchQuyenCha').val());
+        var to = null;
+        $('#searchQuyenCha').keyup(function () {
+            if (to) { clearTimeout(to); }
+            to = setTimeout(function () {
+                var v = $('#searchQuyenCha').val();
+                $('#using_json').jstree(true).search(v);
+            }, 250);
+        });
+    }
+    function getTenQuyenById(Id) {
+        $.get('/QuyenMenu/GetNameQuyenById', { QuyenMenuId: Id }, function (data) {
+            $("#QuyenCha").val(data);
+        }).fail(function (error) {
+            alert(error.responseText);
+        })
+    }
+</script>

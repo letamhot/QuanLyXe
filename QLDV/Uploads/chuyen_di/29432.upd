@@ -1,0 +1,1832 @@
+<org.uengine.kernel.ProcessDefinition>
+  <name>
+    <text>Cấp Giấy phép khai thác khoáng sản ở khu vực có dự án đầu tư công trình.</text>
+    <localedTexts/>
+  </name>
+  <description>
+    <localedTexts/>
+  </description>
+  <cost>0</cost>
+  <retryLimit>0</retryLimit>
+  <retryDelay>60</retryDelay>
+  <isHidden>false</isHidden>
+  <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+  <isQueuingEnabled>false</isQueuingEnabled>
+  <isFaultTolerant>false</isFaultTolerant>
+  <childActivities class="org.uengine.kernel.ActivityRepository">
+    <org.uengine.kernel.HumanActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>Tiếp nhận hồ sơ</text>
+        <localedTexts/>
+      </name>
+      <description>
+        <localedTexts/>
+      </description>
+      <tracingTag>1</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <message>onHumanActivityResult1</message>
+      <parameters>
+        <org.uengine.kernel.ParameterContext>
+          <argument>
+            <text>Id hồ sơ</text>
+          </argument>
+          <variable>
+            <name>id_hoso</name>
+            <displayName>
+              <localedTexts/>
+            </displayName>
+            <type>java.lang.String</type>
+            <askWhenInit>false</askWhenInit>
+            <isVolatile>false</isVolatile>
+            <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            <databaseSynchronizationOption/>
+          </variable>
+          <transformerMapping/>
+        </org.uengine.kernel.ParameterContext>
+        <org.uengine.kernel.ParameterContext>
+          <argument>
+            <text>Mã hồ sơ</text>
+          </argument>
+          <variable>
+            <name>maHoSo</name>
+            <displayName>
+              <localedTexts/>
+            </displayName>
+            <type>java.lang.String</type>
+            <askWhenInit>false</askWhenInit>
+            <isVolatile>false</isVolatile>
+            <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            <databaseSynchronizationOption/>
+          </variable>
+          <transformerMapping/>
+        </org.uengine.kernel.ParameterContext>
+        <org.uengine.kernel.ParameterContext>
+          <argument>
+            <text>Ngày tiếp nhận</text>
+          </argument>
+          <variable>
+            <name>ngayTiepNhan</name>
+            <displayName>
+              <localedTexts/>
+            </displayName>
+            <type>java.lang.String</type>
+            <askWhenInit>false</askWhenInit>
+            <isVolatile>false</isVolatile>
+            <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            <databaseSynchronizationOption/>
+          </variable>
+          <transformerMapping/>
+        </org.uengine.kernel.ParameterContext>
+        <org.uengine.kernel.ParameterContext>
+          <argument>
+            <text>Ngày hẹn trả</text>
+          </argument>
+          <variable>
+            <name>ngayHenTra</name>
+            <displayName>
+              <localedTexts/>
+            </displayName>
+            <type>java.lang.String</type>
+            <askWhenInit>false</askWhenInit>
+            <isVolatile>false</isVolatile>
+            <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            <databaseSynchronizationOption/>
+          </variable>
+          <transformerMapping/>
+        </org.uengine.kernel.ParameterContext>
+        <org.uengine.kernel.ParameterContext>
+          <argument>
+            <text>Nơi nộp hồ sơ</text>
+          </argument>
+          <variable>
+            <name>noiNopHoSo</name>
+            <displayName>
+              <localedTexts/>
+            </displayName>
+            <type>java.lang.String</type>
+            <askWhenInit>false</askWhenInit>
+            <isVolatile>false</isVolatile>
+            <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            <databaseSynchronizationOption/>
+          </variable>
+          <transformerMapping/>
+        </org.uengine.kernel.ParameterContext>
+        <org.uengine.kernel.ParameterContext>
+          <argument>
+            <text>Người nộp hồ sơ</text>
+          </argument>
+          <variable>
+            <name>tenDoiTuongHoSo</name>
+            <displayName>
+              <localedTexts/>
+            </displayName>
+            <type>java.lang.String</type>
+            <askWhenInit>false</askWhenInit>
+            <isVolatile>false</isVolatile>
+            <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            <databaseSynchronizationOption/>
+          </variable>
+          <transformerMapping/>
+        </org.uengine.kernel.ParameterContext>
+      </parameters>
+      <role>
+        <name>Initiator</name>
+        <dispatchingOption>0</dispatchingOption>
+        <isHumanWorker>false</isHumanWorker>
+        <askWhenInit>false</askWhenInit>
+        <displayName>
+          <text>Initiator</text>
+          <localedTexts/>
+        </displayName>
+        <dontPersistResolutionResult>false</dontPersistResolutionResult>
+      </role>
+      <tool>defaultHandler</tool>
+      <isSendEmailWorkitem>true</isSendEmailWorkitem>
+      <isNotificationWorkitem>false</isNotificationWorkitem>
+      <isAllowAnonymous>true</isAllowAnonymous>
+      <duration>2400</duration>
+      <co2Emission>0</co2Emission>
+      <workload>0</workload>
+      <priority>0</priority>
+      <instruction/>
+      <keyword/>
+    </org.uengine.kernel.HumanActivity>
+    <org.uengine.kernel.MappingActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>mapping</text>
+        <localedTexts/>
+      </name>
+      <description/>
+      <tracingTag>31</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <mappingContext>
+        <mappingElements>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].name</text>
+            </argument>
+            <variable>
+              <name>maHoSo</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+        </mappingElements>
+      </mappingContext>
+    </org.uengine.kernel.MappingActivity>
+    <org.uengine.kernel.FormActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>Một cửa nhận chỉ đạo xử lý</text>
+        <localedTexts/>
+      </name>
+      <description>
+        <localedTexts/>
+      </description>
+      <tracingTag>3</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <message>onHumanActivityResult3</message>
+      <role>
+        <name>Một cửa</name>
+        <roleResolutionContext class="com.defaultcompany.organization.DefaultCompanyRoleResolutionContext">
+          <roleId>1gate</roleId>
+          <groupId>4401002</groupId>
+        </roleResolutionContext>
+        <dispatchingOption>0</dispatchingOption>
+        <serviceType/>
+        <isHumanWorker>false</isHumanWorker>
+        <askWhenInit>false</askWhenInit>
+        <displayName>
+          <text>Một cửa</text>
+          <localedTexts/>
+        </displayName>
+        <dontPersistResolutionResult>false</dontPersistResolutionResult>
+      </role>
+      <tool>defaultHandler</tool>
+      <isSendEmailWorkitem>true</isSendEmailWorkitem>
+      <isNotificationWorkitem>false</isNotificationWorkitem>
+      <isAllowAnonymous>true</isAllowAnonymous>
+      <duration>2400</duration>
+      <co2Emission>0</co2Emission>
+      <workload>0</workload>
+      <priority>0</priority>
+      <instruction/>
+      <keyword/>
+      <mappingContext>
+        <mappingElements/>
+      </mappingContext>
+      <variableForHtmlFormContext>
+        <name>frm_chidaoxuly</name>
+        <displayName>
+          <text>frm_chidao</text>
+          <localedTexts/>
+        </displayName>
+        <type>org.uengine.contexts.HtmlFormContext</type>
+        <askWhenInit>false</askWhenInit>
+        <defaultValue class="org.uengine.contexts.HtmlFormContext">
+          <formDefId>[frm_thandinhSTNKS_016]@23500</formDefId>
+        </defaultValue>
+        <isVolatile>false</isVolatile>
+        <isDatabaseSynchronized>false</isDatabaseSynchronized>
+        <databaseSynchronizationOption/>
+      </variableForHtmlFormContext>
+      <mappingWhenSave>false</mappingWhenSave>
+    </org.uengine.kernel.FormActivity>
+    <org.uengine.kernel.ScriptActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>script 15</text>
+        <localedTexts/>
+      </name>
+      <description/>
+      <tracingTag>33</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <script>javax.xml.namespace.QName SERVICE_NAME = new javax.xml.namespace.QName(&quot;http://hoso.provider.bpm.sharedservice.dtt.vn/&quot;, &quot;HoSoServiceImplService&quot;);
+     java.net.URL wsdlURL = vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService.WSDL_LOCATION;
+     vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService ss = new vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService(wsdlURL, SERVICE_NAME);
+     vn.dtt.sharedservice.bpm.client.hoso.IHoSoService port = ss.getHoSoServiceImplPort(); 
+     try {
+     java.lang.Object  idHoso=instance.get(&quot;id_hoso&quot;);
+     java.lang.String maHoSo = idHoso.toString();
+     java.lang.Long _userId = null;
+     java.lang.Long _IdHoso = Long.valueOf(maHoSo);
+    
+ int _status = 15;
+      
+       port.capNhatTrangThaiHoSo(_userId, _IdHoso, _status);
+   
+ } catch (Exception e) {
+  new RuntimeException(e);
+ }
+ return &quot;OK&quot;;</script>
+      <language>1</language>
+    </org.uengine.kernel.ScriptActivity>
+    <org.uengine.kernel.FormActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>Phân công xử lý</text>
+        <localedTexts/>
+      </name>
+      <description>
+        <localedTexts/>
+      </description>
+      <tracingTag>4</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <message>onHumanActivityResult4</message>
+      <role>
+        <name>Lãnh đạo phòng</name>
+        <roleResolutionContext class="com.defaultcompany.organization.DefaultCompanyRoleResolutionContext">
+          <roleId>LDP</roleId>
+          <groupId>4401008</groupId>
+        </roleResolutionContext>
+        <dispatchingOption>0</dispatchingOption>
+        <serviceType/>
+        <isHumanWorker>false</isHumanWorker>
+        <askWhenInit>false</askWhenInit>
+        <displayName>
+          <text>Lãnh đạo phòng</text>
+          <localedTexts/>
+        </displayName>
+        <dontPersistResolutionResult>false</dontPersistResolutionResult>
+      </role>
+      <tool>defaultHandler</tool>
+      <isSendEmailWorkitem>true</isSendEmailWorkitem>
+      <isNotificationWorkitem>false</isNotificationWorkitem>
+      <isAllowAnonymous>true</isAllowAnonymous>
+      <duration>2400</duration>
+      <co2Emission>0</co2Emission>
+      <workload>0</workload>
+      <priority>0</priority>
+      <instruction/>
+      <keyword/>
+      <mappingContext>
+        <mappingElements>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_phancongxl.ngayhentra</text>
+            </argument>
+            <variable>
+              <name>ngayHenTra</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[roles].Xử lý </text>
+            </argument>
+            <variable>
+              <name>frm_phancongxl.fld_idCanBoXuLy</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer">
+                <name>Not Null Validator</name>
+                <location>
+                  <x>80</x>
+                  <y>395</y>
+                </location>
+                <argumentSourceMap/>
+                <validationMessage>bạn phải chọn cán bộ xử lý</validationMessage>
+                <aliasesForEachInputArgument>
+                  <string>Chú ý</string>
+                  <string>in2</string>
+                  <string>in3</string>
+                  <string>in4</string>
+                  <string>in5</string>
+                  <string>in6</string>
+                  <string>in7</string>
+                  <string>in8</string>
+                  <string>in9</string>
+                  <string>in10</string>
+                </aliasesForEachInputArgument>
+              </transformer>
+              <linkedArgumentName>out2</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer" reference="../../../org.uengine.kernel.MappingElement[3]/transformerMapping/transformer"/>
+              <linkedArgumentName>out</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_phancongxl.id_hoso</text>
+            </argument>
+            <variable>
+              <name>id_hoso</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer" reference="../../../org.uengine.kernel.MappingElement[3]/transformerMapping/transformer"/>
+              <linkedArgumentName>out3</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_phancongxl.tendoituonghoso</text>
+            </argument>
+            <variable>
+              <name>tenDoiTuongHoSo</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_phancongxl.mahoso</text>
+            </argument>
+            <variable>
+              <name>maHoSo</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer" reference="../../../org.uengine.kernel.MappingElement[3]/transformerMapping/transformer"/>
+              <linkedArgumentName>out7</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer" reference="../../../org.uengine.kernel.MappingElement[3]/transformerMapping/transformer"/>
+              <linkedArgumentName>out8</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer" reference="../../../org.uengine.kernel.MappingElement[3]/transformerMapping/transformer"/>
+              <linkedArgumentName>out9</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer" reference="../../../org.uengine.kernel.MappingElement[3]/transformerMapping/transformer"/>
+              <linkedArgumentName>out5</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer" reference="../../../org.uengine.kernel.MappingElement[3]/transformerMapping/transformer"/>
+              <linkedArgumentName>out6</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_phancongxl.ngaytiepnhan</text>
+            </argument>
+            <variable>
+              <name>ngayTiepNhan</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer" reference="../../../org.uengine.kernel.MappingElement[3]/transformerMapping/transformer"/>
+              <linkedArgumentName>out4</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>[instance].dummy1</text>
+            </argument>
+            <transformerMapping>
+              <transformer class="org.uengine.processdesigner.mapper.transformers.NotNullValidatorTransformer" reference="../../../org.uengine.kernel.MappingElement[3]/transformerMapping/transformer"/>
+              <linkedArgumentName>out10</linkedArgumentName>
+            </transformerMapping>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+        </mappingElements>
+      </mappingContext>
+      <variableForHtmlFormContext>
+        <name>frm_phancongxl</name>
+        <displayName>
+          <localedTexts/>
+        </displayName>
+        <type>org.uengine.contexts.HtmlFormContext</type>
+        <askWhenInit>false</askWhenInit>
+        <defaultValue class="org.uengine.contexts.HtmlFormContext">
+          <formDefId>[frm_phancongxulySTNKS_016]@23499</formDefId>
+        </defaultValue>
+        <isVolatile>false</isVolatile>
+        <isDatabaseSynchronized>false</isDatabaseSynchronized>
+        <databaseSynchronizationOption/>
+      </variableForHtmlFormContext>
+      <mappingWhenSave>false</mappingWhenSave>
+    </org.uengine.kernel.FormActivity>
+    <org.uengine.kernel.FormActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>Thẩm định thụ lý</text>
+        <localedTexts/>
+      </name>
+      <description>
+        <localedTexts/>
+      </description>
+      <tracingTag>5</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <message>onHumanActivityResult5</message>
+      <role>
+        <name>Xử lý </name>
+        <roleResolutionContext class="com.defaultcompany.organization.DefaultCompanyRoleResolutionContext"/>
+        <dispatchingOption>0</dispatchingOption>
+        <serviceType/>
+        <isHumanWorker>false</isHumanWorker>
+        <askWhenInit>false</askWhenInit>
+        <displayName>
+          <text>Xử lý </text>
+          <localedTexts/>
+        </displayName>
+        <dontPersistResolutionResult>false</dontPersistResolutionResult>
+      </role>
+      <tool>defaultHandler</tool>
+      <isSendEmailWorkitem>true</isSendEmailWorkitem>
+      <isNotificationWorkitem>false</isNotificationWorkitem>
+      <isAllowAnonymous>true</isAllowAnonymous>
+      <duration>2400</duration>
+      <co2Emission>0</co2Emission>
+      <workload>0</workload>
+      <priority>0</priority>
+      <instruction/>
+      <keyword/>
+      <mappingContext>
+        <mappingElements>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_thamdinh.ngayhentra</text>
+            </argument>
+            <variable>
+              <name>ngayHenTra</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_thamdinh.ngaytiepnhan</text>
+            </argument>
+            <variable>
+              <name>ngayTiepNhan</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_thamdinh.id_hoso</text>
+            </argument>
+            <variable>
+              <name>id_hoso</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_thamdinh.mahoso</text>
+            </argument>
+            <variable>
+              <name>maHoSo</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_thamdinh.tendoituonghoso</text>
+            </argument>
+            <variable>
+              <name>tenDoiTuongHoSo</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+        </mappingElements>
+      </mappingContext>
+      <variableForHtmlFormContext>
+        <name>frm_thamdinh</name>
+        <displayName>
+          <localedTexts/>
+        </displayName>
+        <type>org.uengine.contexts.HtmlFormContext</type>
+        <askWhenInit>false</askWhenInit>
+        <defaultValue class="org.uengine.contexts.HtmlFormContext">
+          <formDefId>[frm_thandinhSTNKS_016]@23500</formDefId>
+        </defaultValue>
+        <isVolatile>false</isVolatile>
+        <isDatabaseSynchronized>false</isDatabaseSynchronized>
+        <databaseSynchronizationOption/>
+      </variableForHtmlFormContext>
+      <mappingWhenSave>false</mappingWhenSave>
+    </org.uengine.kernel.FormActivity>
+    <org.uengine.kernel.FormActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>Xem xét kiểm tra hồ sơ</text>
+        <localedTexts/>
+      </name>
+      <description>
+        <localedTexts/>
+      </description>
+      <tracingTag>6</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <message>onHumanActivityResult6</message>
+      <role reference="../../org.uengine.kernel.FormActivity[2]/role"/>
+      <tool>defaultHandler</tool>
+      <isSendEmailWorkitem>true</isSendEmailWorkitem>
+      <isNotificationWorkitem>false</isNotificationWorkitem>
+      <isAllowAnonymous>true</isAllowAnonymous>
+      <duration>2400</duration>
+      <co2Emission>0</co2Emission>
+      <workload>0</workload>
+      <priority>0</priority>
+      <instruction/>
+      <keyword/>
+      <mappingContext>
+        <mappingElements>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_xemxet.ngaytiepnhan</text>
+            </argument>
+            <variable>
+              <name>ngayTiepNhan</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_xemxet.tendoituonghoso</text>
+            </argument>
+            <variable>
+              <name>tenDoiTuongHoSo</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>isApproved</text>
+            </argument>
+            <variable>
+              <name>frm_xemxet.duyethoso</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_xemxet.id_hoso</text>
+            </argument>
+            <variable>
+              <name>id_hoso</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_xemxet.mahoso</text>
+            </argument>
+            <variable>
+              <name>maHoSo</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+          <org.uengine.kernel.MappingElement>
+            <argument>
+              <text>frm_xemxet.ngayhentra</text>
+            </argument>
+            <variable>
+              <name>ngayHenTra</name>
+              <displayName/>
+              <askWhenInit>false</askWhenInit>
+              <isVolatile>false</isVolatile>
+              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+            </variable>
+            <isKey>false</isKey>
+          </org.uengine.kernel.MappingElement>
+        </mappingElements>
+      </mappingContext>
+      <variableForHtmlFormContext>
+        <name>frm_xemxet</name>
+        <displayName>
+          <localedTexts/>
+        </displayName>
+        <type>org.uengine.contexts.HtmlFormContext</type>
+        <askWhenInit>false</askWhenInit>
+        <defaultValue class="org.uengine.contexts.HtmlFormContext">
+          <formDefId>[frm_xemxetSTNKS_016]@23501</formDefId>
+        </defaultValue>
+        <isVolatile>false</isVolatile>
+        <isDatabaseSynchronized>false</isDatabaseSynchronized>
+        <databaseSynchronizationOption/>
+      </variableForHtmlFormContext>
+      <mappingWhenSave>false</mappingWhenSave>
+    </org.uengine.kernel.FormActivity>
+    <org.uengine.kernel.SwitchActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name/>
+      <description/>
+      <tracingTag>8</tracingTag>
+      <cost>0</cost>
+      <extendedAttributes>
+        <entry>
+          <string>conditionDescriptions_1</string>
+          <string>Hồ sơ được duyệt</string>
+        </entry>
+        <entry>
+          <string>conditionDescriptions_0</string>
+          <string>Yêu cầu xử lý lại</string>
+        </entry>
+      </extendedAttributes>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <childActivities class="org.uengine.kernel.ActivityRepository">
+        <org.uengine.kernel.BackActivity>
+          <parentActivity class="org.uengine.kernel.SwitchActivity" reference="../../.."/>
+          <name>
+            <text>back</text>
+            <localedTexts/>
+          </name>
+          <description/>
+          <tracingTag>10</tracingTag>
+          <cost>0</cost>
+          <retryLimit>0</retryLimit>
+          <retryDelay>60</retryDelay>
+          <isHidden>false</isHidden>
+          <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+          <isQueuingEnabled>false</isQueuingEnabled>
+          <isFaultTolerant>false</isFaultTolerant>
+          <targetActivity>
+            <instanceId>&lt;%=instance.instanceid%&gt;</instanceId>
+            <tracingTag>5</tracingTag>
+          </targetActivity>
+          <targetSource>0</targetSource>
+        </org.uengine.kernel.BackActivity>
+        <org.uengine.kernel.SequenceActivity>
+          <parentActivity class="org.uengine.kernel.SwitchActivity" reference="../../.."/>
+          <name>
+            <text>seq</text>
+          </name>
+          <description/>
+          <tracingTag>12</tracingTag>
+          <cost>0</cost>
+          <retryLimit>0</retryLimit>
+          <retryDelay>60</retryDelay>
+          <isHidden>false</isHidden>
+          <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+          <isQueuingEnabled>false</isQueuingEnabled>
+          <isFaultTolerant>false</isFaultTolerant>
+          <childActivities class="org.uengine.kernel.ActivityRepository">
+            <org.uengine.kernel.FormActivity>
+              <parentActivity class="org.uengine.kernel.SequenceActivity" reference="../../.."/>
+              <name>
+                <text>Lãnh đạo sở ký duyệt</text>
+                <localedTexts/>
+              </name>
+              <description>
+                <localedTexts/>
+              </description>
+              <tracingTag>7</tracingTag>
+              <cost>0</cost>
+              <retryLimit>0</retryLimit>
+              <retryDelay>60</retryDelay>
+              <isHidden>false</isHidden>
+              <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+              <isQueuingEnabled>false</isQueuingEnabled>
+              <isFaultTolerant>false</isFaultTolerant>
+              <message>onHumanActivityResult7</message>
+              <role>
+                <name>Lãnh đạo sở</name>
+                <roleResolutionContext class="com.defaultcompany.organization.DefaultCompanyRoleResolutionContext">
+                  <roleId>LDS</roleId>
+                  <groupId>44010</groupId>
+                </roleResolutionContext>
+                <dispatchingOption>0</dispatchingOption>
+                <serviceType/>
+                <isHumanWorker>false</isHumanWorker>
+                <askWhenInit>false</askWhenInit>
+                <displayName>
+                  <text>Lãnh đạo sở</text>
+                  <localedTexts/>
+                </displayName>
+                <dontPersistResolutionResult>false</dontPersistResolutionResult>
+              </role>
+              <tool>defaultHandler</tool>
+              <isSendEmailWorkitem>true</isSendEmailWorkitem>
+              <isNotificationWorkitem>false</isNotificationWorkitem>
+              <isAllowAnonymous>true</isAllowAnonymous>
+              <duration>2400</duration>
+              <co2Emission>0</co2Emission>
+              <workload>0</workload>
+              <priority>0</priority>
+              <instruction/>
+              <keyword/>
+              <mappingContext>
+                <mappingElements>
+                  <org.uengine.kernel.MappingElement>
+                    <argument>
+                      <text>frm_kyduyet.mahoso</text>
+                    </argument>
+                    <variable>
+                      <name>maHoSo</name>
+                      <displayName/>
+                      <askWhenInit>false</askWhenInit>
+                      <isVolatile>false</isVolatile>
+                      <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                    </variable>
+                    <isKey>false</isKey>
+                  </org.uengine.kernel.MappingElement>
+                  <org.uengine.kernel.MappingElement>
+                    <argument>
+                      <text>frm_kyduyet.tendoituonghoso</text>
+                    </argument>
+                    <variable>
+                      <name>tenDoiTuongHoSo</name>
+                      <displayName/>
+                      <askWhenInit>false</askWhenInit>
+                      <isVolatile>false</isVolatile>
+                      <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                    </variable>
+                    <isKey>false</isKey>
+                  </org.uengine.kernel.MappingElement>
+                  <org.uengine.kernel.MappingElement>
+                    <argument>
+                      <text>isApproved1</text>
+                    </argument>
+                    <variable>
+                      <name>frm_kyduyet.duyethoso</name>
+                      <displayName/>
+                      <askWhenInit>false</askWhenInit>
+                      <isVolatile>false</isVolatile>
+                      <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                    </variable>
+                    <isKey>false</isKey>
+                  </org.uengine.kernel.MappingElement>
+                  <org.uengine.kernel.MappingElement>
+                    <argument>
+                      <text>frm_kyduyet.id_hoso</text>
+                    </argument>
+                    <variable>
+                      <name>id_hoso</name>
+                      <displayName/>
+                      <askWhenInit>false</askWhenInit>
+                      <isVolatile>false</isVolatile>
+                      <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                    </variable>
+                    <isKey>false</isKey>
+                  </org.uengine.kernel.MappingElement>
+                  <org.uengine.kernel.MappingElement>
+                    <argument>
+                      <text>frm_kyduyet.ngayhentra</text>
+                    </argument>
+                    <variable>
+                      <name>ngayHenTra</name>
+                      <displayName/>
+                      <askWhenInit>false</askWhenInit>
+                      <isVolatile>false</isVolatile>
+                      <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                    </variable>
+                    <isKey>false</isKey>
+                  </org.uengine.kernel.MappingElement>
+                  <org.uengine.kernel.MappingElement>
+                    <argument>
+                      <text>frm_kyduyet.ngaytiepnhan</text>
+                    </argument>
+                    <variable>
+                      <name>ngayTiepNhan</name>
+                      <displayName/>
+                      <askWhenInit>false</askWhenInit>
+                      <isVolatile>false</isVolatile>
+                      <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                    </variable>
+                    <isKey>false</isKey>
+                  </org.uengine.kernel.MappingElement>
+                </mappingElements>
+              </mappingContext>
+              <variableForHtmlFormContext>
+                <name>frm_kyduyet</name>
+                <displayName>
+                  <localedTexts/>
+                </displayName>
+                <type>org.uengine.contexts.HtmlFormContext</type>
+                <askWhenInit>false</askWhenInit>
+                <defaultValue class="org.uengine.contexts.HtmlFormContext">
+                  <formDefId>[frm_xemxetSTNKS_016]@23501</formDefId>
+                </defaultValue>
+                <isVolatile>false</isVolatile>
+                <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                <databaseSynchronizationOption/>
+              </variableForHtmlFormContext>
+              <mappingWhenSave>false</mappingWhenSave>
+            </org.uengine.kernel.FormActivity>
+            <org.uengine.kernel.SwitchActivity>
+              <parentActivity class="org.uengine.kernel.SequenceActivity" reference="../../.."/>
+              <name/>
+              <description/>
+              <tracingTag>15</tracingTag>
+              <cost>0</cost>
+              <extendedAttributes>
+                <entry>
+                  <string>conditionDescriptions_1</string>
+                  <string>Hồ sơ được duyệt</string>
+                </entry>
+                <entry>
+                  <string>conditionDescriptions_0</string>
+                  <string>Yêu cầu xử lý lại</string>
+                </entry>
+              </extendedAttributes>
+              <retryLimit>0</retryLimit>
+              <retryDelay>60</retryDelay>
+              <isHidden>false</isHidden>
+              <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+              <isQueuingEnabled>false</isQueuingEnabled>
+              <isFaultTolerant>false</isFaultTolerant>
+              <childActivities class="org.uengine.kernel.ActivityRepository">
+                <org.uengine.kernel.BackActivity>
+                  <parentActivity class="org.uengine.kernel.SwitchActivity" reference="../../.."/>
+                  <name>
+                    <text>back</text>
+                    <localedTexts/>
+                  </name>
+                  <description/>
+                  <tracingTag>17</tracingTag>
+                  <cost>0</cost>
+                  <retryLimit>0</retryLimit>
+                  <retryDelay>60</retryDelay>
+                  <isHidden>false</isHidden>
+                  <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+                  <isQueuingEnabled>false</isQueuingEnabled>
+                  <isFaultTolerant>false</isFaultTolerant>
+                  <targetActivity>
+                    <instanceId>&lt;%=instance.instanceid%&gt;</instanceId>
+                    <tracingTag>5</tracingTag>
+                  </targetActivity>
+                  <targetSource>0</targetSource>
+                </org.uengine.kernel.BackActivity>
+                <org.uengine.kernel.SequenceActivity>
+                  <parentActivity class="org.uengine.kernel.SwitchActivity" reference="../../.."/>
+                  <name>
+                    <text>seq</text>
+                  </name>
+                  <description/>
+                  <tracingTag>21</tracingTag>
+                  <cost>0</cost>
+                  <retryLimit>0</retryLimit>
+                  <retryDelay>60</retryDelay>
+                  <isHidden>false</isHidden>
+                  <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+                  <isQueuingEnabled>false</isQueuingEnabled>
+                  <isFaultTolerant>false</isFaultTolerant>
+                  <childActivities class="org.uengine.kernel.ActivityRepository">
+                    <org.uengine.kernel.ScriptActivity>
+                      <parentActivity class="org.uengine.kernel.SequenceActivity" reference="../../.."/>
+                      <name>
+                        <text>script 12</text>
+                        <localedTexts/>
+                      </name>
+                      <description/>
+                      <tracingTag>22</tracingTag>
+                      <cost>0</cost>
+                      <retryLimit>0</retryLimit>
+                      <retryDelay>60</retryDelay>
+                      <isHidden>false</isHidden>
+                      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+                      <isQueuingEnabled>false</isQueuingEnabled>
+                      <isFaultTolerant>false</isFaultTolerant>
+                      <script>javax.xml.namespace.QName SERVICE_NAME = new javax.xml.namespace.QName(&quot;http://hoso.provider.bpm.sharedservice.dtt.vn/&quot;, &quot;HoSoServiceImplService&quot;);
+     java.net.URL wsdlURL = vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService.WSDL_LOCATION;
+     vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService ss = new vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService(wsdlURL, SERVICE_NAME);
+     vn.dtt.sharedservice.bpm.client.hoso.IHoSoService port = ss.getHoSoServiceImplPort(); 
+     try {
+     java.lang.Object  idHoso=instance.get(&quot;id_hoso&quot;);
+     java.lang.String maHoSo = idHoso.toString();
+     java.lang.Long _userId = null;
+     java.lang.Long _IdHoso = Long.valueOf(maHoSo);
+    
+ int _status = 12;
+      
+       port.capNhatTrangThaiHoSo(_userId, _IdHoso, _status);
+   
+ } catch (Exception e) {
+  new RuntimeException(e);
+ }
+ return &quot;OK&quot;;</script>
+                      <language>1</language>
+                    </org.uengine.kernel.ScriptActivity>
+                    <org.uengine.kernel.FormActivity>
+                      <parentActivity class="org.uengine.kernel.SequenceActivity" reference="../../.."/>
+                      <name>
+                        <text>Sao lưu, chuyển hồ sơ liên thông lên UBND tỉnh</text>
+                        <localedTexts/>
+                      </name>
+                      <description>
+                        <localedTexts/>
+                      </description>
+                      <tracingTag>19</tracingTag>
+                      <cost>0</cost>
+                      <retryLimit>0</retryLimit>
+                      <retryDelay>60</retryDelay>
+                      <isHidden>false</isHidden>
+                      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+                      <isQueuingEnabled>false</isQueuingEnabled>
+                      <isFaultTolerant>false</isFaultTolerant>
+                      <message>onHumanActivityResult19</message>
+                      <role reference="../../../../../../../../../../org.uengine.kernel.FormActivity/role"/>
+                      <tool>defaultHandler</tool>
+                      <isSendEmailWorkitem>true</isSendEmailWorkitem>
+                      <isNotificationWorkitem>false</isNotificationWorkitem>
+                      <isAllowAnonymous>true</isAllowAnonymous>
+                      <duration>2400</duration>
+                      <co2Emission>0</co2Emission>
+                      <workload>0</workload>
+                      <priority>0</priority>
+                      <instruction/>
+                      <keyword/>
+                      <mappingContext>
+                        <mappingElements>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.mahoso</text>
+                            </argument>
+                            <variable>
+                              <name>maHoSo</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.ngayhentra</text>
+                            </argument>
+                            <variable>
+                              <name>ngayHenTra</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.ngaytiepnhan</text>
+                            </argument>
+                            <variable>
+                              <name>ngayTiepNhan</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.tendoituonghoso</text>
+                            </argument>
+                            <variable>
+                              <name>tenDoiTuongHoSo</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.id_hoso</text>
+                            </argument>
+                            <variable>
+                              <name>id_hoso</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                        </mappingElements>
+                      </mappingContext>
+                      <variableForHtmlFormContext>
+                        <name>frm_chuyenhosoLT</name>
+                        <displayName>
+                          <text>frm_chuyenhosoLT</text>
+                          <localedTexts/>
+                        </displayName>
+                        <type>org.uengine.contexts.HtmlFormContext</type>
+                        <askWhenInit>false</askWhenInit>
+                        <defaultValue class="org.uengine.contexts.HtmlFormContext">
+                          <formDefId>[frmchuyenhsltSTNKS_016]@23497</formDefId>
+                        </defaultValue>
+                        <isVolatile>false</isVolatile>
+                        <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                        <databaseSynchronizationOption/>
+                      </variableForHtmlFormContext>
+                      <mappingWhenSave>false</mappingWhenSave>
+                    </org.uengine.kernel.FormActivity>
+                    <org.uengine.kernel.ScriptActivity>
+                      <parentActivity class="org.uengine.kernel.SequenceActivity" reference="../../.."/>
+                      <name>
+                        <text>script 22</text>
+                        <localedTexts/>
+                      </name>
+                      <description/>
+                      <tracingTag>45</tracingTag>
+                      <cost>0</cost>
+                      <retryLimit>0</retryLimit>
+                      <retryDelay>60</retryDelay>
+                      <isHidden>false</isHidden>
+                      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+                      <isQueuingEnabled>false</isQueuingEnabled>
+                      <isFaultTolerant>false</isFaultTolerant>
+                      <script>javax.xml.namespace.QName SERVICE_NAME = new javax.xml.namespace.QName(&quot;http://hoso.provider.bpm.sharedservice.dtt.vn/&quot;, &quot;HoSoServiceImplService&quot;);
+     java.net.URL wsdlURL = vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService.WSDL_LOCATION;
+     vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService ss = new vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService(wsdlURL, SERVICE_NAME);
+     vn.dtt.sharedservice.bpm.client.hoso.IHoSoService port = ss.getHoSoServiceImplPort(); 
+     try {
+     java.lang.Object  idHoso=instance.get(&quot;id_hoso&quot;);
+     java.lang.String maHoSo = idHoso.toString();
+     java.lang.Long _userId = null;
+     java.lang.Long _IdHoso = Long.valueOf(maHoSo);
+    
+ int _status = 22;
+      
+       port.capNhatTrangThaiHoSo(_userId, _IdHoso, _status);
+   
+ } catch (Exception e) {
+  new RuntimeException(e);
+ }
+ return &quot;OK&quot;;</script>
+                      <language>1</language>
+                    </org.uengine.kernel.ScriptActivity>
+                    <org.uengine.kernel.FormActivity>
+                      <parentActivity class="org.uengine.kernel.SequenceActivity" reference="../../.."/>
+                      <name>
+                        <text>Chuyển hồ sơ liên thông lên UBND tỉnh</text>
+                        <localedTexts/>
+                      </name>
+                      <description>
+                        <localedTexts/>
+                      </description>
+                      <tracingTag>44</tracingTag>
+                      <cost>0</cost>
+                      <retryLimit>0</retryLimit>
+                      <retryDelay>60</retryDelay>
+                      <isHidden>false</isHidden>
+                      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+                      <isQueuingEnabled>false</isQueuingEnabled>
+                      <isFaultTolerant>false</isFaultTolerant>
+                      <message>onHumanActivityResult44</message>
+                      <role reference="../../../../../../../../../../org.uengine.kernel.FormActivity/role"/>
+                      <tool>defaultHandler</tool>
+                      <isSendEmailWorkitem>true</isSendEmailWorkitem>
+                      <isNotificationWorkitem>false</isNotificationWorkitem>
+                      <isAllowAnonymous>true</isAllowAnonymous>
+                      <duration>2400</duration>
+                      <co2Emission>0</co2Emission>
+                      <workload>0</workload>
+                      <priority>0</priority>
+                      <instruction/>
+                      <keyword/>
+                      <mappingContext>
+                        <mappingElements>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.tendoituonghoso</text>
+                            </argument>
+                            <variable>
+                              <name>tenDoiTuongHoSo</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.ngaytiepnhan</text>
+                            </argument>
+                            <variable>
+                              <name>ngayTiepNhan</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.ngayhentra</text>
+                            </argument>
+                            <variable>
+                              <name>ngayHenTra</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.mahoso</text>
+                            </argument>
+                            <variable>
+                              <name>maHoSo</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_chuyenhosoLT.id_hoso</text>
+                            </argument>
+                            <variable>
+                              <name>id_hoso</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                        </mappingElements>
+                      </mappingContext>
+                      <variableForHtmlFormContext reference="../../org.uengine.kernel.FormActivity/variableForHtmlFormContext"/>
+                      <mappingWhenSave>false</mappingWhenSave>
+                    </org.uengine.kernel.FormActivity>
+                    <org.uengine.kernel.FormActivity>
+                      <parentActivity class="org.uengine.kernel.SequenceActivity" reference="../../.."/>
+                      <name>
+                        <text>Nhận kết quả hồ sơ liên thông</text>
+                        <localedTexts/>
+                      </name>
+                      <description>
+                        <localedTexts/>
+                      </description>
+                      <tracingTag>25</tracingTag>
+                      <cost>0</cost>
+                      <retryLimit>0</retryLimit>
+                      <retryDelay>60</retryDelay>
+                      <isHidden>false</isHidden>
+                      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+                      <isQueuingEnabled>false</isQueuingEnabled>
+                      <isFaultTolerant>false</isFaultTolerant>
+                      <message>onHumanActivityResult25</message>
+                      <role reference="../../../../../../../../../../org.uengine.kernel.FormActivity/role"/>
+                      <tool>defaultHandler</tool>
+                      <isSendEmailWorkitem>true</isSendEmailWorkitem>
+                      <isNotificationWorkitem>false</isNotificationWorkitem>
+                      <isAllowAnonymous>true</isAllowAnonymous>
+                      <duration>2400</duration>
+                      <co2Emission>0</co2Emission>
+                      <workload>0</workload>
+                      <priority>0</priority>
+                      <instruction/>
+                      <keyword/>
+                      <mappingContext>
+                        <mappingElements>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_nhanlienthong.mahoso</text>
+                            </argument>
+                            <variable>
+                              <name>maHoSo</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_nhanlienthong.tendoituonghoso</text>
+                            </argument>
+                            <variable>
+                              <name>tenDoiTuongHoSo</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_nhanlienthong.id_hoso</text>
+                            </argument>
+                            <variable>
+                              <name>id_hoso</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_nhanlienthong.ngayhentra</text>
+                            </argument>
+                            <variable>
+                              <name>ngayHenTra</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                          <org.uengine.kernel.MappingElement>
+                            <argument>
+                              <text>frm_nhanlienthong.ngaytiepnhan</text>
+                            </argument>
+                            <variable>
+                              <name>ngayTiepNhan</name>
+                              <displayName/>
+                              <askWhenInit>false</askWhenInit>
+                              <isVolatile>false</isVolatile>
+                              <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            </variable>
+                            <isKey>false</isKey>
+                          </org.uengine.kernel.MappingElement>
+                        </mappingElements>
+                      </mappingContext>
+                      <variableForHtmlFormContext>
+                        <name>frm_nhanlienthong</name>
+                        <displayName>
+                          <text>frm_nhanlienthong</text>
+                          <localedTexts/>
+                        </displayName>
+                        <type>org.uengine.contexts.HtmlFormContext</type>
+                        <askWhenInit>false</askWhenInit>
+                        <defaultValue class="org.uengine.contexts.HtmlFormContext">
+                          <formDefId>[frmnhankqltSTNKS_016]@23498</formDefId>
+                        </defaultValue>
+                        <isVolatile>false</isVolatile>
+                        <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                        <databaseSynchronizationOption/>
+                      </variableForHtmlFormContext>
+                      <mappingWhenSave>false</mappingWhenSave>
+                    </org.uengine.kernel.FormActivity>
+                  </childActivities>
+                </org.uengine.kernel.SequenceActivity>
+              </childActivities>
+              <conditions>
+                <org.uengine.kernel.Or>
+                  <description>
+                    <text>Yêu cầu xử lý lại</text>
+                    <localedTexts/>
+                  </description>
+                  <conditionsVt>
+                    <org.uengine.kernel.And>
+                      <description/>
+                      <conditionsVt>
+                        <org.uengine.kernel.Evaluate>
+                          <description/>
+                          <key>isApproved1</key>
+                          <pv>
+                            <name>isApproved1</name>
+                            <displayName>
+                              <localedTexts/>
+                            </displayName>
+                            <type>java.lang.String</type>
+                            <askWhenInit>false</askWhenInit>
+                            <isVolatile>false</isVolatile>
+                            <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                            <databaseSynchronizationOption/>
+                          </pv>
+                          <val class="string">NO</val>
+                          <condition>==</condition>
+                        </org.uengine.kernel.Evaluate>
+                      </conditionsVt>
+                    </org.uengine.kernel.And>
+                  </conditionsVt>
+                </org.uengine.kernel.Or>
+                <org.uengine.kernel.Or>
+                  <description>
+                    <text>Hồ sơ được duyệt</text>
+                    <localedTexts/>
+                  </description>
+                  <conditionsVt>
+                    <org.uengine.kernel.And>
+                      <description/>
+                      <conditionsVt>
+                        <org.uengine.kernel.Evaluate>
+                          <description/>
+                          <key>isApproved1</key>
+                          <pv reference="../../../../../../org.uengine.kernel.Or/conditionsVt/org.uengine.kernel.And/conditionsVt/org.uengine.kernel.Evaluate/pv"/>
+                          <val class="string">YES</val>
+                          <condition>==</condition>
+                        </org.uengine.kernel.Evaluate>
+                      </conditionsVt>
+                    </org.uengine.kernel.And>
+                  </conditionsVt>
+                </org.uengine.kernel.Or>
+              </conditions>
+              <operateAsIfThenElse>false</operateAsIfThenElse>
+            </org.uengine.kernel.SwitchActivity>
+          </childActivities>
+        </org.uengine.kernel.SequenceActivity>
+      </childActivities>
+      <conditions>
+        <org.uengine.kernel.Or>
+          <description>
+            <text>Yêu cầu xử lý lại</text>
+            <localedTexts/>
+          </description>
+          <conditionsVt>
+            <org.uengine.kernel.And>
+              <description/>
+              <conditionsVt>
+                <org.uengine.kernel.Evaluate>
+                  <description/>
+                  <key>isApproved</key>
+                  <pv>
+                    <name>isApproved</name>
+                    <displayName>
+                      <localedTexts/>
+                    </displayName>
+                    <type>java.lang.String</type>
+                    <askWhenInit>false</askWhenInit>
+                    <isVolatile>false</isVolatile>
+                    <isDatabaseSynchronized>false</isDatabaseSynchronized>
+                    <databaseSynchronizationOption/>
+                  </pv>
+                  <val class="string">NO</val>
+                  <condition>==</condition>
+                </org.uengine.kernel.Evaluate>
+              </conditionsVt>
+            </org.uengine.kernel.And>
+          </conditionsVt>
+        </org.uengine.kernel.Or>
+        <org.uengine.kernel.Or>
+          <description>
+            <text>Hồ sơ được duyệt</text>
+            <localedTexts/>
+          </description>
+          <conditionsVt>
+            <org.uengine.kernel.And>
+              <description/>
+              <conditionsVt>
+                <org.uengine.kernel.Evaluate>
+                  <description/>
+                  <key>isApproved</key>
+                  <pv reference="../../../../../../org.uengine.kernel.Or/conditionsVt/org.uengine.kernel.And/conditionsVt/org.uengine.kernel.Evaluate/pv"/>
+                  <val class="string">YES</val>
+                  <condition>==</condition>
+                </org.uengine.kernel.Evaluate>
+              </conditionsVt>
+            </org.uengine.kernel.And>
+          </conditionsVt>
+        </org.uengine.kernel.Or>
+      </conditions>
+      <operateAsIfThenElse>false</operateAsIfThenElse>
+    </org.uengine.kernel.SwitchActivity>
+    <org.uengine.kernel.AssignActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>Hồ sơ được duyệt</text>
+        <localedTexts/>
+      </name>
+      <description/>
+      <tracingTag>26</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <assignStyle>0</assignStyle>
+      <variable>
+        <name>fld_ketquaxuly</name>
+        <displayName>
+          <localedTexts/>
+        </displayName>
+        <type>java.lang.String</type>
+        <askWhenInit>false</askWhenInit>
+        <isVolatile>false</isVolatile>
+        <isDatabaseSynchronized>false</isDatabaseSynchronized>
+        <databaseSynchronizationOption/>
+      </variable>
+      <assignValue>&quot;Hồ sơ được duyệt&quot;</assignValue>
+    </org.uengine.kernel.AssignActivity>
+    <org.uengine.kernel.AssignActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>startus = 6</text>
+        <localedTexts/>
+      </name>
+      <description/>
+      <tracingTag>27</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <assignStyle>1</assignStyle>
+      <variable>
+        <name>fld_status</name>
+        <displayName>
+          <localedTexts/>
+        </displayName>
+        <type>java.lang.String</type>
+        <askWhenInit>false</askWhenInit>
+        <isVolatile>false</isVolatile>
+        <isDatabaseSynchronized>false</isDatabaseSynchronized>
+        <databaseSynchronizationOption/>
+      </variable>
+      <assignValue>&quot;6&quot;</assignValue>
+    </org.uengine.kernel.AssignActivity>
+    <org.uengine.kernel.ScriptActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>script 6</text>
+        <localedTexts/>
+      </name>
+      <description/>
+      <tracingTag>29</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <script>javax.xml.namespace.QName SERVICE_NAME = new javax.xml.namespace.QName(&quot;http://hoso.provider.bpm.sharedservice.dtt.vn/&quot;, &quot;HoSoServiceImplService&quot;);
+     java.net.URL wsdlURL = vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService.WSDL_LOCATION;
+     vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService ss = new vn.dtt.sharedservice.bpm.client.hoso.HoSoServiceImplService(wsdlURL, SERVICE_NAME);
+     vn.dtt.sharedservice.bpm.client.hoso.IHoSoService port = ss.getHoSoServiceImplPort(); 
+     try {
+     java.lang.Object  idHoso=instance.get(&quot;id_hoso&quot;);
+     java.lang.String maHoSo = idHoso.toString();
+     java.lang.Long _userId = null;
+     java.lang.Long _IdHoso = Long.valueOf(maHoSo);
+     
+     java.lang.Object  obj_status =instance.get(&quot;fld_status&quot;);
+     java.lang.String str_status = obj_status.toString();
+     int _status = Integer.parseInt(str_status);
+      
+      port.capNhatTrangThaiHoSo(_userId, _IdHoso, _status);
+   
+ } catch (Exception e) {
+  new RuntimeException(e);
+ }
+ return &quot;OK&quot;;</script>
+      <language>1</language>
+    </org.uengine.kernel.ScriptActivity>
+    <org.uengine.kernel.HumanActivity>
+      <parentActivity class="org.uengine.kernel.ProcessDefinition" reference="../../.."/>
+      <name>
+        <text>Chờ trả kết quả</text>
+        <localedTexts/>
+      </name>
+      <description>
+        <localedTexts/>
+      </description>
+      <tracingTag>2</tracingTag>
+      <cost>0</cost>
+      <retryLimit>0</retryLimit>
+      <retryDelay>60</retryDelay>
+      <isHidden>false</isHidden>
+      <isDynamicChangeAllowed>true</isDynamicChangeAllowed>
+      <isQueuingEnabled>false</isQueuingEnabled>
+      <isFaultTolerant>false</isFaultTolerant>
+      <message>onHumanActivityResult2</message>
+      <parameters/>
+      <role reference="../../org.uengine.kernel.FormActivity/role"/>
+      <tool>defaultHandler</tool>
+      <isSendEmailWorkitem>true</isSendEmailWorkitem>
+      <isNotificationWorkitem>false</isNotificationWorkitem>
+      <isAllowAnonymous>true</isAllowAnonymous>
+      <duration>2400</duration>
+      <co2Emission>0</co2Emission>
+      <workload>0</workload>
+      <priority>0</priority>
+      <instruction/>
+      <keyword/>
+    </org.uengine.kernel.HumanActivity>
+  </childActivities>
+  <roles>
+    <org.uengine.kernel.Role reference="../../childActivities/org.uengine.kernel.HumanActivity/role"/>
+    <org.uengine.kernel.Role reference="../../childActivities/org.uengine.kernel.SwitchActivity/childActivities/org.uengine.kernel.SequenceActivity/childActivities/org.uengine.kernel.FormActivity/role"/>
+    <org.uengine.kernel.Role reference="../../childActivities/org.uengine.kernel.FormActivity[2]/role"/>
+    <org.uengine.kernel.Role reference="../../childActivities/org.uengine.kernel.FormActivity[3]/role"/>
+    <org.uengine.kernel.Role reference="../../childActivities/org.uengine.kernel.FormActivity/role"/>
+    <org.uengine.kernel.Role>
+      <name>Văn thư</name>
+      <roleResolutionContext class="com.defaultcompany.organization.DefaultCompanyRoleResolutionContext">
+        <roleId>VTHU</roleId>
+        <groupId>4401002</groupId>
+      </roleResolutionContext>
+      <dispatchingOption>0</dispatchingOption>
+      <serviceType/>
+      <isHumanWorker>false</isHumanWorker>
+      <askWhenInit>false</askWhenInit>
+      <displayName>
+        <text>Văn thư</text>
+        <localedTexts/>
+      </displayName>
+      <dontPersistResolutionResult>false</dontPersistResolutionResult>
+    </org.uengine.kernel.Role>
+  </roles>
+  <processVariableDescriptors>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.AssignActivity/variable"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.AssignActivity[2]/variable"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.FormActivity/variableForHtmlFormContext"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.SwitchActivity/childActivities/org.uengine.kernel.SequenceActivity/childActivities/org.uengine.kernel.SwitchActivity/childActivities/org.uengine.kernel.SequenceActivity/childActivities/org.uengine.kernel.FormActivity/variableForHtmlFormContext"/>
+    <org.uengine.kernel.ProcessVariable>
+      <name>frm_kigiayphep</name>
+      <displayName>
+        <localedTexts/>
+      </displayName>
+      <type>org.uengine.contexts.HtmlFormContext</type>
+      <askWhenInit>false</askWhenInit>
+      <defaultValue class="org.uengine.contexts.HtmlFormContext">
+        <formDefId>[frmkigiayphepSTNKS_016]@23504</formDefId>
+      </defaultValue>
+      <isVolatile>false</isVolatile>
+      <isDatabaseSynchronized>false</isDatabaseSynchronized>
+      <databaseSynchronizationOption/>
+    </org.uengine.kernel.ProcessVariable>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.SwitchActivity/childActivities/org.uengine.kernel.SequenceActivity/childActivities/org.uengine.kernel.FormActivity/variableForHtmlFormContext"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.SwitchActivity/childActivities/org.uengine.kernel.SequenceActivity/childActivities/org.uengine.kernel.SwitchActivity/childActivities/org.uengine.kernel.SequenceActivity/childActivities/org.uengine.kernel.FormActivity[3]/variableForHtmlFormContext"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.FormActivity[2]/variableForHtmlFormContext"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.FormActivity[3]/variableForHtmlFormContext"/>
+    <org.uengine.kernel.ProcessVariable>
+      <name>frm_trinhki</name>
+      <displayName>
+        <text>frm_trinhki</text>
+        <localedTexts/>
+      </displayName>
+      <type>org.uengine.contexts.HtmlFormContext</type>
+      <askWhenInit>false</askWhenInit>
+      <defaultValue class="org.uengine.contexts.HtmlFormContext">
+        <formDefId>[frmtrinhkiSTNKS_016]@23503</formDefId>
+      </defaultValue>
+      <isVolatile>false</isVolatile>
+      <isDatabaseSynchronized>false</isDatabaseSynchronized>
+      <databaseSynchronizationOption/>
+    </org.uengine.kernel.ProcessVariable>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.FormActivity[4]/variableForHtmlFormContext"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.HumanActivity/parameters/org.uengine.kernel.ParameterContext/variable"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.SwitchActivity/conditions/org.uengine.kernel.Or/conditionsVt/org.uengine.kernel.And/conditionsVt/org.uengine.kernel.Evaluate/pv"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.SwitchActivity/childActivities/org.uengine.kernel.SequenceActivity/childActivities/org.uengine.kernel.SwitchActivity/conditions/org.uengine.kernel.Or/conditionsVt/org.uengine.kernel.And/conditionsVt/org.uengine.kernel.Evaluate/pv"/>
+    <org.uengine.kernel.ProcessVariable>
+      <name>isApproved2</name>
+      <displayName>
+        <localedTexts/>
+      </displayName>
+      <type>java.lang.String</type>
+      <askWhenInit>false</askWhenInit>
+      <isVolatile>false</isVolatile>
+      <isDatabaseSynchronized>false</isDatabaseSynchronized>
+      <databaseSynchronizationOption/>
+    </org.uengine.kernel.ProcessVariable>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.HumanActivity/parameters/org.uengine.kernel.ParameterContext[2]/variable"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.HumanActivity/parameters/org.uengine.kernel.ParameterContext[4]/variable"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.HumanActivity/parameters/org.uengine.kernel.ParameterContext[3]/variable"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.HumanActivity/parameters/org.uengine.kernel.ParameterContext[5]/variable"/>
+    <org.uengine.kernel.ProcessVariable reference="../../childActivities/org.uengine.kernel.HumanActivity/parameters/org.uengine.kernel.ParameterContext[6]/variable"/>
+  </processVariableDescriptors>
+  <leaveEventListenersEvenIfOutOfScope>false</leaveEventListenersEvenIfOutOfScope>
+  <isCollapsed>false</isCollapsed>
+  <serviceDefinitions/>
+  <defaultFlowchartViewType>swimlane</defaultFlowchartViewType>
+  <defaultFlowchartViewOption>vertical</defaultFlowchartViewOption>
+  <isAbstract>false</isAbstract>
+  <duration>10</duration>
+  <simulationInstanceCount>10</simulationInstanceCount>
+  <simulationInputFrequency>10</simulationInputFrequency>
+  <simulationInputFrequencyDeviation>0</simulationInputFrequencyDeviation>
+  <simulationResources/>
+  <revisionInfoList>
+    <org.uengine.kernel.RevisionInfo>
+      <authorName>test@liferay.com</authorName>
+      <authorId>test@liferay.com</authorId>
+      <authorEmailAddress>test@liferay.com</authorEmailAddress>
+      <authorCompany>uEngine</authorCompany>
+      <changeTime>
+        <time>1541304300848</time>
+        <timezone>GMT+07:00</timezone>
+      </changeTime>
+      <version>3</version>
+    </org.uengine.kernel.RevisionInfo>
+  </revisionInfoList>
+  <archive>true</archive>
+  <uEngineVersion>0</uEngineVersion>
+  <id>29432</id>
+  <version>3</version>
+  <belongingDefinitionId>19565</belongingDefinitionId>
+  <isAdhoc>true</isAdhoc>
+  <initiateByFirstWorkitem>true</initiateByFirstWorkitem>
+  <instanceListFields/>
+  <workListFields/>
+  <isVolatile>false</isVolatile>
+  <modifiedDate>
+    <time>1541304468000</time>
+    <timezone>GMT+07:00</timezone>
+  </modifiedDate>
+  <activitySequence>45</activitySequence>
+  <alias>STNKS_016</alias>
+</org.uengine.kernel.ProcessDefinition>

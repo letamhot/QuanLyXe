@@ -1,0 +1,739 @@
+﻿
+@{
+    ViewBag.Title = "Đơn vị";
+    ViewBag.ReturnURL = Url.Action("Index", "HTDonVi");
+}
+
+<ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+    <li class="breadcrumb-item"><a href="#">Hệ thống</a></li>
+    <li class="breadcrumb-item active">Đơn vị</li>
+</ol>
+<!-- begin page-header -->
+<h1 class="page-header">@ViewBag.Title</h1>
+<!-- end page-header -->
+<hr />
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+                <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div id="tree_donvi"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách đơn vị
+            </div>
+            <div class="panel-body">
+                <input type="hidden" id="iddonvikt" name="iddonvikt" />
+                <table id="table_donvi" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th width="30%">Tên đơn vị</th>
+                            <th width="30%">Địa chỉ</th>
+                            <th width="20%">Điện thoại</th>
+                            <th width="20%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DonVi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Cập nhật đơn vị</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" id="frmDonVi">
+                <input type="hidden" id="iddonvi" name="iddonvi" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="TinhThanh" class="control-label">(*) Tỉnh thành:</label>
+                            <select id="TinhThanh" name="TinhThanh" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="LoaiDonVi" class="control-label">(*) Loại đơn vị:</label>
+                            <select id="LoaiDonVi" name="LoaiDonVi" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="TenDonVi" class="control-label">(*) Tên đơn vị:</label>
+                            <input type="text" id="TenDonVi" name="TenDonVi" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="DonViCha" class="control-label">(*) Đơn vị cấp trên:</label>
+                            <input type="text" id="DonViCha" name="DonViCha" class="form-control" />
+                            <input type="hidden" id="DonViChaId" name="DonViChaId" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="DiaChi" class="control-label">Địa chỉ:</label>
+                            <input type="text" id="DiaChi" name="DiaChi" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="DienThoai" class="control-label">Điện thoại:</label>
+                            <input type="text" id="DienThoai" name="DienThoai" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Fax" class="control-label">Fax:</label>
+                            <input type="text" id="Fax" name="Fax" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="MoTa" class="control-label">Mô tả:</label>
+                            <textarea rows="5" class="form-control" id="MoTa" name="MoTa"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlSearch" tabindex="2" role="dialog" aria-labelledby="myModalLabelSearch" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelSearch">Tìm kiếm đơn vị</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="searchCQQL">Tìm kiếm: </label>
+                            <input type="text" class="form-control" id="searchDonVi" name="searchDonVi" placeholder="Tìm kiếm..." />
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="using_json"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnTreeSelected" onclick="GetTreeSelected();"><i class="fa fa-hand-point-right"></i> Chọn</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlToChuc" tabindex="2" role="dialog" aria-labelledby="myModalLabelToChuc" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelToChuc">Cấu hình cấp tổ chức</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="iddonvi_tc" />
+                <table id="table_captochuc" class="table table-bordered" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap" width="20%">Loại tổ chức</th>
+                            <th class="text-nowrap" width="20%">Cấp tổ chức</th>
+                            <th class="text-nowrap" width="30%">Tên tổ chức</th>
+                            <th class="text-nowrap" width="20%">Ngày thành lập</th>
+                            <th class="text-nowrap" width="10%"><button id="AddMoreRow"><i class="fa fa-plus"></i></button></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlCapToChuc" tabindex="2" role="dialog" aria-labelledby="myModalLabelCapToChuc" data-backdrop="static" data-keyboard="false" aria-hidden="true" style="z-index: 1600;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelCapToChuc">Cập nhật cấp tổ chức</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body form-horizontal" id="frmConfigTc">
+                <div class="form-group row m-b-15">
+                    <label for="LoaiHTC" class="col-md-4 col-form-label">Loại hình tổ chức: </label>
+                    <div class="col-md-8">
+                        <input type="hidden" id="idtochuc" />
+                        <select id="LoaiHTC" name="LoaiHTC" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="form-group row m-b-15">
+                    <label for="CapTc" class="col-md-4 col-form-label">Cấp tổ chức: </label>
+                    <div class="col-md-8">
+                        <select id="CapTc" name="CapTc" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="form-group row m-b-15">
+                    <label for="NgayThanhLap" class="col-md-4 col-form-label">Ngày thành lập: </label>
+                    <div class="col-md-8">
+                        @*<div class="input-group date">
+                            <input type="text" class="form-control" id="NgayThanhLap" name="NgayThanhLap" />
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>*@
+                        <div class="input-group date" id="ThoiDiem" data-date-format="dd-mm-yyyy">
+                            <input type="text" id="NgayThanhLap" class="form-control" placeholder="Ngày thành lập ..." />
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnUpdateTc"><i class="fa fa-sync"></i> Cập nhật</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var session_donvi = @Session["QuyenKTDonVi"].ToString();
+        $("#iddonvikt").val(session_donvi);
+        activeMenu("liHeThong", "liHTDonVi");
+        validator();
+        loadMainTree();
+        loadData(session_donvi);
+        loadTinhThanh();
+        loadLoaiDonVi();
+    });
+
+    function convertDate(data) {
+        var getdate = parseInt(data.replace("/Date(", "").replace(")/", ""));
+        var ConvDate = new Date(getdate);
+        return ConvDate.getDate() + "/" + (ConvDate.getMonth() + 1) + "/" + ConvDate.getFullYear();
+    }
+
+    function loadData(iddonvikt) {
+        $("#table_donvi").DataTable({
+            "ajax": {
+                "url": "/HTDonVi/GetListDonVi",
+                "data": { iddonvikt: iddonvikt},
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "DonViId", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                { "data": "TenDonVi" },
+                { "data": "DiaChi" },
+                { "data": "DienThoai" },
+                {
+                    "data": "DonViId", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-hospital' href='#' data-toggle='tooltip' title='Cấu hình tổ chức' onclick='CHToChuc(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false
+        });
+    }
+
+    function loadDataTc(Id) {
+        $("#table_captochuc").DataTable({
+            "ajax": {
+                url: "/HTDonVi/GetListTcByDonVi",
+                data: { iddonvi: Id },
+                type: "GET",
+                datatype: "json",
+                contentType: "application/json;charset=UTF-8"
+            },
+            "columns": [
+                { "data": "LoaiToChuc" },
+                { "data": "CapToChuc" },
+                { "data": "TenToChuc" },
+                {
+                    "data": "NgayThanhLap", "render": function (data) {
+                        return convertDate(data)
+                    }
+                },
+                {
+                    "data": "Id", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetToChucById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteToChucById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: false,
+            searching: false,
+            bInfo: false
+        });
+    }
+
+    //Reset bootstrap validator
+    $('#DonVi').on('hide.bs.modal', function () {
+        $('#frmDonVi').bootstrapValidator('resetForm', true);
+    });
+    $('#mdlCapToChuc').on('hide.bs.modal', function () {
+        $('#frmConfigTc').bootstrapValidator('resetForm', true);
+    });
+    //Validate
+    function validator() {
+        $('#frmDonVi').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'fa fa-ok',
+                invalid: 'fa fa-remove',
+                validating: 'fa fa-refresh'
+            },
+            fields: {
+                TinhThanh: {
+                    message: 'Tỉnh thành không chính xác',
+                    validators: {
+                        notEmpty: {
+                            message: 'Hãy chọn tỉnh thành!'
+                        }
+                    }
+                },
+                LoaiDonVi: {
+                    message: 'Loại đơn vị không chính xác',
+                    validators: {
+                        notEmpty: {
+                            message: 'Hãy chọn loại đơn vị!'
+                        }
+                    }
+                },
+                TenDonVi: {
+                    message: 'Tên đơn vị không chính xác',
+                    validators: {
+                        notEmpty: {
+                            message: 'Hãy nhập tên đơn vị!'
+                        }
+                    }
+                }
+            }
+        });
+        var validatorObj = $('#frmDonVi').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+
+    //Xử lý validate form cấu hình tổ chức
+    function validator_tc() {
+        $('#frmConfigTc').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'fa fa-ok',
+                invalid: 'fa fa-remove',
+                validating: 'fa fa-refresh'
+            },
+            fields: {
+                LoaiHTC: {
+                    message: 'Tỉnh thành không chính xác',
+                    validators: {
+                        notEmpty: {
+                            message: 'Hãy chọn loại hình tổ chức!'
+                        }
+                    }
+                },
+                CapTc: {
+                    message: 'Loại đơn vị không chính xác',
+                    validators: {
+                        notEmpty: {
+                            message: 'Hãy chọn cấp tổ chức!'
+                        }
+                    }
+                },
+                NgayThanhLap: {
+                    message: 'Tên đơn vị không chính xác',
+                    validators: {
+                        notEmpty: {
+                            message: 'Hãy nhập ngày thành lập!'
+                        }
+                    }
+                }
+            }
+        });
+        var validatorObj = $('#frmConfigTc').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+
+    //Load select tỉnh thành
+    function loadTinhThanh() {
+        $.ajax({
+            type: 'GET',
+            url: '/TinhThanh/GetListTinhThanh/',
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html = '<option value = "" selected>--Chọn tỉnh thành--</option>';
+                $.each(result, function (key, item) {
+                    html += '<option value = ' + item.TinhThanhId + '>' + item.TenTinhThanh + '</option>';
+                });
+                $('#TinhThanh').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    //Load select loại đơn vị
+    function loadLoaiDonVi() {
+        $.ajax({
+            type: 'GET',
+            url: '/LoaiDonVi/GetListLoaiDonVi/',
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html = '<option value = "" selected>--Chọn loại đơn vị--</option>';
+                $.each(result, function (key, item) {
+                    html += '<option value = ' + item.LoaiDonViId + '>' + item.TenLoaiDonVi + '</option>';
+                });
+                $('#LoaiDonVi').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    //Load select loại hình tổ chức
+    function loadLoaiHTC(iddonvi, idtochuc) {
+        $.ajax({
+            type: 'GET',
+            url: '/DmLoaiHTC/GetLoaiHinhToChucByDonVi/',
+            data: { iddonvi: iddonvi, idtochuc: idtochuc },
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html = '<option value = "" selected>--Chọn loại hình tổ chức--</option>';
+                $.each(result, function (key, item) {
+                    html += '<option value = ' + item.LoaiHinhToChucId + '>' + item.TenLoaiHinhToChuc + '</option>';
+                });
+                $('#LoaiHTC').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    function loadMainTree() {
+        $('#tree_donvi').jstree({
+            "plugins": ["search"],
+            "checkbox": {
+                "three_state": true,
+                "keep_selected_style": false
+            },
+            'core': {
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/HTDonVi/LoadTreeDonVi",
+                    "dataType": "json"
+                }
+            }
+        }).on("select_node.jstree", function (e, data) {
+            $("#iddonvikt").val(data.node.id);
+            loadData(data.node.id);
+        });
+    }
+
+    //Load cây đơn vị
+    function loadTreeDonVi() {
+        $('#searchDonVi').val($("#DonViCha").val());
+        $("#mdlSearch").modal('show');
+        $('#using_json').jstree({
+            "plugins": ["search"],
+            "checkbox": {
+                "three_state": true,
+                "keep_selected_style": false
+            },
+            'core': {
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/HTDonVi/LoadTreeDonVi",
+                    "dataType": "json"
+                }
+            }
+        });
+        $('#using_json').jstree(true).search($('#searchDonVi').val());
+        var to = null;
+        $('#searchDonVi').keyup(function () {
+            if (to) { clearTimeout(to); }
+            to = setTimeout(function () {
+                var v = $('#searchDonVi').val();
+                $('#using_json').jstree(true).search(v);
+            }, 250);
+        });
+    }
+
+    //Xử lý khi chọn node trên cây đơn vị
+    function GetTreeSelected() {
+        var result;
+        try {
+            result = $('#using_json').jstree('get_selected');
+            $("#DonViCha").val($('#using_json').jstree('get_selected', true)[0].text);
+            $("#DonViChaId").val(result);
+            $("#mdlSearch").modal('hide');
+        }
+        catch (err) {
+            alert("Chưa chọn đơn vị");
+        }
+
+    }
+
+    function GetById(Id) {
+        $("#DonVi").modal('show');
+        $("#iddonvi").val(Id);
+        $.get('/HTDonVi/GetDonViById', { DonViId: Id }, function (data) {
+            $("#TinhThanh").val(data.TinhThanh);
+            $("#LoaiDonVi").val(data.LoaiDonVi);
+            $("#TenDonVi").val(data.TenDonVi);
+            $("#DiaChi").val(data.DiaChi);
+            $("#DienThoai").val(data.DienThoai);
+            $("#MoTa").val(data.MoTa);
+            $("#Fax").val(data.Fax);
+            $("#DonViChaId").val(data.DonViCha);
+            getTenDonViById(data.DonViCha);
+        }, 'json').fail(function (error) {
+            sweetalert("", "error", error.responseText);
+        })
+    }
+
+    $("#btnUpdate").click(function () {
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                DonViId: $("#iddonvi").val(),
+                TenDonVi: $("#TenDonVi").val(),
+                TinhThanh: $("#TinhThanh").val(),
+                LoaiDonVi: $("#LoaiDonVi").val(),
+                DonViCha: $("#DonViChaId").val(),
+                DiaChi: $("#DiaChi").val(),
+                DienThoai: $("#DienThoai").val(),
+                Fax: $("#Fax").val(),
+                MoTa: $("#MoTa").val()
+            }
+            $.ajax({
+                url: "/HTDonVi/UpdateDonVi",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới đơn vị thành công!")
+                        //location.reload()
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật đơn vị thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật đơn vị!")
+                    }
+                    $("#DonVi").modal('hide');
+                    loadData($("#iddonvikt").val());
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    })
+
+    $("#AddMoreRow").click(function () {
+        $("#idtochuc").val(0);
+        $("#LoaiHTC").val(0);
+        $("#mdlCapToChuc").modal('show');
+        $("#CapTc").val("");
+        loadLoaiHTC($("#iddonvi_tc").val(), $("#idtochuc").val());
+        $.get('/DmLoaiHTC/GetCapToChucByLoaiHTC', { idloaihtc: $("#LoaiHTC").val(), iddonvi: $("#iddonvi_tc").val(), idtochuc: $("#idtochuc").val() }, function (data) {
+            var html = '';
+            html = '<option value = "" selected>--Chọn cấp tổ chức--</option>';
+            $.each(data, function (key, item) {
+                html += '<option value = ' + item.CapToChucId + '>' + item.TenCapToChuc + '</option>';
+            });
+            $('#CapTc').html(html);
+        })
+        $("#ThoiDiem").datepicker({ todayHighlight: !0, autoclose: !0 }).datepicker("setDateTime", new Date());
+        $("#LoaiHTC").change(function () {
+            $.get('/DmLoaiHTC/GetCapToChucByLoaiHTC', { idloaihtc: $("#LoaiHTC").val(), iddonvi: $("#iddonvi_tc").val(), idtochuc: $("#idtochuc").val() }, function (data) {
+                var html = '';
+                html = '<option value = "" selected>--Chọn cấp tổ chức--</option>';
+                $.each(data, function (key, item) {
+                    html += '<option value = ' + item.CapToChucId + '>' + item.TenCapToChuc + '</option>';
+                });
+                $('#CapTc').html(html);
+            })
+        })
+    })
+
+    function GetToChucById(Id) {
+        $("#idtochuc").val(Id);
+        $("#mdlCapToChuc").modal('show');
+        loadLoaiHTC($("#iddonvi_tc").val(), $("#idtochuc").val());
+        $("#ThoiDiem").datepicker({ todayHighlight: !0, autoclose: !0 }).datepicker("setDateTime", new Date());
+        $.get('/HTDonVi/GetTcById', { idtochuc: Id }, function (data) {
+            $("#iddonvi_tc").val(data.DonViId);
+            $("#LoaiHTC").val(data.LoaiHinhToChucId);
+            $.get('/DmLoaiHTC/GetCapToChucByLoaiHTC', { idloaihtc: data.LoaiHinhToChucId, iddonvi: $("#iddonvi_tc").val(), idtochuc: $("#idtochuc").val() }, function (result) {
+                var html = '';
+                html = '<option value = "" selected>--Chọn cấp tổ chức--</option>';
+                $.each(result, function (key, item) {
+                    html += '<option value = ' + item.CapToChucId + '>' + item.TenCapToChuc + '</option>';
+                });
+                $('#CapTc').html(html);
+                $('#CapTc').val(data.CapToChucId);
+            })
+            $("#NgayThanhLap").val(convertDate(data.NgayThanhLap));
+            
+        }, 'json').fail(function (error) {
+            alert(error.responseText);
+            })
+    }
+
+    $("#btnUpdateTc").click(function () {
+        $('.datepicker').on('changeDate show', function (e) {
+            // Revalidate the date when user change it
+            $('#frmConfigTc').bootstrapValidator('revalidateField', 'endDate');
+        });
+        console.log(obj);
+        var isValid = validator_tc();
+        if (isValid) {
+            var obj = {
+                Id: $("#idtochuc").val(),
+                DonViId: $("#iddonvi_tc").val(),
+                LoaiHinhToChucId: $("#LoaiHTC").val(),
+                CapToChucId: $('#CapTc').val(),
+                NgayThanhLap: $("#NgayThanhLap").val()
+            }
+            $.ajax({
+                url: "/DmLoaiHTC/UpdateCapToChucDonVi",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới tổ chức thành công!")
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật tổ chức thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật tổ chức!")
+                    }
+                    $("#mdlCapToChuc").modal('hide');
+                    loadDataTc($("#iddonvi_tc").val());
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            })
+        }
+    })
+
+    function DeleteToChucById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/HTDonVi/DeleteToChucById', { idtochuc: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa tổ chức thành công!")
+                }
+                else {
+                    sweetalert("Cảnh báo", "error", "Có lỗi khi xóa tổ chức!")
+                }
+                $("#mdlCapToChuc").modal('hide');
+                loadDataTc(Id);
+            }).fail(function (error) {
+                alert(error.responseText)
+            })
+        }
+        
+    }
+
+    //Mở modal cấu hình tổ chức
+    function CHToChuc(Id) {
+        $("#iddonvi_tc").val(Id);
+        loadDataTc(Id);
+        $("#mdlToChuc").modal('show');
+    }
+
+    $("#DonViCha").click(function () {
+        loadTreeDonVi();
+    })
+
+    $("#btnThemMoi").click(function () {
+        $("#iddonvi").val(0);
+        $("#DonVi").modal('show');
+        $("#DiaChi").val("");
+        $("#DonViCha").val("");
+        $("#DonViChaId").val("");
+        $("#DienThoai").val("");
+        $("#Fax").val("");
+        $("#MoTa").val("");
+    })
+
+    function getTenDonViById(Id) {
+        $.get('/HTDonVi/GetNameDonViById', { DonViId: Id }, function (data) {
+            $("#DonViCha").val(data);
+        }).fail(function (error) {
+            alert(error.responseText);
+        })
+    }
+    
+</script>

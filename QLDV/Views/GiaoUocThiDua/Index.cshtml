@@ -1,0 +1,131 @@
+﻿@{
+    ViewBag.Title = "Giao ước thi đua";
+}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/css/jasny-bootstrap.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/js/jasny-bootstrap.min.js"></script>
+<style>
+    .indianred {
+        color: darkred;
+    }
+
+    .modal-custom {
+        max-width: 80%;
+    }
+</style>
+<ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+    <li class="breadcrumb-item"><a href="#">Nghiệp vụ</a></li>
+    <li class="breadcrumb-item active">Giao ước thi đua</li>
+</ol>
+<!-- begin page-header -->
+<h1 class="page-header">@ViewBag.Title</h1>
+<!-- end page-header -->
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="form-inline">
+                    <label class="control-label" style="color: white;">Giao ước thi đua</label>&nbsp
+                    <label class="control-label" style="color: white;">Năm:</label>&nbsp;
+                    <select id="namtrienkhai" name="namtrienkhai" class="form-control"></select>&nbsp;
+                    @*<label class="control-label" style="color: white;">Tổ chức triển khai:</label>&nbsp;
+                    <select id="tochuctrienkhai" name="tochuctrienkhai" class="form-control"></select>*@
+                </div>
+            </div>
+            <div class="panel-body">
+                <table id="table_giaouocthidua" class="table table-bordered" style="width: 100%;">
+                    <thead class="bg-warning">
+                        <tr>
+                            <th width="6%"></th>
+                            <th width="2%"><input type="checkbox" id="checkall" /></th>
+                            <th width="2%">STT</th>
+                            <th width="60%">Nội dung thực hiện</th>
+                            <th width="10%">Điểm chuẩn</th>
+                            <th width="8%">Điểm ĐK</th>
+                            <th width="12%">Triển khai</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodygiaouoc"></tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-primary" id="btnThemTieuChi" type="button"><i class="fa fa-plus"></i> Thêm tiêu chí</button>
+                <button class="btn btn-primary" id="btnLuuGiaoUoc" type="button"><i class="fa fa-save"></i> Lưu giao ước</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="mdlThemTieuChi" tabindex="2" role="dialog" aria-labelledby="myModalLabelThemTieuChi" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelSearchToChuc">Thêm tiêu chí</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body form-horizontal">
+                <div class="form-group row m-b-15">
+                    <label class="col-md-3 col-form-label" for="NoiDung">Nội dung tiêu chí: </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="NoiDung" name="NoiDung" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnLuuTieuChi"><i class="fa fa-save"></i> Lưu</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script>
+    var objTieuChi = [];
+    $(document).ready(function () {
+        activeMenu("liNghiepVu", "liGiaoUoc");
+        session_nguoidungid = @Session["NguoiDungId"].ToString();
+        session_tochuc = @Session["QuyenKTToChuc"].ToString();
+        var session_KTdonvi = @Session["QuyenKTDonVi"].ToString();
+        var session_donviid = @Session["DonViId"].ToString();
+        loadGiaoUoc();
+    });
+
+    function loadGiaoUoc() {
+        $.get('/GiaoUocThiDua/GetGiaoUoc', function (data) {
+            $("#bodygiaouoc").html("");
+            var html = "";
+            var i = 0;
+            objTieuChi = data;
+            $.each(data.TieuChiGiaoUocs, function (key, item) {
+                i++;
+                html += "<tr><td class='align-middle'><a style='color: #2196f3;' class='fa fa-plus fa-lg' onclick='ThemNoiDung(" + item.Id + ")'></a> <a style='color: red;' onclick='XoaTieuChi(" + item.Id + ")' class='fa fa-trash'></a></td><td class='align-middle'><input type='checkbox' class='checkitem' value='" + item.Id + "' /></td><td class='align-middle'>" + i + "</td><td colspan='4' class='align-middle'><input type='text' class='form-control txtTieuChi' value='" + item.NoiDung + "' /></td></tr>"
+                $.each(item.NoiDungTieuChis, function (key, it) {
+                    html += "<tr><td class='align-middle'>&nbsp;&nbsp;&nbsp;&nbsp;</a> <a style='color: red;' onclick='XoaNoiDung(" + it.Id + ")' class='fa fa-trash'></a></td><td class='align-middle'><input type='checkbox' class='checkitemnd' value='" + it.Id + "' /></td><td></td><td class='align-middle'><input type='text' class='form-control txtNoiDung' value='" + it.NoiDung + "' /></td><td class='align-middle'><input type='text' class='form-control txtDc' value='" + it.DiemChuan + "' /></td><td class='align-middle'><input type='text' class='form-control txtDk' value='" + it.DiemDK + "' /></td><td class='align-middle'><a href='#' onclick='TrienKhai(" + it.Id + ")'><i class='fa fa-university fa-lg'></i> Tổ chức (" + it.SLTK + ")</a></td></tr>";
+                });
+            });
+            console.log(objTieuChi);
+            $("#bodygiaouoc").html(html);
+        }).fail(function (error) {
+            alert(error.responseText);
+        })
+    }
+
+    $("#btnThemTieuChi").click(function () {
+        console.log(objTieuChi.TieuChiGiaoUocs);
+        $("#mdlThemTieuChi").modal('show');
+    })
+
+    $("#btnLuuGiaoUoc").click(function () {
+        var noidung = $('.txtNoiDung').map(function () {
+            return $(this).val()
+        }).get().join(',')
+        console.log(noidung);
+    })
+
+    function ThemNoiDung(Id) {
+        
+    }
+</script>

@@ -1,0 +1,363 @@
+﻿
+@{
+    ViewBag.Title = "Lái xe";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+        <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách lái xe
+            </div>
+            <div class="panel-body">
+                <table id="table_laixe" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap" width="25%">Mã lái xe</th>
+                            <th class="text-nowrap" width="15%">Tên lái xe</th>
+                            <th class="text-nowrap" width="25%">Địa chỉ</th>
+                            <th class="text-nowrap" width="20%">Số điện thoại</th>
+                            <th class="text-nowrap" width="15%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="LaiXe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật lái xe</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="frmLaiXe">
+                    <input type="hidden" id="idlaixe" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="MaLaiXe" class="control-label">Mã lái xe: </label>
+                                <input class="form-control" id="MaLaiXe" name="MaLaiXe" type="text" onkeyup="ExistLaiXeMaLaiXe()" />
+                                <label id="txtMaLX" name="txtMaLX" style="color:red; font-size:10px;"></label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="TenLaiXe" class="control-label">Tên lái xe: </label>
+                                <input class="form-control" id="TenLaiXe" name="TenLaiXe" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="DiaChi" class="control-label">Địa chỉ: </label>
+                                <input class="form-control" id="DiaChi" name="DiaChi" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="SoDienThoai" class="control-label">Số điện thoại: </label>
+                                <input class="form-control" id="SoDienThoai" name="SoDienThoai" type="text" onkeyup="ExistLaiXePhone()" />
+                                <label id="txtPhone" name="txtPhone" style="color:red; font-size:10px;"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        activeMenu("liDanhMuc", "liDmLaiXe");
+        loadData();
+    });
+    function loadData() {
+        $("#table_laixe").DataTable({
+            "ajax": {
+                "url": "/LaiXe/GetListLaiXe",
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "id", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                { "data": "maLaiXe" },
+                { "data": "tenLaiXe" },
+                { "data": "diaChi" },
+                { "data": "soDienThoai" },
+                
+                {
+                    "data": "id", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false,
+            deferRender: true
+        });
+        //Xử lý nút check all
+        $("#checkall").change(function () {
+            $(".checkitem").prop("checked", $(this).prop("checked"))
+        })
+
+        $("#btnThemMoi").click(function () {
+            $("#LaiXe").modal('show');
+            $("#idlaixe").val(0);
+            $("#myModalLabel").text("Thêm mới lái xe");
+            $("#MaLaiXe").text("");
+            $("#TenLaiXe").text("");
+            $("#DiaChi").text("");
+            $("#SoDienThoai").text("");
+        })
+        //Reset bootstrap validator
+        $('#LaiXe').on('hide.bs.modal', function () {
+            $('#frmLaiXe').bootstrapValidator('resetForm', true);
+        });
+        //Validate
+        
+    }
+    function validator() {
+        $('#frmLaiXe').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                MaLaiXe: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập mã lái xe!'
+                        }
+                    }
+                },
+                TenLaiXe: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập tên lái xe!'
+                        }
+                    }
+                },
+                DiaChi: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập địa chỉ!'
+                        }
+                    }
+                },
+                SoDienThoai: {
+                    validators: {
+                        numeric: {
+                            message: 'Vui lòng chỉ sử dụng số.',
+                        },
+                        stringLength: {
+                            min: 9,
+                            message: 'Vui lòng nhập 9 chữ số trở lên.'
+                        },
+                        notEmpty: {
+                            message: 'Xin vui lòng nhập một số điện thoại hợp lệ.'
+                        }
+                    }
+                },
+            }
+
+        });
+        var validatorObj = $('#frmLaiXe').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+    function ExistLaiXePhone() {
+        var to = null;
+        if (to) { clearTimeout(to); }
+        to = setTimeout(function () {
+            $.get("/LaiXe/ExistLaiXePhone/", { SoDienThoai: $("#SoDienThoai").val() }, function (data) {
+                console.log(data);
+                if ($("#idlaixe").val() == 0) {
+                    if (data == "True") {
+                        $("#txtPhone").text("");
+                        document.getElementById("btnUpdate").disabled = false;
+                    }
+                    else {
+                        if ($("#SoDienThoai").val() == "") {
+                            $("#txtPhone").text("");
+                            document.getElementById("btnUpdate").disabled = false;
+                        }
+                        else {
+
+                            $("#txtPhone").text("Số điện thoại đã trùng");
+
+                            document.getElementById("btnUpdate").disabled = true;
+                        }
+
+
+                    }
+                }
+                else {
+                    $("#txtPhone").text("");
+                    document.getElementById("btnUpdate").disabled = false;
+                }
+            })
+        }, 500);
+
+    }
+    function ExistLaiXeMaLaiXe() {
+        var to = null;
+        if (to) { clearTimeout(to); }
+        to = setTimeout(function () {
+            $.get("/LaiXe/ExistLaiXeMaLaiXe/", { MaLaiXe: $("#MaLaiXe").val() }, function (data) {
+                console.log(data);
+                if ($("#idlaixe").val() == 0) {
+                    if (data == "True") {
+                        $("#txtMaLX").text("");
+                        document.getElementById("btnUpdate").disabled = false;
+                    }
+                    else {
+                        if ($("#MaLaiXe").val() == "") {
+                            $("#txtMaLX").text("");
+                            document.getElementById("btnUpdate").disabled = false;
+                        }
+                        else {
+
+                            $("#txtMaLX").text("Mã lái xe đã trùng trong hệ thống");
+
+                            document.getElementById("btnUpdate").disabled = true;
+                        }
+
+
+                    }
+                }
+                else {
+                    $("#txtMaLX").text("");
+                    document.getElementById("btnUpdate").disabled = false;
+                }
+                
+            })
+        }, 500);
+
+    }
+    $("#btnUpdate").click(function () {
+        var isValid = validator();
+
+        if (isValid) {
+            var obj = {
+                id: $("#idlaixe").val(),
+                MaLaiXe: $("#MaLaiXe").val(),
+                TenLaiXe: $("#TenLaiXe").val(),
+                DiaChi: $("#DiaChi").val(),
+                SoDienThoai: $("#SoDienThoai").val()
+            }
+            $.ajax({
+                url: "/LaiXe/UpdateLaiXe",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới biến động thành công!")
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật biến động thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật biến động!")
+                    }
+                    loadData();
+                    $("#LaiXe").modal('hide');
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    });
+    function GetById(Id) {
+        $("#LaiXe").modal('show');
+        $("#idlaixe").val(Id);
+        $.get('/LaiXe/GetLaiXeById', { id: Id }, function (data) {
+            $("#MaLaiXe").val(data.maLaiXe);
+            $("#TenLaiXe").val(data.tenLaiXe);
+            $("#DiaChi").val(data.diaChi);
+            $("#SoDienThoai").val(data.soDienThoai); 
+        }, 'json').fail(function (error) {
+            sweetalert("", "error", error.responseText);
+        })
+    }
+    function DeleteById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/LaiXe/DeleteByID/', { idlaixe: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa bản ghi thành công!");
+                    loadData();
+                }
+            }).fail(function (error) {
+                sweetalert("Lỗi", "error", error.responseText);
+            })
+
+        }
+    }
+
+    //Xóa khi check nhiều dòng
+    $("#btnDeleteSelected").click(function () {
+        var id = $('.checkitem:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        if (id == "") {
+            sweetalert("Thông báo", "warning", "Bạn chưa chọn đối tượng để xóa");
+        }
+        else {
+            var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
+            if (ans) {
+                $.post('/LaiXe/DeleteByArrayId/', { idlaixe: id }, function (data) {
+                    if (data == "True") {
+                        sweetalert("", "success", "Xóa biến động thành công!")
+                    }
+                    else {
+                        sweetalert("", "warning", "Có lỗi khi xóa!")
+                    }
+                    loadData();
+                }).fail(function (error) {
+                    sweetalert("Lỗi", "error", error.responseText);
+                });
+            }
+        }
+    });
+</script>

@@ -1,0 +1,277 @@
+﻿
+@{
+    ViewBag.Title = "Xe Vận Tải";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+        <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách xe vận tải
+            </div>
+            <div class="panel-body">
+                <table id="table_xevantai" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap" width="30%">Mã số xe</th>
+                            <th class="text-nowrap" width="40%">Mã lái xe</th>
+                            <th class="text-nowrap" width="30%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="XeVanTai" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật thông tin xe vận tải</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="frmXeVanTai">
+                    <input type="hidden" id="idXeVanTai" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="MaSoXe" class="control-label">Mã Số Xe: </label>
+                                <input class="form-control" id="MaSoXe" name="MaSoXe" type="text" />
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="MaLaiXe" class="control-label">Mã lái xe: </label>
+
+                                <select id="cbbMaLaiXe" name="cbbMaLaiXe" class="form-control">
+                                </select>
+                               
+                            </div>
+                        </div>
+                    </div>
+                   
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        activeMenu("liDanhMuc", "liXeVanTai");
+        loadData();
+        GetDmLaiXe();
+
+
+    });
+    function loadData() {
+        $("#table_xevantai").DataTable({
+            "ajax": {
+                "url": "/XeVanTai/GetListXeVantai",
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "id", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                { "data": "maSoXe" },
+                { "data": "maLaiXe" },
+                
+                {
+                    "data": "id", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false,
+            deferRender: true
+        });
+        //Xử lý nút check all
+        $("#checkall").change(function () {
+            $(".checkitem").prop("checked", $(this).prop("checked"))
+        })
+
+        $("#btnThemMoi").click(function () {
+            $("#XeVanTai").modal('show');
+            $("#idXeVanTai").val(0);
+            $("#myModalLabel").text("Thêm mới thông tin xe vận tải");
+            $("#MaSoXe").val("");
+            $("#cbbMaLaiXe").val("");
+
+        })
+        //Reset bootstrap validator
+        $('#XeVanTai').on('hide.bs.modal', function () {
+            $('#frmXeVanTai').bootstrapValidator('resetForm', true);
+        });
+        //Validate
+
+    }
+    function GetDmLaiXe() {
+        $.get('/XeVanTai/GetDmLaiXe', function (data) {
+            var html = '';
+            html = '<option value="">--Chọn mã lái xe--</option>'
+
+            $.each(data, function (key, item) {
+                //console.log("ds", data);
+
+                html += '<option value = ' + item.id + '>' + item.maLaiXe + '</option>';
+
+
+
+            });
+            $('#cbbMaLaiXe').html(html);
+        })
+    }
+    function validator() {
+        $('#frmXeVanTai').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                MaSoXe: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập mã số xe!'
+                        }
+                    }
+                },
+                cbbMaLaiXe: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Chọn mã lái xe!'
+                        }
+                    }
+                },
+
+            }
+
+        });
+        var validatorObj = $('#frmXeVanTai').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+    $("#btnUpdate").click(function () {
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                id: $("#idXeVanTai").val(),
+                MaSoXe: $("#MaSoXe").val(),
+                MaLaiXe: $("#cbbMaLaiXe").val(),
+                
+            }
+            $.ajax({
+                url: "/XeVanTai/UpdateXeVanTai",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới biến động thành công!")
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật biến động thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật biến động!")
+                    }
+                    loadData();
+                    $("#XeVanTai").modal('hide');
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    });
+    function GetById(Id) {
+        $("#XeVanTai").modal('show');
+        $("#idXeVanTai").val(Id);
+        $("#myModalLabel").text("Chỉnh sửa thông tin xe vận tải");
+
+        $.get('/XeVanTai/GetXeVanTaiById', { id: Id }, function (data) {
+            console.log(data);
+            $("#MaSoXe").val(data.maSoXe);
+            $("#cbbMaLaiXe").val(data.idLaiXe);
+        }, 'json').fail(function (error) {
+            sweetalert("", "error", error.responseText);
+        })
+    }
+    function DeleteById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/XeVanTai/DeleteByID/', { idXeVanTai: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa bản ghi thành công!");
+                    loadData();
+                }
+            }).fail(function (error) {
+                sweetalert("Lỗi", "error", error.responseText);
+            })
+
+        }
+    }
+
+    //Xóa khi check nhiều dòng
+    $("#btnDeleteSelected").click(function () {
+        var id = $('.checkitem:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        if (id == "") {
+            sweetalert("Thông báo", "warning", "Bạn chưa chọn đối tượng để xóa");
+        }
+        else {
+            var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
+            if (ans) {
+                $.post('/XeVanTai/DeleteByArrayId/', { idXeVanTai: id }, function (data) {
+                    if (data == "True") {
+                        sweetalert("", "success", "Xóa biến động thành công!")
+                    }
+                    else {
+                        sweetalert("", "warning", "Có lỗi khi xóa!")
+                    }
+                    loadData();
+                }).fail(function (error) {
+                    sweetalert("Lỗi", "error", error.responseText);
+                });
+            }
+        }
+    });
+</script>

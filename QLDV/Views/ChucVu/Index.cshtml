@@ -1,0 +1,313 @@
+﻿
+@{
+    ViewBag.Title = "Chức vụ";
+}
+
+<ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+    <li class="breadcrumb-item"><a href="#">Danh mục</a></li>
+    <li class="breadcrumb-item active">Chức vụ</li>
+</ol>
+<!-- begin page-header -->
+<h1 class="page-header">@ViewBag.Title</h1>
+<!-- end page-header -->
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+        <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách chức vụ
+            </div>
+            <div class="panel-body">
+                <table id="table_chucvu" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap" width="25%">Tên chức vụ</th>
+                            <th class="text-nowrap" width="15%">Cấp chức vụ</th>
+                            <th class="text-nowrap" width="15%">Lãnh đạo</th>
+                            <th class="text-nowrap" width="15%">Gửi email</th>
+                            <th class="text-nowrap" width="15%">Gửi sms</th>
+                            <th class="text-nowrap" width="15%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ChucVu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật chức vụ</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="frmChucVu">
+                    <input type="hidden" id="idchucvu" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="TenChucVu" class="control-label">Tên chức vụ: </label>
+                                <input class="form-control" id="TenChucVu" name="TenChucVu" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="CapChucVu" class="control-label">Cấp chức vụ: </label>
+                                <input class="form-control" id="CapChucVu" name="CapChucVu" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-css">
+                                <input type="checkbox" id="LanhDao" value="" />
+                                <label for="LanhDao">Lãnh đạo</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-css">
+                                <input type="checkbox" id="GuiEmail" value="" />
+                                <label for="GuiEmail">Gửi email</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-css">
+                                <input type="checkbox" id="GuiSMS" value="" />
+                                <label for="GuiSMS">Gửi SMS</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        activeMenu("liDanhMuc", "liChucVu");
+        //validator();
+        loadData();
+    });
+
+    function loadData() {
+        $("#table_chucvu").DataTable({
+            "ajax": {
+                "url": "/ChucVu/GetListChucVu",
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "ChucVuId", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                { "data": "TenChucVu" },
+                { "data": "CapChucVu" },
+                {
+                    "data": "LanhDao", "render": function (data) {
+                        if (data) {
+                            return "<i style='color: blue;' class='fa fa-lg fa-check-circle'></i>"
+                        }
+                        else {
+                            return "<i style='color: red;' class='fa fa-lg fa-times'></i>"
+                        }
+                    }
+                },
+                {
+                    "data": "GuiEmail", "render": function (data) {
+                        if (data) {
+                            return "<i style='color: blue;' class='fa fa-lg fa-check-circle'></i>"
+                        }
+                        else {
+                            return "<i style='color: red;' class='fa fa-lg fa-times'></i>"
+                        }
+                    }
+                },
+                {
+                    "data": "GuiSMS", "render": function (data) {
+                        if (data) {
+                            return "<i style='color: blue;' class='fa fa-lg fa-check-circle'></i>"
+                        }
+                        else {
+                            return "<i style='color: red;' class='fa fa-lg fa-times'></i>"
+                        }
+                    }
+                },
+                {
+                    "data": "ChucVuId", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false,
+            deferRender: true
+        });
+    }
+
+    //Xử lý nút check all
+    $("#checkall").change(function () {
+        $(".checkitem").prop("checked", $(this).prop("checked"))
+    })
+
+    $("#btnThemMoi").click(function () {
+        $("#ChucVu").modal('show');
+        $("#idchucvu").val(0);
+        $("#myModalLabel").text("Thêm mới chức vụ");
+    })
+
+    function GetById(Id) {
+        $("#ChucVu").modal('show');
+        $("#idchucvu").val(Id);
+        $.get('/ChucVu/GetChucVuById', { ChucVuId: Id }, function (data) {
+            $("#TenChucVu").val(data.TenChucVu);
+            $("#CapChucVu").val(data.CapChucVu);
+            if (data.LanhDao == 1)
+                $("#LanhDao").prop("checked", true);
+            else
+                $("#LanhDao").prop("checked", false);
+            if (data.GuiEmail == 1)
+                $("#GuiEmail").prop("checked", true);
+            else
+                $("#GuiEmail").prop("checked", false);
+            if (data.GuiSMS == 1)
+                $("#GuiSMS").prop("checked", true);
+            else
+                $("#GuiSMS").prop("checked", false);
+        }, 'json').fail(function (error) {
+            sweetalert("", "error", error.responseText);
+        })
+    }
+
+    //Reset bootstrap validator
+    $('#ChucVu').on('hide.bs.modal', function () {
+        $('#frmChucVu').bootstrapValidator('resetForm', true);
+    });
+    //Validate
+    function validator() {
+        $('#frmChucVu').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                TenChucVu: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập tên chức vụ!'
+                        }
+                    }
+                }
+            }
+        });
+        var validatorObj = $('#frmChucVu').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+
+    $("#btnUpdate").click(function () {
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                ChucVuId: $("#idchucvu").val(),
+                TenChucVu: $("#TenChucVu").val(),
+                CapChucVu: $("#CapChucVu").val(),
+                LanhDao: $('#LanhDao').is(':checked'),
+                GuiEmail: $('#GuiEmail').is(':checked'),
+                GuiSMS: $('#GuiSMS').is(':checked')
+            }
+            $.ajax({
+                url: "/ChucVu/UpdateChucVu",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới biến động thành công!")
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật biến động thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật biến động!")
+                    }
+                    loadData();
+                    $("#ChucVu").modal('hide');
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    });
+
+    function DeleteById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/ChucVu/DeleteByID/', { idchucvu: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa bản ghi thành công!");
+                    loadData();
+                }
+            }).fail(function (error) {
+                sweetalert("Lỗi", "error", error.responseText);
+            })
+
+        }
+    }
+
+    //Xóa khi check nhiều dòng
+    $("#btnDeleteSelected").click(function () {
+        var id = $('.checkitem:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        if (id == "") {
+            sweetalert("Thông báo", "warning", "Bạn chưa chọn đối tượng để xóa");
+        }
+        else {
+            var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
+            if (ans) {
+                $.post('/ChucVu/DeleteByArrayId/', { idchucvu: id }, function (data) {
+                    if (data == "True") {
+                        sweetalert("", "success", "Xóa biến động thành công!")
+                    }
+                    else {
+                        sweetalert("", "warning", "Có lỗi khi xóa!")
+                    }
+                    loadData();
+                }).fail(function (error) {
+                    sweetalert("Lỗi", "error", error.responseText);
+                });
+            }
+        }
+    });
+</script>

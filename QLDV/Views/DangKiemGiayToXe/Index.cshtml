@@ -1,0 +1,373 @@
+﻿
+@{
+    ViewBag.Title = "Đăng kiểm giấy tờ xe";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+        <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách Đăng kiểm giấy tờ xe
+            </div>
+            <div class="panel-body">
+                <table id="table_DangKiem" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap" width="15%">Mã số xe</th>
+                            <th class="text-nowrap" width="15%">Kiểm định số</th>
+                            <th class="text-nowrap" width="20%">Ngày kiểm định</th>
+                            <th class="text-nowrap" width="20%">Loại kiểm định</th>
+                            <th class="text-nowrap" width="20%">Nội dung</th>
+                            <th class="text-nowrap" width="20%">Ngày hết hạn</th>
+                            <th class="text-nowrap" width="10%">Ghi chú</th>
+                            <th class="text-nowrap" width="10%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="DangKiemXe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật thông tin đăng kiểm</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="frmDangKiemXe">
+                    <input type="hidden" id="idDangKiemXe" />
+                    <input type="hidden" id="idXeVanTai" value="" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="XeVanTai" class="control-label">Mã số xe: </label>
+                                <select id="cbbXeVanTai" name="cbbXeVanTai" class="form-control">
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="KiemDinhSo" class="control-label">Kiểm định số: </label>
+                                <input class="form-control" id="KiemDinhSo" name="KiemDinhSo" type="text" />
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtNgayKD">Ngày kiểm định: </label>
+                                <div id="ngayKiemDinh" class="input-group date" data-date-format="dd/mm/yyyy">
+                                    <input id="NgayKiemDinh" placeholder="dd/mm/yyyy..." class="form-control" type="text">
+                                    <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="LoaiKiemDinh" class="control-label">Loại kiểm định: </label>
+                                <input class="form-control" id="LoaiKiemDinh" name="LoaiKiemDinh" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="NoiDung" class="control-label">Nội dung: </label>
+                                <input class="form-control" id="NoiDung" name="NoiDung" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtNgayHH">Ngày hết hạn: </label>
+                                <div id="ngayHetHan" class="input-group date" data-date-format="dd/mm/yyyy">
+                                    <input id="NgayHetHan" placeholder="dd/mm/yyyy..." class="form-control" type="text">
+                                    <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="GhiChu" class="control-label">Ghi chú: </label>
+                                <input class="form-control" id="GhiChu" name="GhiChu" type="text" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        activeMenu("liDanhMuc", "liDangKiem");
+
+        loadData();
+        GetXeVanTai();
+        $("#ngayKiemDinh").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date());
+        $("#ngayHetHan").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date());
+
+    });
+    function loadData() {
+        $("#table_DangKiem").DataTable({
+            "ajax": {
+                "url": "/DangKiemGiayToXe/GetDangKiem",
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "id", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                { "data": "maSoXe" },
+                { "data": "kiemDinhSo" },
+                {
+                    "data": "ngayKiemDinh", "render": function (data) {
+                        //console.log(data);
+                        if (data != null || data != "") {
+                            return data.split(' ')[0];
+                        }
+                    }
+                },
+                { "data": "loaiKiemDinh" },
+                { "data": "noiDung" },
+                {
+                    "data": "ngayHetHan", "render": function (data) {
+                        //console.log(data);
+                        if (data != null || data != "") {
+                            return data.split(' ')[0];
+                        }
+                    }
+                },
+                { "data": "ghiChu" },
+                
+                {
+                    "data": "id", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false,
+            deferRender: true
+        });
+        //Xử lý nút check all
+        $("#checkall").change(function () {
+            $(".checkitem").prop("checked", $(this).prop("checked"))
+        })
+
+        $("#btnThemMoi").click(function () {
+            $("#DangKiemXe").modal('show');
+            $("#idDangKiem").val(0);
+            $("#myModalLabel").text("Thêm mới thông tin đăng kiểm");
+            $("#KiemDinhSo").val("");
+            $("#cbbXeVanTai").val("");
+            $("#NgayKiemDinh").val("");
+            $("#NgayHetHan").val("");
+            $("#NoiDung").val("");
+            $("#LoaiKiemDinh").val("");
+            $("#GhiChu").val("");
+           
+
+        })
+        //Reset bootstrap validator
+        $('#DangKiemXe').on('hide.bs.modal', function () {
+            $('#frmDangKiemXe').bootstrapValidator('resetForm', true);
+        });
+        //Validate
+
+    }
+    function validator() {
+        $('#frmDangKiemXe').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                cbbXeVanTai: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Chọn mã số xe!'
+                        }
+                    }
+                },
+                KiemDinhSo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập số kiểm định!'
+                        }
+                    }
+                }
+                
+                
+
+            }
+
+        });
+        var validatorObj = $('#frmDangKiemXe').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+    function GetXeVanTai() {
+        $.get('/DangKiemGiayToXe/GetXeVanTai', function (data) {
+            var html = '';
+            html = '<option value="">--Chọn số xe--</option>'
+
+            $.each(data, function (key, item) {
+                //console.log("ds", data);
+                $("#idXeVanTai").val(item.id);
+                html += '<option value = ' + item.id + '>' + item.maSoXe + '</option>';
+
+
+
+            });
+            $('#cbbXeVanTai').html(html);
+        })
+    }
+    $("#btnUpdate").click(function () {
+       
+
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                id: $("#idDangKiemXe").val(),
+                idXeVanTai: $("#idXeVanTai").val(),
+                XeVanTai: $("#cbbXeVanTai").val(),
+                KiemDinhSo: $("#KiemDinhSo").val(),
+                NgayKiemDinh: $("#NgayKiemDinh").val(),
+                LoaiKiemDinh: $("#LoaiKiemDinh").val(),
+                NoiDung: $("#NoiDung").val(),
+                NgayHetHan: $("#NgayHetHan").val(),
+                GhiChu: $("#GhiChu").val(),
+            }
+            $.ajax({
+                url: "/DangKiemGiayToXe/UpdateDangKiemXe",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới biến động thành công!")
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật biến động thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật biến động!")
+                    }
+                    loadData();
+                    $("#DangKiemXe").modal('hide');
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    });
+    function GetById(Id) {
+        $("#DangKiemXe").modal('show');
+        $("#idDangKiemXe").val(Id);
+        $("#myModalLabel").text("Chỉnh sửa thông tin đăng kiểm xe");
+
+        $.get('/DangKiemGiayToXe/GetDangKiemById', { id: Id }, function (data) {
+            console.log(data);
+            $("#cbbXeVanTai").val(data.idXeVanTai);
+            $("#KiemDinhSo").val(data.kiemDinhSo);
+            $("#NgayKiemDinh").val(data.ngayKiemDinh);
+            $("#NgayHetHan").val(data.ngayHetHan);
+            $("#LoaiKiemDinh").val(data.loaiKiemDinh);
+            $("#NoiDung").val(data.noiDung);
+            $("#GhiChu").val(data.ghiChu);
+        }, 'json').fail(function (error) {
+            sweetalert("", "error", error.responseText);
+        })
+    }
+    function DeleteById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/DangKiemGiayToXe/DeleteByID/', { idlichtrinhxe: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa bản ghi thành công!");
+                    loadData();
+                }
+            }).fail(function (error) {
+                sweetalert("Lỗi", "error", error.responseText);
+            })
+
+        }
+    }
+
+    //Xóa khi check nhiều dòng
+    $("#btnDeleteSelected").click(function () {
+        var id = $('.checkitem:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        if (id == "") {
+            sweetalert("Thông báo", "warning", "Bạn chưa chọn đối tượng để xóa");
+        }
+        else {
+            var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
+            if (ans) {
+                $.post('/DangKiemGiayToXe/DeleteByArrayId/', { idlichtrinhxe: id }, function (data) {
+                    if (data == "True") {
+                        sweetalert("", "success", "Xóa biến động thành công!")
+                    }
+                    else {
+                        sweetalert("", "warning", "Có lỗi khi xóa!")
+                    }
+                    loadData();
+                }).fail(function (error) {
+                    sweetalert("Lỗi", "error", error.responseText);
+                });
+            }
+        }
+    });
+</script>

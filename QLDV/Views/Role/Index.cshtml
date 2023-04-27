@@ -1,0 +1,246 @@
+﻿
+@{
+    ViewBag.Title = "Quyền hạn";
+}
+<ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+    <li class="breadcrumb-item"><a href="#">Hệ thống</a></li>
+    <li class="breadcrumb-item active">Quyền hạn</li>
+</ol>
+<!-- begin page-header -->
+<h1 class="page-header">@ViewBag.Title</h1>
+<!-- end page-header -->
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách nhóm quyền
+            </div>
+            <div class="panel-body">
+                <div class="form-group row m-b-15">
+                    <label class="col-md-2 col-form-label" for="TenNhomQuyen">Tên nhóm quyền:</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control form-control-sm" id="TenNhomQuyen" name="TenNhomQuyen" />
+                    </div>
+                </div>
+                <div class="form-group row m-b-15">
+                    <label class="col-md-2 col-form-label" for="MoTa">Mô tả:</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control form-control-sm" rows="3" id="MoTa"></textarea>
+                    </div>
+                </div>
+                <hr />
+                <table id="table_nhomquyen" class="table table-bordered" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap" width="80%">Tên nhóm quyền</th>
+                            <th class="text-nowrap" width="20%">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-primary" id="btnLuuQuyen" type="button"><i class="fa fa-save"></i> Lưu nhóm quyền</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật nhóm quyền</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="idnhomquyenmenu" />
+                    <div id="tree_quyenmenu"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnLuuQuyenMenu"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ToChuc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel1">Cấp tổ chức khai thác nhóm quyền</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" style="overflow:scroll; height: 400px">
+                    <input type="hidden" id="idnhomquyen" />
+                    <table id="table_tochuc" class="table table-bordered" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th width="5%"><input type="checkbox" id="checkalltc" /></th>
+                                <th class="text-nowrap" width="95%">Cấp tổ chức</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdateTc"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script>
+    $(document).ready(function () {
+        activeMenu("liHeThong", "liQuyenHan");
+        loadnhomquyen();
+    });
+
+    //Load danh sách nhóm quyền
+    function loadnhomquyen() {
+        $("#table_nhomquyen").DataTable({
+            "ajax": {
+                "url": "/NhomQuyen/GetNhomQuyen",
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "NhomQuyenId", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                { "data": "TenNhomQuyen" },
+                {
+                    "data": "NhomQuyenId", "render": function (data) {
+                        return "<a class='fa fa-users' href='#' data-toggle='tooltip' title='Cấp tổ chức' onclick='return CapToChucById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='XoaNhomQuyen(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Xem quyền' onclick='loadtreequyenmenu(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: false,
+            searching: false,
+            bInfo: false
+        });
+    }
+    
+    //Load cây cấu hình quyền menu
+    function loadtreequyenmenu(ID) {
+        $('#myModal').modal('show');
+        $("#idnhomquyenmenu").val(ID);
+        $('#tree_quyenmenu').jstree("destroy");
+        $('#tree_quyenmenu').jstree({
+            "plugins": ["wholerow", "checkbox", "types"],
+            "checkbox": {
+                "three_state": true,
+                "keep_selected_style": false
+            },
+            'core': {
+                'check_callback': true,
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/NhomQuyen/GetTreeQuyenMenu/" + ID,
+                    "dataType": "json"
+                }
+            }
+        });
+    }
+    //Xử lý nút check all
+    $("#checkall").change(function () {
+        $(".checkitem").prop("checked", $(this).prop("checked"))
+    })
+
+    //Xử lý nút check all
+    $("#checkalltc").change(function () {
+        $(".checkitemtc").prop("checked", $(this).prop("checked"))
+    })
+
+    //Load modal cấp tổ chức đang được cấp cho nhóm quyền
+    function CapToChucById(id) {
+        $('#ToChuc').modal('show');
+        $("#idnhomquyen").val(id);
+        $("#table_tochuc").DataTable({
+
+            "ajax": {
+                "url": "/CapToChuc/GetListCapToChuc/" + id,
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "ID", "render": function (data, type, row, meta) {
+                        if (row["Selected"]) {
+                            return "<input type='checkbox' class='checkitemtc' value='" + data + "' checked />";
+                        }
+                        return "<input type='checkbox' class='checkitemtc' value='" + data + "' />";
+                    }
+                },
+                { "data": "TenCapToChuc" },
+                { "data": "Selected"}
+            ],
+            "columnDefs": [
+                {
+                    "targets": [2],
+                    "visible": false,
+                    "searchable": false
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: false,
+            searching: false,
+            bInfo: false
+        });
+    }
+
+    //Hàm lưu lại tổ chức cho nhóm quyền
+    $("#btnUpdateTc").click(function () {
+        var id = $('.checkitemtc:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        $.post('/CapToChuc/CapToChucForNhomQuyen/', { nhomquyenid: $("#idnhomquyen").val(), idtochuc: id }, function (data) {
+            if (data == "True") {
+                sweetalert("", "success", "Cấp tổ chức cho nhóm quyền thành công!")
+            }
+            else {
+                sweetalert("", "warning", "Có lỗi khi cấp tổ chức!")
+            }
+        });
+        $('#ToChuc').modal('hide');
+    })
+
+    //Xử lý nút lưu quyền
+    $("#btnLuuQuyenMenu").click(function () {
+        var tree_selected = $("#tree_quyenmenu").jstree('get_selected');
+        console.log(tree_selected);
+        $.ajax({
+            url: "NhomQuyen/SaveNhomQuyenMenu",
+            data: JSON.stringify({
+                listquyenmenu: tree_selected,
+                nhomquyenid: $("#idnhomquyenmenu").val()
+            }),
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Cấp quyền menu cho nhóm quyền thành công!")
+                }
+                else {
+                    sweetalert("", "warning", "Có lỗi khi cấp quyền!")
+                }
+            },
+            error: function (errormessage) {
+                sweetalert("", "error", errormessage);
+            }
+        });
+    })
+
+</script>

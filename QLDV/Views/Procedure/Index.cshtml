@@ -1,0 +1,485 @@
+﻿
+@{
+    ViewBag.Title = "Cấu hình quy trình";
+}
+
+<ol class="breadcrumb pull-right">
+    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+    <li class="breadcrumb-item"><a href="#">Hệ thống</a></li>
+    <li class="breadcrumb-item active">Cấu hình quy trình</li>
+</ol>
+<!-- begin page-header -->
+<h1 class="page-header">@ViewBag.Title</h1>
+<!-- end page-header -->
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <div id="tree_biendong"></div>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Cấu hình quy trình cho biến động <span id="spBienDong" style="font-style: italic; font-size: 16px;"></span>
+                    </div>
+                    <div class="panel-body">
+                        <input type="hidden" id="idbiendongcf" name="idbiendongcf" />
+                        <table id="table_quytrinhcf" class="table table-bordered table-responsive" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th valign="middle"><button type="button" class="btn btn-sm btn-danger" id="btnAddConfig"><i class="fa fa-sm fa-plus"></i></button></th>
+                                    <th width="40%">Tiêu đề</th>
+                                    <th width="40%">Cấp tổ chức</th>
+                                    <th width="20%">Thao tác</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="panel-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mdlAddConfig" tabindex="2" role="dialog" aria-labelledby="myModalLabelAddConfig" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelSearchToChuc">Cập nhật cấu hình</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" id="frmConfig">
+                <input type="hidden" id="idquytrinhconfig" value="0" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="TenQuyTrinh"><i class="fa fa-tags"></i> Tên quy trình:</label>
+                            <input id="TenQuyTrinh" name="TenQuyTrinh" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="LoaiHinhToChucId"><i class="fa fa-tags"></i> Loại hình tổ chức:</label>
+                            <select id="LoaiHinhToChucId" name="LoaiHinhToChucId" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="CapToChucId"><i class="fa fa-tags"></i> Cấp tổ chức:</label>
+                            <select id="CapToChucId" name="CapToChucId" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="GhiChu"><i class="fa fa-tags"></i> Ghi chú:</label>
+                            <textarea id="GhiChu" rows="4" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSaveConfig"><i class="fa fa-sync"></i> Cập nhật</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlNhanhBienDong" tabindex="2" role="dialog" aria-labelledby="myModalLabelNhanhBienDong" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelToChuc">Cấp tổ chức</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idquytrinhbiendongconfig" />
+                <table id="table_nhanhbiendong" class="table table-bordered" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th class="text-nowrap" width="30%">Cấp tổ chức</th>
+                            <th class="text-nowrap" width="30%">Sms</th>
+                            <th class="text-nowrap" width="30%">Email</th>
+                            <th class="text-nowrap" width="10%"><button id="AddMoreRow"><i class="fa fa-plus"></i></button></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlCauHinhNhanh" tabindex="2" role="dialog" aria-labelledby="myModalLabelCauHinhNhanh" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabelCauHinhNhanh">Cấu hình nhánh quy trình</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body" id="frmConfig">
+                <input type="hidden" id="idquytrinhbiendong" value="0" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="LoaiHinhToChucBienDongId"><i class="fa fa-tags"></i> Loại hình tổ chức:</label>
+                            <select id="LoaiHinhToChucBienDongId" name="LoaiHinhToChucBienDongId" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="CapToChucBienDongId"><i class="fa fa-tags"></i> Cấp tổ chức:</label>
+                            <select id="CapToChucBienDongId" name="CapToChucBienDongId" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="tbl_chucvu" class="table table-bordered" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th width="60%">Chức vụ</th>
+                                    <th width="20%">Sms</th>
+                                    <th width="20%">Email</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnUpdateConfigNode"><i class="fa fa-sync"></i> Cập nhật</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script>
+    $(document).ready(function () {
+        activeMenu("liHeThong", "liCHQuytrinh");
+        loadTreeBienDong();
+        loadData(0);
+    });
+
+    function loadData(Id) {
+        $("#table_quytrinhcf").DataTable({
+            "ajax": {
+                url: "/Procedure/GetListQuyTrinhByBienDong",
+                data: { idbiendong: Id },
+                type: "GET",
+                datatype: "json",
+                contentType: "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "QuyTrinhId", "render": function (data, type, full, meta) {
+                        return meta.row + 1;
+                    }
+                },
+                { "data": "TenQuyTrinh" },
+                { "data": "CapToChuc" },
+                {
+                    "data": "QuyTrinhId", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetToChucById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteToChucById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-cog' href='#' data-toggle='tooltip' title='Cấu hình nhánh' onclick='CauHinhNhanh(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: false,
+            searching: false,
+            bInfo: false,
+            deferRender: true
+        });
+    }
+
+    function loadTableChucVu() {
+        $("#tbl_chucvu").DataTable({
+            "ajax": {
+                url: "/ChucVu/GetListChucVu",
+                type: "GET",
+                datatype: "json",
+                contentType: "application/json;charset=UTF-8"
+            },
+            "columns": [
+                { "data": "TenChucVu" },
+                {
+                    "data": "ChucVuId", "render": function (data) {
+                        return "<input type='checkbox' class='checkitememail' value='" + data + "' />";
+                    }
+                },
+                {
+                    "data": "ChucVuId", "render": function (data) {
+                        return "<input type='checkbox' class='checkitemsms' value='" + data + "' />";
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: false,
+            searching: false,
+            bInfo: false,
+            deferRender: true
+        });
+    }
+
+    function loadDataQuyTrinhChiTiet() {
+        $("#table_nhanhbiendong").DataTable({
+            "ajax": {
+                url: "/Procedure/GetListQuyTrinhChiTiet",
+                data: { QuyTrinhId: $("#idquytrinhbiendongconfig").val() },
+                type: "GET",
+                datatype: "json",
+                contentType: "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "CapToChuc", "render": function (data) {
+                        return "<a href='#'>" + data + "</a>"
+                    }
+                },
+                {
+                    "data": "Sms"
+                },
+                {
+                    "data": "Email"
+                },
+                {
+                    "data": "QuyTrinhChiTietId", "render": function (data) {
+                        return "<a style='color: red;' class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteQuyTrinhChiTietById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: false,
+            searching: false,
+            bInfo: false,
+            deferRender: true
+        });
+    }
+
+    function loadTreeBienDong() {
+        $('#tree_biendong').jstree({
+            "plugins": ["search"],
+            "checkbox": {
+                "three_state": true,
+                "keep_selected_style": false
+            },
+            'core': {
+                'data': {
+                    "themes": {
+                        "responsive": true
+                    },
+                    "url": "/Procedure/LoadTreeBienDong",
+                    "dataType": "json"
+                }
+            }
+        }).on("select_node.jstree", function (e, data) {
+            $("#idbiendongcf").val(data.node.id);
+            $("#spBienDong").text(data.node.text);
+            loadData(data.node.id);
+        }).on('ready.jstree', function () {
+            $("#tree_biendong").jstree("open_all");
+        });
+    }
+
+    //Reset bootstrap validator
+    $('#mdlAddConfig').on('hide.bs.modal', function () {
+        $('#frmConfig').bootstrapValidator('resetForm', true);
+    });
+
+    $('#mdlCauHinhNhanh').on('hide.bs.modal', function () {
+        //$('#frmConfig').bootstrapValidator('resetForm', true);
+
+    });
+
+    //Validate
+    function validator() {
+        $('#frmConfig').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'fa fa-ok',
+                invalid: 'fa fa-remove',
+                validating: 'fa fa-refresh'
+            },
+            fields: {
+                TenQuyTrinh: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập tên quy trình!'
+                        }
+                    }
+                },
+                LoaiHinhToChucId: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Hãy chọn loại hình tổ chức!'
+                        }
+                    }
+                },
+                CapToChucId: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Hãy chọn cấp tổ chức!'
+                        }
+                    }
+                }
+            }
+        });
+        var validatorObj = $('#frmConfig').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+
+    //Load select loại hình tổ chức
+    function loadLoaiHTC() {
+        $.ajax({
+            type: 'GET',
+            url: '/DmLoaiHTC/GetLoaiHinhToChuc/',
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                html = '<option value = "" selected>--Chọn loại hình tổ chức--</option>';
+                $.each(result.data, function (key, item) {
+                    html += '<option value = ' + item.LoaiHinhToChucId + '>' + item.TenLoaiHinhToChuc + '</option>';
+                });
+                $('#LoaiHinhToChucId').html(html);
+                $('#LoaiHinhToChucBienDongId').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    $("#LoaiHinhToChucId").change(function () {
+        $.get('/DmLoaiHTC/GetCapToChucByLoaiHTCId', { idloaihtc: $("#LoaiHinhToChucId").val() }, function (data) {
+            var html = '';
+            html = '<option value = "" selected>--Chọn cấp tổ chức--</option>';
+            $.each(data, function (key, item) {
+                html += '<option value = ' + item.CapToChucId + '>' + item.TenCapToChuc + '</option>';
+            });
+            $('#CapToChucId').html(html);
+        })
+    })
+
+    $("#LoaiHinhToChucBienDongId").change(function () {
+        $.get('/DmLoaiHTC/GetCapToChucByLoaiHTCId', { idloaihtc: $("#LoaiHinhToChucBienDongId").val() }, function (data) {
+            var html = '';
+            html = '<option value = "" selected>--Chọn cấp tổ chức--</option>';
+            $.each(data, function (key, item) {
+                html += '<option value = ' + item.CapToChucId + '>' + item.TenCapToChuc + '</option>';
+            });
+            $('#CapToChucBienDongId').html(html);
+        })
+    })
+    
+
+    $("#btnAddConfig").click(function () {
+        $("#idquytrinhconfig").val(0);
+        $("#mdlAddConfig").modal('show');
+        loadLoaiHTC();
+    })
+
+    function CauHinhNhanh(Id) {
+        $("#mdlNhanhBienDong").modal('show');
+        $("#idquytrinhbiendongconfig").val(Id);
+        loadDataQuyTrinhChiTiet();
+    }
+
+    $("#AddMoreRow").click(function () {
+        $("#mdlCauHinhNhanh").modal('show');
+        loadTableChucVu();
+        loadLoaiHTC();
+    })
+
+    $("#btnSaveConfig").click(function () {
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                QuyTrinhId: $("#idquytrinhconfig").val(),
+                BienDongId: $("#idbiendongcf").val(),
+                TenQuyTrinh: $("#TenQuyTrinh").val(),
+                LoaiHinhToChucId: $("#LoaiHinhToChucId").val(),
+                CapToChucId: $("#CapToChucId").val(),
+                GhiChu: $("#GhiChu").val()
+            }
+            $.ajax({
+                url: "/Procedure/UpdateProcedure",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới cấu hình quy trình thành công!")
+                        //location.reload()
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật cấu hình quy trình thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật cấu hình quy trình!")
+                    }
+                    $("#mdlAddConfig").modal('hide');
+                    loadData($("#idbiendongcf").val());
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    })
+
+    $("#btnUpdateConfigNode").click(function () {
+        var id_email = $('.checkitememail:checked').map(function () {
+            return $(this).val()
+        }).get().join(',')
+        var id_sms = $('.checkitemsms:checked').map(function () {
+            return $(this).val()
+        }).get().join(',')
+        $.post('/Procedure/UpdateQuyTrinhChiTiet', { QuyTrinhId: $("#idquytrinhbiendongconfig").val(), LoaiHinhToChucId: $('#LoaiHinhToChucBienDongId').val(), CapToChucId: $('#CapToChucBienDongId').val(), email: id_email, sms: id_sms }, function (data) {
+            if (data == "addsuccess") {
+                sweetalert("Success", "success", "Thêm mới cấu hình quy trình thành công!")
+                loadDataQuyTrinhChiTiet();
+            }
+            else {
+                sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật cấu hình quy trình!")
+            }
+        }).fail(function (error) {
+            sweetalert("Cảnh báo", "error", error.responseJSON);
+        })
+    })
+
+    function DeleteQuyTrinhChiTietById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/Procedure/DeleteQuyTrinhChiTietById', { QuyTrinhChiTietId: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa thành công");
+                    loadDataQuyTrinhChiTiet();
+                }
+            }).fail(function (error) {
+                sweetalert("Cảnh báo", "error", error.responseJSON);
+            });
+        }
+    }
+</script>
