@@ -106,13 +106,22 @@ namespace QLDV.Controllers
             {
                 int idlichtrinhxe = int.Parse(Request["idlichtrinhxe"]);
                 vt_LichTrinhXe _old = _entities.vt_LichTrinhXe.Find(idlichtrinhxe);
-                if (_old != null)
+                vt_ChiPhiLichTrinhXe _chiphi = _entities.vt_ChiPhiLichTrinhXe.FirstOrDefault( x => x.idLichTrinhXe == idlichtrinhxe);
+                if(_chiphi != null)
                 {
-                    _old.daXoa = 1;
-                    _entities.vt_LichTrinhXe.Remove(_old);
-                    _entities.SaveChanges();
+                    return false;
                 }
-                return true;
+                else
+                {
+                    if (_old != null)
+                    {
+                        _old.daXoa = 1;
+                        _entities.vt_LichTrinhXe.Remove(_old);
+                        _entities.SaveChanges();
+                    }
+                    return true;
+                }
+                
             }
             catch (Exception)
             {

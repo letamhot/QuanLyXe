@@ -98,7 +98,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="NoiDungLamViec" class="control-label">Nội dung làm việc: </label>
-                                <input class="form-control" id="NoiDungLamViec" name="NoiDungLamViec" type="text" />
+                                <textarea class="form-control" id="NoiDungLamViec" name="NoiDungLamViec" type="text" /></textarea>
                             </div>
                         </div>
                     </div>
@@ -295,6 +295,7 @@
             $("#GiaChuaThue").val("");
             $("#ThueVAT").val(0);
             $("#TongThanhToan").val("");
+            $("#txtCheckPhieu").text("");
             $("#TinhTrangThanhToan").val(0);
             document.getElementById("CheckPhieu").checked = false;
 
@@ -525,6 +526,10 @@
             $.post('/LichTrinhXe/DeleteByID/', { idlichtrinhxe: Id }, function (data) {
                 if (data == "True") {
                     sweetalert("", "success", "Xóa bản ghi thành công!");
+                    loadData();
+                }
+                else {
+                    sweetalert("", "warning", "Xóa bản ghi không thành công, bản ghi đang nằm trong dữ liệu khác!");
                     loadData();
                 }
             }).fail(function (error) {

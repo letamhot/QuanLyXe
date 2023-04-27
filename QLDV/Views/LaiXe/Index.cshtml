@@ -328,6 +328,10 @@
                     sweetalert("", "success", "Xóa bản ghi thành công!");
                     loadData();
                 }
+                else {
+                    sweetalert("", "warning", "Xóa bản ghi không thành công, bản ghi có trong dữ liệu khác!");
+                    loadData();
+                }
             }).fail(function (error) {
                 sweetalert("Lỗi", "error", error.responseText);
             })
