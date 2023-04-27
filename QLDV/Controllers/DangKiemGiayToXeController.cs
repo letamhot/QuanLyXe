@@ -81,6 +81,56 @@ namespace QLDV.Controllers
                 return ex.ToString();
             }
         }
+        [HttpPost]
+        public bool DeleteByID()
+        {
+            try
+            {
+                int iddangkiem = int.Parse(Request["iddangkiem"]);
+                vt_DangKiemGiayToXe _old = _entities.vt_DangKiemGiayToXe.Find(iddangkiem);
+                if (_old != null)
+                {
+                    _old.daXoa = "1";
+                    _entities.vt_DangKiemGiayToXe.Remove(_old);
+                    _entities.SaveChanges();
+                }
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public bool DeleteByArrayId()
+        {
+            try
+            {
+                string iddangkiemarr = Request["iddangkiem"];
+                string[] iddangkiem = iddangkiemarr.Split(' ');
+                for (int i = 0; i < iddangkiem.Length; i++)
+                {
+                    vt_DangKiemGiayToXe _old = _entities.vt_DangKiemGiayToXe.Find(int.Parse(iddangkiem[i]));
+
+                    if (_old != null)
+                    {
+                        _old.daXoa = "1";
+                        _entities.vt_DangKiemGiayToXe.Remove(_old);
+                        _entities.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+        }
+
 
     }
 }

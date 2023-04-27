@@ -333,7 +333,7 @@
     function DeleteById(Id) {
         var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
         if (ans) {
-            $.post('/DangKiemGiayToXe/DeleteByID/', { idlichtrinhxe: Id }, function (data) {
+            $.post('/DangKiemGiayToXe/DeleteByID/', { iddangkiem: Id }, function (data) {
                 if (data == "True") {
                     sweetalert("", "success", "Xóa bản ghi thành công!");
                     loadData();
@@ -356,7 +356,7 @@
         else {
             var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
             if (ans) {
-                $.post('/DangKiemGiayToXe/DeleteByArrayId/', { idlichtrinhxe: id }, function (data) {
+                $.post('/DangKiemGiayToXe/DeleteByArrayId/', { iddangkiem: id }, function (data) {
                     if (data == "True") {
                         sweetalert("", "success", "Xóa biến động thành công!")
                     }

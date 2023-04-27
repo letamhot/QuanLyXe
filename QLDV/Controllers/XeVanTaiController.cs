@@ -75,13 +75,22 @@ namespace QLDV.Controllers
             {
                 int idXeVanTai = int.Parse(Request["idXeVanTai"]);
                 vt_XeVanTai _old = _entities.vt_XeVanTai.Find(idXeVanTai);
-                if (_old != null)
+                vt_DangKiemGiayToXe _dangKiem = _entities.vt_DangKiemGiayToXe.FirstOrDefault(x => x.idXeVanTai == idXeVanTai);
+                if(_dangKiem != null)
                 {
-                    _old.daXoa = "1";
-                    _entities.vt_XeVanTai.Remove(_old);
-                    _entities.SaveChanges();
+                    return false;
                 }
-                return true;
+                else
+                {
+                    if (_old != null)
+                    {
+                        _old.daXoa = "1";
+                        _entities.vt_XeVanTai.Remove(_old);
+                        _entities.SaveChanges();
+                    }
+                    return true;
+                }
+                
             }
             catch (Exception)
             {
