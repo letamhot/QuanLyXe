@@ -7,7 +7,7 @@
     <div class="col-md-12">
         <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
         <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
-        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+        @*<button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>*@
     </div>
 </div>
 <hr />
@@ -137,10 +137,10 @@
             $("#LaiXe").modal('show');
             $("#idlaixe").val(0);
             $("#myModalLabel").text("Thêm mới lái xe");
-            $("#MaLaiXe").text("");
-            $("#TenLaiXe").text("");
-            $("#DiaChi").text("");
-            $("#SoDienThoai").text("");
+            $("#MaLaiXe").val("");
+            $("#TenLaiXe").val("");
+            $("#DiaChi").val("");
+            $("#SoDienThoai").val("");
         })
         //Reset bootstrap validator
         $('#LaiXe').on('hide.bs.modal', function () {
