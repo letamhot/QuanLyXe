@@ -434,6 +434,15 @@
 
                         }
                     },
+                    No: {
+                        validators: {
+                            numeric: {
+                                message: 'Vui lòng chỉ sử dụng số.',
+                            },
+
+
+                        }
+                    },
                 }
 
             });
@@ -492,6 +501,8 @@
         function GetById(Id) {
             $("#DichVuKhac").modal('show');
             $("#iddichvukhac").val(Id);
+            $("#myModalLabel").text("Chỉnh sửa thông tin dịch vụ kinh doanh khác");
+
             $.get('/DichVuKinhDoanhKhac/GetDichVuKinhDoanhKhacById', { id: Id }, function (data) {
                 $("#LoaiDichVuKhac").val(data.loaiDichVuKhac);
                 $("#NgayHoanThanh").val(data.ngayHoanThanh);
