@@ -71,11 +71,20 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="txtNgayKD">Ngày kiểm định: </label>
                                 <div id="ngayKiemDinh" class="input-group date" data-date-format="dd/mm/yyyy">
                                     <input id="NgayKiemDinh" placeholder="dd/mm/yyyy..." class="form-control" type="text">
+                                    <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="txtNgayHH">Ngày hết hạn: </label>
+                                <div id="ngayHetHan" class="input-group date" data-date-format="dd/mm/yyyy">
+                                    <input id="NgayHetHan" placeholder="dd/mm/yyyy..." class="form-control" type="text">
                                     <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
@@ -94,18 +103,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="NoiDung" class="control-label">Nội dung: </label>
-                                <input class="form-control" id="NoiDung" name="NoiDung" type="text" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="txtNgayHH">Ngày hết hạn: </label>
-                                <div id="ngayHetHan" class="input-group date" data-date-format="dd/mm/yyyy">
-                                    <input id="NgayHetHan" placeholder="dd/mm/yyyy..." class="form-control" type="text">
-                                    <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
-                                </div>
+                                <textarea class="form-control" id="NoiDung" name="NoiDung" type="text"></textarea>
                             </div>
                         </div>
                     </div>

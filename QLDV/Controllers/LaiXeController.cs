@@ -102,13 +102,22 @@ namespace QLDV.Controllers
                 for (int i = 0; i < idlaixe.Length; i++)
                 {
                     vt_LaiXe _old = _entities.vt_LaiXe.Find(int.Parse(idlaixe[i]));
-
-                    if (_old != null)
+                    vt_LichTrinhXe _lichtrinh = _entities.vt_LichTrinhXe.FirstOrDefault(x => x.idLaiXe == int.Parse(idlaixe[i]));
+                    vt_XeVanTai _xeVanTai = _entities.vt_XeVanTai.FirstOrDefault(x => x.idLaiXe == int.Parse(idlaixe[i]));
+                    if(_lichtrinh !=null && _xeVanTai != null)
                     {
-                        _old.daXoa = 1;
-                        _entities.vt_LaiXe.Remove(_old);
-                        _entities.SaveChanges();
+                        return false;
                     }
+                    else
+                    {
+                        if (_old != null)
+                        {
+                            _old.daXoa = 1;
+                            _entities.vt_LaiXe.Remove(_old);
+                            _entities.SaveChanges();
+                        }
+                    }
+                    
                 }
                 return true;
             }
