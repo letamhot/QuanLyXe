@@ -4,113 +4,114 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0b319162bf5c4312bac6e034ec4b0deb" Name="Diagram1" ZoomLevel="92">
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.BangCap" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDong" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.CapToChuc" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.CapToChucLoaiHinh_Map" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.ChucVu" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.ChuongTrinh" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.ChuyenNganh" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.DanhGiaThiDua" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.DanToc" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.DoiTuongCSXH" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.DonVi" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.DonViToChuc_Map" Width="1.5" PointX="9" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.HangThuongBinh" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.HinhThucDaoTao" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.HinhThucKyLuat" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.HocHam" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.HocVi" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.KetQuaDaoTao" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiBangCap" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiChuongTrinh" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiDonVi" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiHinhToChuc" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiThuChi" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.LyLuanChinhTri" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NgoaiNgu" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NguoiDung" Width="1.5" PointX="4.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NguoiDungBangCap_Map" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NguoiDungNhomQuyen_Map" Width="1.5" PointX="6.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NhomMau" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NhomQuyen" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NhomQuyenMenu_Map" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.PhuongXa" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.QuanHuyen" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.QuyenMenu" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.ThanhPhanGiaDinh" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.TinhThanh" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.TonGiao" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.TrinhDoPhoThong" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.TrinhDoTinHoc" Width="1.5" PointX="6.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NhomQuyenCapTc_Map" Width="1.5" PointX="9.375" PointY="15.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDong_QuyTrinh" Width="1.5" PointX="15.375" PointY="16.75" />
+      <Diagram DiagramId="0b319162bf5c4312bac6e034ec4b0deb" Name="Diagram1" ZoomLevel="45">
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.BangCap" Width="1.5" PointX="3" PointY="27.75" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDong" Width="1.5" PointX="0.75" PointY="6.25" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDong_DoanVien_Map" Width="1.5" PointX="5.25" PointY="7.5" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDong_QuyTrinh" Width="1.5" PointX="9" PointY="24.125" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDong_QuyTrinh_ChiTiet" Width="1.5" PointX="11.25" PointY="24.5" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDongDoanVien" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDongDoanVienChiTiet" Width="1.5" PointX="7.5" PointY="4.125" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.CapToChuc" Width="1.5" PointX="3.75" PointY="21.375" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.CapToChucLoaiHinh_Map" Width="1.5" PointX="6" PointY="32.125" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.ChucVu" Width="1.5" PointX="6" PointY="25.375" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.ChuongTrinh" Width="1.5" PointX="13" PointY="7.25" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.ChuyenNganh" Width="1.5" PointX="3" PointY="25.125" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.DanToc" Width="1.5" PointX="0.75" PointY="15.125" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.DanhGiaThiDua" Width="1.5" PointX="10.75" PointY="12" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.DoanVien_KiemNhiem" Width="1.5" PointX="8.25" PointY="15.25" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.DoiTuongCSXH" Width="1.5" PointX="12.75" PointY="12" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.DonVi" Width="1.5" PointX="0.75" PointY="20.375" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.DonViToChuc_Map" Width="1.5" PointX="6" PointY="21" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.GiaoUocThiDua" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.HangThuongBinh" Width="1.5" PointX="13.75" PointY="15" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.HinhThucDaoTao" Width="1.5" PointX="14.75" PointY="12" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.HinhThucKyLuat" Width="1.5" PointX="15.75" PointY="7" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.HocHam" Width="1.5" PointX="0.75" PointY="24.5" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.HocVi" Width="1.5" PointX="0.75" PointY="37.125" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.KetQuaDaoTao" Width="1.5" PointX="15.75" PointY="15" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiBangCap" Width="1.5" PointX="3" PointY="30.25" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiChuongTrinh" Width="1.5" PointX="10.75" PointY="8" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiDonVi" Width="1.5" PointX="13.75" PointY="18" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiHinhToChuc" Width="1.5" PointX="1.5" PointY="42.5" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.LoaiThuChi" Width="1.5" PointX="15.75" PointY="18" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.LyLuanChinhTri" Width="1.5" PointX="0.75" PointY="32.125" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NoiDungTieuChiGiaoUoc" Width="1.5" PointX="14.25" PointY="3.25" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NgoaiNgu" Width="1.5" PointX="0.75" PointY="29.625" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NguoiDung" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NguoiDung_ToChuc" Width="1.5" PointX="8.25" PointY="8.375" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NguoiDungBangCap_Map" Width="1.5" PointX="5.25" PointY="10.5" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NguoiDungNhomQuyen_Map" Width="1.5" PointX="8.25" PointY="11.5" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NhomMau" Width="1.5" PointX="16.75" PointY="3" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NhomQuyen" Width="1.5" PointX="6" PointY="15.375" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NhomQuyenCapTc_Map" Width="1.5" PointX="8.25" PointY="19.625" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.NhomQuyenMenu_Map" Width="1.5" PointX="11.25" PointY="15.5" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.PhongBan" Width="1.5" PointX="16.75" PointY="10" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.PhuongXa" Width="1.5" PointX="0.75" PointY="39.75" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.QuanHuyen" Width="1.5" PointX="0.75" PointY="17.625" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.QuyenMenu" Width="1.5" PointX="9" PointY="28.125" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.TieuChiGiaoUoc" Width="1.5" PointX="12" PointY="3.625" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.TinhThanh" Width="1.5" PointX="0.75" PointY="11.625" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.TonGiao" Width="1.5" PointX="0.75" PointY="27" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.ThanhPhanGiaDinh" Width="1.5" PointX="10.75" PointY="19" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.TrangThaiBienDong" Width="1.5" PointX="17.75" PointY="6" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.TrinhDoPhoThong" Width="1.5" PointX="0.75" PointY="34.625" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.TrinhDoTinHoc" Width="1.5" PointX="17.75" PointY="13" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_ChiPhiKhac" Width="1.5" PointX="17.75" PointY="16" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_ChiPhiLichTrinhXe" Width="1.5" PointX="17.75" PointY="20" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_ChiPhiSuaXe" Width="1.5" PointX="18.75" PointY="9" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_DangKiemGiayToXe" Width="1.5" PointX="13.75" PointY="21" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_DichVuKinhDoanhKhac" Width="1.5" PointX="19.75" PointY="3" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_DMKhachHang" Width="1.5" PointX="19.75" PointY="13" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_LaiXe" Width="1.5" PointX="19.75" PointY="17" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_LichTrinhXe" Width="1.5" PointX="19.75" PointY="20" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_XeSuaChuaTaiXuong" Width="1.5" PointX="20.75" PointY="8" />
+        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_XeVanTai" Width="1.5" PointX="15.75" PointY="23" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungBangCap_Map_BangCap" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_LoaiHinhToChuc" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_QuyTrinh_BienDong" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDongDoanVien_BienDong" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_DoanVien_Map_BienDongDoanVien" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_DoanVien_Map_NguoiDung" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDongDoanVienChiTiet_BienDong_DoanVien_Map" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_QuyTrinh_CapToChuc" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_QuyTrinh_ChiTiet_BienDong_QuyTrinh" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_QuyTrinh_LoaiHinhToChuc" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_CapToChucLoaiHinh_Map_CapToChuc" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_DonViToChuc_Map_CapToChuc" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NhomQuyenCapTc_Map_CapToChuc" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_CapToChucLoaiHinh_Map_LoaiHinhToChuc" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_DoanVien_KiemNhiem_ChucVu" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_ChuongTrinh_LoaiChuongTrinh" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungBangCap_Map_ChuyenNganh" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_DonViToChuc_Map_LoaiHinhToChuc" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungBangCap_Map_LoaiBangCap" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungBangCap_Map_NguoiDung" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungNhomQuyen_Map_NguoiDung" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungNhomQuyen_Map_NhomQuyen" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NhomQuyenCapTc_Map_NhomQuyen" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NhomQuyenMenu_Map_NhomQuyen" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NhomQuyenMenu_Map_QuyenMenu" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_DonViToChuc_Map_DonVi" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_DanToc" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_DoanVien_KiemNhiem_DonViToChuc_Map" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_DoanVien_KiemNhiem_NguoiDung" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_DonViToChuc_Map_DonVi" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_DonVi" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_DonViToChuc_Map_LoaiHinhToChuc" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_ToChuc_DonViToChuc_Map" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_TieuChiGiaoUoc_GiaoUocThiDua" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_HocHam" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_HocVi" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungBangCap_Map_LoaiBangCap" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_LyLuanChinhTri" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NoiDungTieuChiGiaoUoc_TieuChiGiaoUoc" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_NgoaiNgu" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_PhuongXa" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_QuanHuyen" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_QuanHuyen1" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_TinhThanh" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_TinhThanh1" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_ToChuc_NguoiDung" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_TonGiao" />
         <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_TrinhDoPhoThong" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_DonVi" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDong_QuyTrinh_ChiTiet" Width="1.5" PointX="17.625" PointY="17.125" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_QuyTrinh_ChiTiet_BienDong_QuyTrinh" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NguoiDung_ToChuc" Width="1.5" PointX="12" PointY="17.625" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_ToChuc_DonViToChuc_Map" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDung_ToChuc_NguoiDung" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.DoanVien_KiemNhiem" Width="1.5" PointX="17" PointY="11.5" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_DoanVien_KiemNhiem_ChucVu" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_DoanVien_KiemNhiem_DonViToChuc_Map" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_DoanVien_KiemNhiem_NguoiDung" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_LoaiHinhToChuc" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.TrangThaiBienDong" Width="1.5" PointX="0.75" PointY="18.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDongDoanVien" Width="1.5" PointX="5" PointY="28.5" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDongDoanVien_BienDong" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDong_DoanVien_Map" Width="1.5" PointX="7.25" PointY="21.5" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_DoanVien_Map_BienDongDoanVien" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDong_DoanVien_Map_NguoiDung" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.BienDongDoanVienChiTiet" Width="1.5" PointX="9.5" PointY="21.25" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_BienDongDoanVienChiTiet_BienDong_DoanVien_Map" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.GiaoUocThiDua" Width="1.5" PointX="17.375" PointY="0.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.NoiDungTieuChiGiaoUoc" Width="1.5" PointX="17.375" PointY="3.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.TieuChiGiaoUoc" Width="1.5" PointX="17.375" PointY="7.75" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_TieuChiGiaoUoc_GiaoUocThiDua" />
-        <AssociationConnector Association="QuanLyDoanVienModel.FK_NoiDungTieuChiGiaoUoc_TieuChiGiaoUoc" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.PhongBan" Width="1.5" PointX="7.375" PointY="18.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_ChiPhiKhac" Width="1.5" PointX="19.375" PointY="0.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_ChiPhiLichTrinhXe" Width="1.5" PointX="19.375" PointY="4.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_ChiPhiSuaXe" Width="1.5" PointX="19.375" PointY="7.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_DangKiemGiayToXe" Width="1.5" PointX="19.375" PointY="11.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_DichVuKinhDoanhKhac" Width="1.5" PointX="12.375" PointY="20.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_DMKhachHang" Width="1.5" PointX="14.375" PointY="20.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_LaiXe" Width="1.5" PointX="20.375" PointY="15.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_LichTrinhXe" Width="1.5" PointX="16.375" PointY="20.75" />
-        <EntityTypeShape EntityType="QuanLyDoanVienModel.vt_XeVanTai" Width="1.5" PointX="20.375" PointY="18.75" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungBangCap_Map_NguoiDung" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungNhomQuyen_Map_NguoiDung" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NguoiDungNhomQuyen_Map_NhomQuyen" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NhomQuyenCapTc_Map_NhomQuyen" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NhomQuyenMenu_Map_NhomQuyen" />
+        <AssociationConnector Association="QuanLyDoanVienModel.FK_NhomQuyenMenu_Map_QuyenMenu" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

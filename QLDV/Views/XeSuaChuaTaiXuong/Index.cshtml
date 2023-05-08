@@ -1,0 +1,532 @@
+﻿
+@{
+    ViewBag.Title = "Xe Sửa Chửa Tại Xưởng";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary" id="btnThemMoi" type="button"><i class="fa fa-save"></i> Thêm mới</button>
+        <button class="btn btn-warning" id="btnImport" type="button"><i class="fa fa-file-excel"></i> Import</button>
+        <button class="btn btn-danger" id="btnDeleteSelected" type="button"><i class="fa fa-trash"></i> Xóa lựa chọn</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Danh sách lịch trình xe
+            </div>
+            <div class="panel-body">
+                <table id="table_xesuachua" class="table table-bordered table-responsive" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkall" /></th>
+                            <th class="text-nowrap">Ngày tháng</th>
+                            <th class="text-nowrap">Mã Xe Vận Tải</th>
+                            <th class="text-nowrap">Mã Khách Hàng</th>
+                            <th class="text-nowrap">Nội dung sửa chửa</th>
+                            <th class="text-nowrap">Số lượng</th>
+                            <th class="text-nowrap">Đơn vị tính</th>
+                            <th class="text-nowrap">Đơn giá</th>
+                            <th class="text-nowrap">Giá chưa thuế(VND)</th>
+                            <th class="text-nowrap">Thuế VAT(%)</th>
+                            <th class="text-nowrap">Tổng thanh toán(VND)</th>
+                            <th class="text-nowrap">Nợ</th>
+                            <th class="text-nowrap">Cấu trừ</th>
+                            <th class="text-nowrap">ghi chú</th>
+                            <th class="text-nowrap">Thao tác</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="Xesuachua" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Cập nhật xe sửa chửa</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body" id="frmXesuachua">
+                    <input type="hidden" id="idXesuachua" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtTGlapphieu">Ngày tháng: </label>
+                                <div id="ngayThang" class="input-group date" data-date-format="dd/mm/yyyy">
+                                    <input id="NgayThang" placeholder="dd/mm/yyyy..." class="form-control" type="text">
+                                    <span class="input-group-addon bg-primary text-white"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="MaLaiXe" class="control-label">Tên xe vận tải: </label>
+                                <select id="cbbXeVanTai" name="cbbXeVanTai" class="form-control">
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="MaKhachHang" class="control-label">Mã khách hàng: </label>
+                                <select id="cbbMaKhachHang" name="cbbMaKhachHang" class="form-control">
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="NoiDungLamViec" class="control-label">Nội dung sửa chửa: </label>
+                                <textarea class="form-control" id="NoiDungSuaChua" name="NoiDungSuaChua" type="text"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="soLuong" class="control-label">Số lượng: </label>
+                                <input class="form-control" id="soLuong" name="soLuong" type="text" onblur="SumMoney();" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="donViTinh" class="control-label">Đơn vị tính: </label>
+                                <input class="form-control" id="donViTinh" name="donViTinh" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="donViTinh" class="control-label">Đơn giá: </label>
+                                <input class="form-control" id="donGia" name="donGia" type="text" onblur="SumMoney();" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="GiaChuaThue" class="control-label">Thành tiền chưa thuế: </label>
+                                <input class="form-control" id="ThanhTienChuaThue" name="ThanhTienChuaThue" type="text" onblur="reSum();" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="ThueVAT" class="control-label">Thuế VAT: </label>
+                                <select id="ThueVAT" name="ThueVAT" class="form-control" onblur="reSum();">
+                                    <option value="">--Chọn mức thuế VAT--</option>
+                                    <option value="1">5%</option>
+                                    <option value="2">8%</option>
+                                    <option value="3">10%</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="TongThanhToan" class="control-label">Tổng thanh toán: </label>
+                                <input class="form-control" id="TongThanhToan" name="TongThanhToan" type="text" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="no" class="control-label">Nợ: </label>
+                                <input class="form-control" id="no" name="no" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="canTru" class="control-label">Cấn trừ: </label>
+                                <input class="form-control" id="canTru" name="canTru" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="ghiChu" class="control-label">Ghi chú: </label>
+                                <textarea class="form-control" id="ghiChu" name="ghiChu" type="text"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        activeMenu("liDanhMuc", "liXeSuaChuaTaiXuong");
+        loadData();
+        GetDmXeVanTai();
+        GetDmKhachHang();
+        $("#ngayThang").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date());
+
+    });
+    function loadData() {
+        $("#table_xesuachua").DataTable({
+            "ajax": {
+                "url": "/XeSuaChuaTaiXuong/getDanhSachXeSuaChuaTaiXuong",
+                "type": "GET",
+                "datatype": "json",
+                "contentType": "application/json;charset=UTF-8"
+            },
+            "columns": [
+                {
+                    "data": "id", "render": function (data) {
+                        return "<input type='checkbox' class='checkitem' value='" + data + "' />";
+                    }
+                },
+                {
+                    "data": "ngayThang", "render": function (data) {
+                        //console.log(data);
+                        if (data != null || data != "") {
+                            return data.split(' ')[0];
+                        }
+                    }
+                },
+                { "data": "maXe" },
+                { "data": "maKhachHang" },
+                { "data": "noiDungSuaChua" },
+                { "data": "soLuong" },
+                { "data": "donViTinh" },
+                { "data": "donGia" },
+                { "data": "thanhTienChuaThue" },
+                {
+                    "data": "thueVat", "render": function (data) {
+                        console.log(data);
+                        if (data == "1")
+                            return "5%";
+                        if (data == "2")
+                            return "8%";
+                        if (data == "3")
+                            return "10%";
+
+                    }
+
+                },
+                { "data": "tongThanhToan" },
+                { "data": "no" },
+                { "data": "canTru" },
+                { "data": "ghiChu" },
+                
+                
+                {
+                    "data": "id", "render": function (data) {
+                        return "<a class='fa fa-edit' href='#' data-toggle='tooltip' title='Cập nhật' onclick='return GetById(" + data + ")'></a>&nbsp;&nbsp;<a class='fa fa-trash' href='#' data-toggle='tooltip' title='Xóa' onclick='DeleteById(" + data + ")'></a>"
+                    }
+                }
+            ],
+            destroy: true,
+            ordering: false,
+            paging: true,
+            searching: true,
+            bInfo: false,
+            deferRender: true
+        });
+        //Xử lý nút check all
+        $("#checkall").change(function () {
+            $(".checkitem").prop("checked", $(this).prop("checked"))
+        })
+
+        $("#btnThemMoi").click(function () {
+            $("#Xesuachua").modal('show');
+            $("#idXesuachua").val(0);
+            $("#myModalLabel").text("Thêm mới thông tin xe sửa chửa");
+            $("#NgayThang").val("");
+            $("#NoiDungSuaChua").val("");
+            $("#soLuong").val("");
+            $("#donViTinh").val("");
+            $("#donGia").val("");
+            $("#ThanhTienChuaThue").val("");
+            $("#ThueVAT").val("");
+            $("#TongThanhToan").val("");
+            $("#no").val("");
+            $("#canTru").val("");
+            $("#ghiChu").val("");
+            $("#cbbXeVanTai").val("");
+            $("#cbbMaKhachHang").val("");
+
+        })
+        //Reset bootstrap validator
+        $('#Xesuachua').on('hide.bs.modal', function () {
+            $('#frmXesuachua').bootstrapValidator('resetForm', true);
+        });
+        //Validate
+
+    }
+    function validator() {
+        $('#frmXesuachua').bootstrapValidator({
+            message: 'Giá trị không hợp lệ',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                NgayThang: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập ngày tháng!'
+                        }
+                    }
+                },
+                NoiDungSuaChua: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập nội dung xe sửa chửa!'
+                        }
+                    }
+                },
+                cbbXeVanTai: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Chọn mã số xe'
+                        }
+                    }
+                },
+                cbbMaKhachHang: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Chọn mã khách hàng'
+                        }
+                    }
+                },
+                soLuong: {
+                    validators: {
+                        numeric: {
+                            message: 'Vui lòng chỉ sử dụng số.',
+                        },
+                        notEmpty: {
+                            message: 'Nhập số lượng'
+                        }
+                    }
+                },
+                donGia: {
+                    validators: {
+                        numeric: {
+                            message: 'Vui lòng chỉ sử dụng số.',
+                        },
+                        notEmpty: {
+                            message: 'Nhập đơn giá'
+                        }
+                    }
+                },
+                donViTinh: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Nhập đơn vị tính'
+                        }
+                    }
+                },
+                ThueVAT: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Chọn thuế VAT'
+                        }
+                    }
+                },
+
+            }
+
+        });
+        var validatorObj = $('#frmXesuachua').data('bootstrapValidator');
+        validatorObj.validate();
+        if (validatorObj.isValid()) {
+            return true;
+        }
+        return false;
+    }
+   
+    function GetDmXeVanTai() {
+        $.get('/XeSuaChuaTaiXuong/GetDmXeVanTai', function (data) {
+            var html = '';
+            html = '<option value="">--Chọn mã lái xe--</option>'
+
+            $.each(data, function (key, item) {
+                //console.log("ds", data);
+
+                html += '<option value = ' + item.id + '>' + item.maSoXe + '</option>';
+
+
+
+            });
+            $('#cbbXeVanTai').html(html);
+        })
+    }
+    function GetDmKhachHang() {
+        $.get('/XeSuaChuaTaiXuong/GetDmKhachHang', function (data) {
+            var html = '';
+            html = '<option value="">--Chọn mã khách hàng--</option>'
+
+            $.each(data, function (key, item) {
+                //console.log("ds", data);
+
+                html += '<option value = ' + item.id + '>' + item.maKhachHang + '</option>';
+
+
+
+            });
+            $('#cbbMaKhachHang').html(html);
+        })
+    }
+    function reSum() {
+
+        let num1 = Number(document.getElementById("ThanhTienChuaThue").value);
+        let num2 = Number(document.getElementById("ThueVAT").value);
+        if (num2 == 1) {
+            document.getElementById("TongThanhToan").value = num1 + (num1 * 5 / 100);
+
+        }
+        else if (num2 == 2) {
+            document.getElementById("TongThanhToan").value = num1 + (num1 * 8 / 100);
+
+        }
+        else if (num2 == 3) {
+            document.getElementById("TongThanhToan").value = num1 + (num1 * 10 / 100);
+
+        }
+
+
+    }
+    function SumMoney() {
+
+        let num1 = Number(document.getElementById("soLuong").value);
+        let num2 = Number(document.getElementById("donGia").value);
+        document.getElementById("ThanhTienChuaThue").value = num1 * num2;
+
+
+    }
+    $("#btnUpdate").click(function () {
+        var isValid = validator();
+        if (isValid) {
+            var obj = {
+                id: $("#idXesuachua").val(),
+                NgayThang: $("#NgayThang").val(),
+                maSoXe: $("#cbbXeVanTai").val(),
+                MaKhachHang: $("#cbbMaKhachHang").val(),
+                NoiDungSuaChua: $("#NoiDungSuaChua").val(),
+                SoLuong: $("#soLuong").val(),
+                DonViTinh: $("#donViTinh").val(),
+                DonGia: $("#donGia").val(),
+                ThanhTienChuaThue: $("#ThanhTienChuaThue").val(),
+                ThueVAT: $("#ThueVAT").val(),
+                TongThanhToan: $("#TongThanhToan").val(),
+                No: $("#no").val(),
+                CanTru: $("#canTru").val(),
+                GhiChu: $("#ghiChu").val(),
+
+            }
+            $.ajax({
+                url: "/XeSuaChuaTaiXuong/UpdateXeSuaChua",
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    if (data == "addsuccess") {
+                        sweetalert("Success", "success", "Thêm mới biến động thành công!")
+                    }
+                    else if (data == "updatesuccess") {
+                        sweetalert("Success", "success", "Cập nhật biến động thành công!")
+                    }
+                    else {
+                        sweetalert("Cảnh báo", "warning", "Có lỗi khi cập nhật biến động!")
+                    }
+                    loadData();
+                    $("#Xesuachua").modal('hide');
+                },
+                error: function (errormessage) {
+                    sweetalert("", "error", errormessage.responseText);
+                }
+            });
+        }
+    });
+    function GetById(Id) {
+        $("#Xesuachua").modal('show');
+        $("#idXesuachua").val(Id);
+        $("#myModalLabel").text("Chỉnh sửa thông tin sửa chửa xe");
+
+        $.get('/XeSuaChuaTaiXuong/GetXeSuaChuaById', { id: Id }, function (data) {
+            console.log(data);
+            $("#cbbXeVanTai").val(data.idXeVanTai);
+            $("#cbbMaKhachHang").val(data.idKhachHang);
+            $("#NgayThang").val(data.ngayThang);
+            $("#NoiDungSuaChua").val(data.noiDungSuaChua);
+            $("#soLuong").val(data.soLuong);
+            $("#donViTinh").val(data.donViTinh);
+            $("#donGia").val(data.donGia);
+            $("#ThanhTienChuaThue").val(data.thanhTienChuaThue);
+            $("#ThueVAT").val(data.thueVat);
+            $("#TongThanhToan").val(data.tongThanhToan);
+            $("#no").val(data.no);
+            $("#canTru").val(data.canTru);
+            $("#ghiChu").val(data.ghiChu);
+        }, 'json').fail(function (error) {
+            sweetalert("", "error", error.responseText);
+        })
+    }
+    function DeleteById(Id) {
+        var ans = confirm("Bạn chắc chắn muốn xóa bản ghi?");
+        if (ans) {
+            $.post('/XeSuaChuaTaiXuong/DeleteByID/', { idXeSuaChua: Id }, function (data) {
+                if (data == "True") {
+                    sweetalert("", "success", "Xóa bản ghi thành công!");
+                    loadData();
+                }
+                else {
+                    sweetalert("", "warning", "Xóa bản ghi không thành công, bản ghi đang nằm trong dữ liệu khác!");
+                    loadData();
+                }
+            }).fail(function (error) {
+                sweetalert("Lỗi", "error", error.responseText);
+            })
+
+        }
+    }
+
+    //Xóa khi check nhiều dòng
+    $("#btnDeleteSelected").click(function () {
+        var id = $('.checkitem:checked').map(function () {
+            return $(this).val()
+        }).get().join(' ')
+        if (id == "") {
+            sweetalert("Thông báo", "warning", "Bạn chưa chọn đối tượng để xóa");
+        }
+        else {
+            var ans = confirm("Bạn chắc chắn muốn xóa các bản ghi đã chọn?");
+            if (ans) {
+                $.post('/XeSuaChuaTaiXuong/DeleteByArrayId/', { idXeSuaChua: id }, function (data) {
+                    if (data == "True") {
+                        sweetalert("", "success", "Xóa biến động thành công!")
+                    }
+                    else {
+                        sweetalert("", "warning", "Có lỗi khi xóa!")
+                    }
+                    loadData();
+                }).fail(function (error) {
+                    sweetalert("Lỗi", "error", error.responseText);
+                });
+            }
+        }
+    });
+</script>
+

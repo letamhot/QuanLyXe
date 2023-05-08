@@ -17,24 +17,24 @@ namespace QLDV.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DonViToChuc_Map()
         {
-            this.NguoiDung_ToChuc = new HashSet<NguoiDung_ToChuc>();
             this.DoanVien_KiemNhiem = new HashSet<DoanVien_KiemNhiem>();
+            this.NguoiDung_ToChuc = new HashSet<NguoiDung_ToChuc>();
         }
     
         public int Id { get; set; }
+        public int DonViId { get; set; }
+        public Nullable<int> ToChucChaId { get; set; }
         public int LoaiHinhToChucId { get; set; }
         public int CapToChucId { get; set; }
         public string TenToChuc { get; set; }
         public Nullable<System.DateTime> NgayThanhLap { get; set; }
-        public int DonViId { get; set; }
-        public Nullable<int> ToChucChaId { get; set; }
     
         public virtual CapToChuc CapToChuc { get; set; }
-        public virtual LoaiHinhToChuc LoaiHinhToChuc { get; set; }
-        public virtual DonVi DonVi { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NguoiDung_ToChuc> NguoiDung_ToChuc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoanVien_KiemNhiem> DoanVien_KiemNhiem { get; set; }
+        public virtual DonVi DonVi { get; set; }
+        public virtual LoaiHinhToChuc LoaiHinhToChuc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NguoiDung_ToChuc> NguoiDung_ToChuc { get; set; }
     }
 }

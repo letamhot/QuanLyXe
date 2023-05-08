@@ -30,8 +30,8 @@ namespace QLDV.Models
     
         public virtual BienDong BienDong { get; set; }
         public virtual CapToChuc CapToChuc { get; set; }
-        public virtual LoaiHinhToChuc LoaiHinhToChuc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BienDong_QuyTrinh_ChiTiet> BienDong_QuyTrinh_ChiTiet { get; set; }
+        public virtual LoaiHinhToChuc LoaiHinhToChuc { get; set; }
     }
 }

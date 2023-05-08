@@ -173,6 +173,7 @@
     <Compile Include="Controllers\QuyenMenuController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TinhThanhController.cs" />
+    <Compile Include="Controllers\XeSuaChuaTaiXuongController.cs" />
     <Compile Include="Controllers\XeVanTaiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -247,6 +248,8 @@
     <Compile Include="Models\DAL\SqlDataAccess.cs" />
     <Compile Include="Models\DAL\ToChucService\ToChucAssignModel.cs" />
     <Compile Include="Models\DAL\ToChucService\ToChucService.cs" />
+    <Compile Include="Models\DAL\XeSuaChuaTaiXuong\XeSuaChuaTaiXuongModel.cs" />
+    <Compile Include="Models\DAL\XeSuaChuaTaiXuong\XeSuaChuaTaiXuongService.cs" />
     <Compile Include="Models\DAL\XeVanTaiService\XeVanTaiModel.cs" />
     <Compile Include="Models\DAL\XeVanTaiService\XeVanTaiService.cs" />
     <Compile Include="Models\DanhGiaThiDua.cs">
@@ -406,6 +409,9 @@
       <DependentUpon>mdlQLDV.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vt_LichTrinhXe.cs">
+      <DependentUpon>mdlQLDV.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vt_XeSuaChuaTaiXuong.cs">
       <DependentUpon>mdlQLDV.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vt_XeVanTai.cs">
@@ -737,6 +743,7 @@
     <Content Include="Views\DichVuKinhDoanhKhac\Index.cshtml" />
     <Content Include="Views\BaoCaoChiPhiXe\Index.cshtml" />
     <Content Include="Views\BaocaoCongNoPhaiThu\Index.cshtml" />
+    <Content Include="Views\XeSuaChuaTaiXuong\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

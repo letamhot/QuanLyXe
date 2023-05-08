@@ -17,14 +17,16 @@ namespace QLDV.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NguoiDung()
         {
+            this.BienDong_DoanVien_Map = new HashSet<BienDong_DoanVien_Map>();
+            this.DoanVien_KiemNhiem = new HashSet<DoanVien_KiemNhiem>();
+            this.NguoiDung_ToChuc = new HashSet<NguoiDung_ToChuc>();
             this.NguoiDungBangCap_Map = new HashSet<NguoiDungBangCap_Map>();
             this.NguoiDungNhomQuyen_Map = new HashSet<NguoiDungNhomQuyen_Map>();
-            this.NguoiDung_ToChuc = new HashSet<NguoiDung_ToChuc>();
-            this.DoanVien_KiemNhiem = new HashSet<DoanVien_KiemNhiem>();
-            this.BienDong_DoanVien_Map = new HashSet<BienDong_DoanVien_Map>();
         }
     
         public int NguoiDungId { get; set; }
+        public int DonViId { get; set; }
+        public Nullable<int> ToChucId { get; set; }
         public string MaNguoiDung { get; set; }
         public string TaiKhoan { get; set; }
         public string MatKhau { get; set; }
@@ -70,17 +72,16 @@ namespace QLDV.Models
         public Nullable<bool> HoiVien { get; set; }
         public Nullable<bool> DoanVienDanhDu { get; set; }
         public Nullable<bool> DangSinhHoat { get; set; }
-        public Nullable<System.DateTime> NgayTao { get; set; }
         public Nullable<int> QuyenKhaiThacToChuc { get; set; }
         public Nullable<int> QuyenKhaiThacDonVi { get; set; }
-        public int DonViId { get; set; }
-        public Nullable<int> ToChucId { get; set; }
+        public Nullable<System.DateTime> NgayTao { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NguoiDungBangCap_Map> NguoiDungBangCap_Map { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NguoiDungNhomQuyen_Map> NguoiDungNhomQuyen_Map { get; set; }
+        public virtual ICollection<BienDong_DoanVien_Map> BienDong_DoanVien_Map { get; set; }
         public virtual DanToc DanToc1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DoanVien_KiemNhiem> DoanVien_KiemNhiem { get; set; }
+        public virtual DonVi DonVi { get; set; }
         public virtual HocHam HocHam1 { get; set; }
         public virtual HocVi HocVi1 { get; set; }
         public virtual LyLuanChinhTri LyLuanChinhTri1 { get; set; }
@@ -90,14 +91,13 @@ namespace QLDV.Models
         public virtual QuanHuyen QuanHuyen1 { get; set; }
         public virtual TinhThanh TinhThanh { get; set; }
         public virtual TinhThanh TinhThanh1 { get; set; }
-        public virtual TonGiao TonGiao1 { get; set; }
-        public virtual TrinhDoPhoThong TrinhDoPhoThong1 { get; set; }
-        public virtual DonVi DonVi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NguoiDung_ToChuc> NguoiDung_ToChuc { get; set; }
+        public virtual TonGiao TonGiao1 { get; set; }
+        public virtual TrinhDoPhoThong TrinhDoPhoThong1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DoanVien_KiemNhiem> DoanVien_KiemNhiem { get; set; }
+        public virtual ICollection<NguoiDungBangCap_Map> NguoiDungBangCap_Map { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BienDong_DoanVien_Map> BienDong_DoanVien_Map { get; set; }
+        public virtual ICollection<NguoiDungNhomQuyen_Map> NguoiDungNhomQuyen_Map { get; set; }
     }
 }

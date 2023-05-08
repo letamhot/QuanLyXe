@@ -22,16 +22,16 @@ namespace QLDV.Models
         }
     
         public int BienDongId { get; set; }
-        public string TenBienDong { get; set; }
-        public string MoTa { get; set; }
         public int LoaiHinhToChucId { get; set; }
         public Nullable<bool> IsChanged { get; set; }
+        public string TenBienDong { get; set; }
+        public string MoTa { get; set; }
         public string FolderUpload { get; set; }
         public Nullable<bool> ShowList { get; set; }
     
+        public virtual LoaiHinhToChuc LoaiHinhToChuc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BienDong_QuyTrinh> BienDong_QuyTrinh { get; set; }
-        public virtual LoaiHinhToChuc LoaiHinhToChuc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BienDongDoanVien> BienDongDoanViens { get; set; }
     }

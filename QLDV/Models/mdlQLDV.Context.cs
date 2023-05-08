@@ -18,7 +18,6 @@ namespace QLDV.Models
         public QuanLyDoanVienEntities()
             : base("name=QuanLyDoanVienEntities")
         {
-            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,16 +27,23 @@ namespace QLDV.Models
     
         public virtual DbSet<BangCap> BangCaps { get; set; }
         public virtual DbSet<BienDong> BienDongs { get; set; }
+        public virtual DbSet<BienDong_DoanVien_Map> BienDong_DoanVien_Map { get; set; }
+        public virtual DbSet<BienDong_QuyTrinh> BienDong_QuyTrinh { get; set; }
+        public virtual DbSet<BienDong_QuyTrinh_ChiTiet> BienDong_QuyTrinh_ChiTiet { get; set; }
+        public virtual DbSet<BienDongDoanVien> BienDongDoanViens { get; set; }
+        public virtual DbSet<BienDongDoanVienChiTiet> BienDongDoanVienChiTiets { get; set; }
         public virtual DbSet<CapToChuc> CapToChucs { get; set; }
         public virtual DbSet<CapToChucLoaiHinh_Map> CapToChucLoaiHinh_Map { get; set; }
         public virtual DbSet<ChucVu> ChucVus { get; set; }
         public virtual DbSet<ChuongTrinh> ChuongTrinhs { get; set; }
         public virtual DbSet<ChuyenNganh> ChuyenNganhs { get; set; }
-        public virtual DbSet<DanhGiaThiDua> DanhGiaThiDuas { get; set; }
         public virtual DbSet<DanToc> DanTocs { get; set; }
+        public virtual DbSet<DanhGiaThiDua> DanhGiaThiDuas { get; set; }
+        public virtual DbSet<DoanVien_KiemNhiem> DoanVien_KiemNhiem { get; set; }
         public virtual DbSet<DoiTuongCSXH> DoiTuongCSXHs { get; set; }
         public virtual DbSet<DonVi> DonVis { get; set; }
         public virtual DbSet<DonViToChuc_Map> DonViToChuc_Map { get; set; }
+        public virtual DbSet<GiaoUocThiDua> GiaoUocThiDuas { get; set; }
         public virtual DbSet<HangThuongBinh> HangThuongBinhs { get; set; }
         public virtual DbSet<HinhThucDaoTao> HinhThucDaoTaos { get; set; }
         public virtual DbSet<HinhThucKyLuat> HinhThucKyLuats { get; set; }
@@ -50,34 +56,27 @@ namespace QLDV.Models
         public virtual DbSet<LoaiHinhToChuc> LoaiHinhToChucs { get; set; }
         public virtual DbSet<LoaiThuChi> LoaiThuChis { get; set; }
         public virtual DbSet<LyLuanChinhTri> LyLuanChinhTris { get; set; }
+        public virtual DbSet<NoiDungTieuChiGiaoUoc> NoiDungTieuChiGiaoUocs { get; set; }
         public virtual DbSet<NgoaiNgu> NgoaiNgus { get; set; }
         public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
+        public virtual DbSet<NguoiDung_ToChuc> NguoiDung_ToChuc { get; set; }
         public virtual DbSet<NguoiDungBangCap_Map> NguoiDungBangCap_Map { get; set; }
         public virtual DbSet<NguoiDungNhomQuyen_Map> NguoiDungNhomQuyen_Map { get; set; }
         public virtual DbSet<NhomMau> NhomMaus { get; set; }
         public virtual DbSet<NhomQuyen> NhomQuyens { get; set; }
+        public virtual DbSet<NhomQuyenCapTc_Map> NhomQuyenCapTc_Map { get; set; }
         public virtual DbSet<NhomQuyenMenu_Map> NhomQuyenMenu_Map { get; set; }
+        public virtual DbSet<PhongBan> PhongBans { get; set; }
         public virtual DbSet<PhuongXa> PhuongXas { get; set; }
         public virtual DbSet<QuanHuyen> QuanHuyens { get; set; }
         public virtual DbSet<QuyenMenu> QuyenMenus { get; set; }
-        public virtual DbSet<ThanhPhanGiaDinh> ThanhPhanGiaDinhs { get; set; }
+        public virtual DbSet<TieuChiGiaoUoc> TieuChiGiaoUocs { get; set; }
         public virtual DbSet<TinhThanh> TinhThanhs { get; set; }
         public virtual DbSet<TonGiao> TonGiaos { get; set; }
+        public virtual DbSet<ThanhPhanGiaDinh> ThanhPhanGiaDinhs { get; set; }
+        public virtual DbSet<TrangThaiBienDong> TrangThaiBienDongs { get; set; }
         public virtual DbSet<TrinhDoPhoThong> TrinhDoPhoThongs { get; set; }
         public virtual DbSet<TrinhDoTinHoc> TrinhDoTinHocs { get; set; }
-        public virtual DbSet<NhomQuyenCapTc_Map> NhomQuyenCapTc_Map { get; set; }
-        public virtual DbSet<BienDong_QuyTrinh> BienDong_QuyTrinh { get; set; }
-        public virtual DbSet<BienDong_QuyTrinh_ChiTiet> BienDong_QuyTrinh_ChiTiet { get; set; }
-        public virtual DbSet<NguoiDung_ToChuc> NguoiDung_ToChuc { get; set; }
-        public virtual DbSet<DoanVien_KiemNhiem> DoanVien_KiemNhiem { get; set; }
-        public virtual DbSet<TrangThaiBienDong> TrangThaiBienDongs { get; set; }
-        public virtual DbSet<BienDongDoanVien> BienDongDoanViens { get; set; }
-        public virtual DbSet<BienDong_DoanVien_Map> BienDong_DoanVien_Map { get; set; }
-        public virtual DbSet<BienDongDoanVienChiTiet> BienDongDoanVienChiTiets { get; set; }
-        public virtual DbSet<GiaoUocThiDua> GiaoUocThiDuas { get; set; }
-        public virtual DbSet<NoiDungTieuChiGiaoUoc> NoiDungTieuChiGiaoUocs { get; set; }
-        public virtual DbSet<TieuChiGiaoUoc> TieuChiGiaoUocs { get; set; }
-        public virtual DbSet<PhongBan> PhongBans { get; set; }
         public virtual DbSet<vt_ChiPhiKhac> vt_ChiPhiKhac { get; set; }
         public virtual DbSet<vt_ChiPhiLichTrinhXe> vt_ChiPhiLichTrinhXe { get; set; }
         public virtual DbSet<vt_ChiPhiSuaXe> vt_ChiPhiSuaXe { get; set; }
@@ -86,6 +85,7 @@ namespace QLDV.Models
         public virtual DbSet<vt_DMKhachHang> vt_DMKhachHang { get; set; }
         public virtual DbSet<vt_LaiXe> vt_LaiXe { get; set; }
         public virtual DbSet<vt_LichTrinhXe> vt_LichTrinhXe { get; set; }
+        public virtual DbSet<vt_XeSuaChuaTaiXuong> vt_XeSuaChuaTaiXuong { get; set; }
         public virtual DbSet<vt_XeVanTai> vt_XeVanTai { get; set; }
     }
 }

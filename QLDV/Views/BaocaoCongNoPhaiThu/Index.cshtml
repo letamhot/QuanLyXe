@@ -280,7 +280,7 @@
     $("#btnXuatExcel").click(function () {
         if (confirm('Bạn có muốn xuất dữ liệu theo tiêu chí được chọn?')) {
             var time = getMocThoiGian(flag_bt);
-            var url = '@Url.Action("ExportExcelBaoCaoThongke", "BaoCaoCongNoPhaiThu", new RouteValueDictionary(new { from = "t_from", to = "t_to", loaiCongNo = "t_loaiCongNo" }))'.replace("t_from", encodeURIComponent(time[0]));
+            var url = '@Url.Action("ExportExcelBaoCaoThongke", "BaoCaoCongNoPhaiThu", new RouteValueDictionary(new { from = "t_from", to = "t_to", loaiCongNo = }))'.replace("t_from", encodeURIComponent(time[0]));
             url = url.replace("t_to", encodeURIComponent(time[1]));
             url = url.replace("t_loaiCongNo", encodeURIComponent($("#loaiCongNo").val()));
 
