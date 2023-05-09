@@ -10,9 +10,9 @@ namespace QLDV.Models.DAL.LichTrinhService
         public int id { get; set; }
         public string maChuyen { get; set; }
         public int idLaiXe { get; set; }
-        public string maLaiXe { get; set; }
+        public string tenLaiXe { get; set; }
         public int idKhachHang { get; set; }
-        public string maKhachHang { get; set; }
+        public string tenKhachHang { get; set; }
         public string thoiGianLapPhieu { get; set; }
         public string noiDungLamViec { get; set; }
         public string noiDi { get; set; }

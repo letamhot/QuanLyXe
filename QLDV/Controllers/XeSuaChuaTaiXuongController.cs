@@ -33,8 +33,8 @@ namespace QLDV.Controllers
                     vt_XeSuaChuaTaiXuong _new = new vt_XeSuaChuaTaiXuong();
                    
                     _new.ngayThang = _obj.ngayThang;
-                    _new.idXeVanTai = xevantai.id;
-                    _new.idKhachHang = khachhang.id;
+                    _new.idXeVanTai = _obj.idXeVanTai;
+                    _new.idKhachHang = _obj.idKhachHang;
                     if (_obj.noiDungSuaChua == null || _obj.noiDungSuaChua == "")
                     {
                         _new.noiDungSuaChua = null;
@@ -109,8 +109,8 @@ namespace QLDV.Controllers
                 {
                     vt_XeSuaChuaTaiXuong _update = _entities.vt_XeSuaChuaTaiXuong.Find(_obj.id);
                     _update.ngayThang = _obj.ngayThang;
-                    _update.idXeVanTai = xevantai.id;
-                    _update.idKhachHang = khachhang.id;
+                    _update.idXeVanTai = _obj.idXeVanTai;
+                    _update.idKhachHang = _obj.idKhachHang;
                     if (_obj.noiDungSuaChua == null || _obj.noiDungSuaChua == "")
                     {
                         _update.noiDungSuaChua = null;

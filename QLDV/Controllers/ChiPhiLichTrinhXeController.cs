@@ -39,7 +39,7 @@ namespace QLDV.Controllers
                 if (_objCPLTX.id == 0)
                 {
                     vt_ChiPhiLichTrinhXe _new = new vt_ChiPhiLichTrinhXe();
-                    _new.idLichTrinhXe = lichtrinh.id;
+                    _new.idLichTrinhXe = _objCPLTX.idLichTrinhXe;
                     _new.loaiChiPhi = _objCPLTX.loaiChiPhi;
                     _new.tenChiPhi = _objCPLTX.tenChiPhi;
                     _new.giaTien = _objCPLTX.giaTien;
@@ -51,7 +51,7 @@ namespace QLDV.Controllers
                 else
                 {
                     vt_ChiPhiLichTrinhXe _update = _entities.vt_ChiPhiLichTrinhXe.Find(_objCPLTX.id);
-                    _update.idLichTrinhXe = lichtrinh.id;
+                    _update.idLichTrinhXe = _objCPLTX.idLichTrinhXe;
                     _update.loaiChiPhi = _objCPLTX.loaiChiPhi;
                     _update.tenChiPhi = _objCPLTX.tenChiPhi;
                     _update.giaTien = _objCPLTX.giaTien;

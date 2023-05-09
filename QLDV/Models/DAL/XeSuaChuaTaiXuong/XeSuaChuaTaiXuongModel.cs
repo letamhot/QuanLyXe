@@ -10,7 +10,7 @@ namespace QLDV.Models.DAL.XeSuaChuaTaiXuong
         public int id { get; set; }
         public string ngayThang { get; set; }
         public string maXe { get; set; }
-        public string maKhachHang { get; set; }
+        public string tenKhachHang { get; set; }
         public int idXeVanTai { get; set; }
         public int idKhachHang { get; set; }
         public string noiDungSuaChua { get; set; }

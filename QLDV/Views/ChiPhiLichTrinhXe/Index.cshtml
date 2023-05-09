@@ -45,6 +45,8 @@
                 </div>
                 <div class="modal-body" id="frmChiPhiLT">
                     <input type="hidden" id="idChiPhiLT" />
+                    <input type="hidden" id="idLichTrinhXe" />
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -225,7 +227,7 @@
                 html += '<option value = ' + item.id + '>' + item.maChuyen + '</option>';
 
 
-
+                $("#idLichTrinhXe").val(item.id);
             });
             $('#cbbMaLichTrinh').html(html);
         })
@@ -237,6 +239,7 @@
         if (isValid) {
             var obj = {
                 id: $("#idChiPhiLT").val(),
+                IdLichTrinhXe: $("#idLichTrinhXe").val(),
                 MaLichTrinh: $("#cbbMaLichTrinh").val(),
                 LoaiChiPhi: $("#LoaiChiPhi").val(),
                 TenChiPhi: $("#TenChiPhi").val(),

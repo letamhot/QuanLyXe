@@ -38,7 +38,7 @@ namespace QLDV.Controllers
                 {
                     vt_XeVanTai _new = new vt_XeVanTai();
                     _new.maSoXe = _objXVT.maSoXe;
-                    _new.idLaiXe = laiXe.id;
+                    _new.idLaiXe = _objXVT.idLaiXe;
                     _new.daXoa = "0";
                     _entities.vt_XeVanTai.Add(_new);
                     _entities.SaveChanges();
@@ -48,7 +48,7 @@ namespace QLDV.Controllers
                 {
                     vt_XeVanTai _update = _entities.vt_XeVanTai.Find(_objXVT.id);
                     _update.maSoXe = _objXVT.maSoXe;
-                    _update.idLaiXe = laiXe.id;
+                    _update.idLaiXe = _objXVT.idLaiXe;
                     _update.daXoa = "0";
                     _entities.SaveChanges();
                     return "updatesuccess";

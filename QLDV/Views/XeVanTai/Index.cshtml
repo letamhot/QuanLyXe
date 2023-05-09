@@ -43,6 +43,7 @@
                 </div>
                 <div class="modal-body" id="frmXeVanTai">
                     <input type="hidden" id="idXeVanTai" />
+                    <input type="hidden" id="idLaiXe" />
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -63,11 +64,11 @@
 
                                 <select id="cbbMaLaiXe" name="cbbMaLaiXe" class="form-control">
                                 </select>
-                               
+
                             </div>
                         </div>
                     </div>
-                   
+
 
 
                 </div>
@@ -147,7 +148,7 @@
 
                 html += '<option value = ' + item.id + '>' + item.maLaiXe + '</option>';
 
-
+                $("#idLaiXe").val(item.id);
 
             });
             $('#cbbMaLaiXe').html(html);
@@ -192,6 +193,7 @@
         if (isValid) {
             var obj = {
                 id: $("#idXeVanTai").val(),
+                ÍDLaiXe: $("#idLaiXe").val(),
                 MaSoXe: $("#MaSoXe").val(),
                 MaLaiXe: $("#cbbMaLaiXe").val(),
                 

@@ -53,16 +53,8 @@
                 </div>
                 <div class="modal-body" id="frmLichtrinhxe">
                     <input type="hidden" id="idlichtrinhxe" />
-                    @*<div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="MaChuyen" class="control-label">Mã chuyến: </label>
-                                <input class="form-control" id="MaChuyen" name="MaChuyen" type="text" onkeyup="ExistLichTrinhMaChuyen()" />
-                                <label id="txtMaChuyen" name="txtMaChuyen" style="color:red; font-size:10px;"></label>
-
-                            </div>
-                        </div>
-                    </div>*@
+                    <input type="hidden" id="idLaiXe" />
+                    <input type="hidden" id="idKhachHang" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -81,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -97,7 +89,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="NoiDungLamViec" class="control-label">Nội dung làm việc: </label>
-                                <textarea class="form-control" id="NoiDungLamViec" name="NoiDungLamViec" type="text" ></textarea>
+                                <textarea class="form-control" id="NoiDungLamViec" name="NoiDungLamViec" type="text"></textarea>
                             </div>
                         </div>
                     </div>
@@ -115,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -141,7 +133,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -169,13 +161,13 @@
                                     <label id="txtCheckPhieu" name="txtCheckPhieu" style="color:red; font-size:10px;"></label>
 
                                 </div>
-                                
+
 
 
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btnUpdate"><i class="fa fa-sync"></i> Cập nhật</button>
@@ -212,8 +204,8 @@
                     }
                 },
                 { "data": "maChuyen" },
-                { "data": "maLaiXe" },
-                { "data": "maKhachHang" },
+                { "data": "tenLaiXe" },
+                { "data": "tenKhachHang" },
                 {
                     "data": "thoiGianLapPhieu", "render": function (data) {
                         //console.log(data);
@@ -375,9 +367,10 @@
             $.each(data, function (key, item) {
                 //console.log("ds", data);
 
-                html += '<option value = ' + item.id + '>' + item.maLaiXe + '</option>';
+                html += '<option value = ' + item.id + '>' + item.tenLaiXe + '</option>';
 
 
+                $('#idLaiXe').val(item.id);
 
             });
             $('#cbbMaLaiXe').html(html);
@@ -391,8 +384,9 @@
             $.each(data, function (key, item) {
                 //console.log("ds", data);
 
-                html += '<option value = ' + item.id + '>' + item.maKhachHang + '</option>';
+                html += '<option value = ' + item.id + '>' + item.tenKhachHang + '</option>';
 
+                $('#idKhachHang').val(item.id);
 
 
             });
@@ -451,7 +445,8 @@
         if (isValid) {
             var obj = {
                 id: $("#idlichtrinhxe").val(),
-                @*MaChuyen: $("#MaChuyen").val(),*@
+                IdLaiXe: $("#idLaiXe").val(),
+                IdKhachHang: $("#idKhachHang").val(),
                 MaLaiXe: $("#cbbMaLaiXe").val(),
                 MaKhachHang: $("#cbbMaKhachHang").val(),
                 ThoiGianLapPhieu: $("#ThoiGianLapPhieu").val(),

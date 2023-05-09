@@ -49,8 +49,8 @@ namespace QLDV.Controllers
                 {
                     vt_LichTrinhXe _new = new vt_LichTrinhXe();
                     _new.maChuyen = "MC"+_objLTX.id;
-                    _new.idLaiXe = laiXe.id;
-                    _new.idKhachHang = khachhang.id;
+                    _new.idLaiXe = _objLTX.idLaiXe;
+                    _new.idKhachHang = _objLTX.idKhachHang;
                     _new.thoiGianLapPhieu = _objLTX.thoiGianLapPhieu;
                     _new.noiDungLamViec = _objLTX.noiDungLamViec;
                     _new.noiDi = _objLTX.noiDi;
@@ -70,8 +70,8 @@ namespace QLDV.Controllers
                 {
                     vt_LichTrinhXe _update = _entities.vt_LichTrinhXe.Find(_objLTX.id);
                     _update.maChuyen = "MC" + _objLTX.id;
-                    _update.idLaiXe = laiXe.id;
-                    _update.idKhachHang = khachhang.id;
+                    _update.idLaiXe = _objLTX.idLaiXe;
+                    _update.idKhachHang = _objLTX.idKhachHang;
                     _update.thoiGianLapPhieu = _objLTX.thoiGianLapPhieu;
                     _update.noiDungLamViec = _objLTX.noiDungLamViec;
                     _update.noiDi = _objLTX.noiDi;

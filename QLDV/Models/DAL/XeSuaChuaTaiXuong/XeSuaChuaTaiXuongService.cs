@@ -38,7 +38,7 @@ namespace QLDV.Models.DAL.XeSuaChuaTaiXuong
                             idXeVanTai = _entities.vt_XeVanTai.Find(int.Parse(dt.Rows[i]["idXeVanTai"].ToString())).id,
                             maXe = _entities.vt_XeVanTai.Find(int.Parse(dt.Rows[i]["idXeVanTai"].ToString())).maSoXe,
                             idKhachHang = _entities.vt_DMKhachHang.Find(int.Parse(dt.Rows[i]["idKhachHang"].ToString())).id,
-                            maKhachHang = _entities.vt_DMKhachHang.Find(int.Parse(dt.Rows[i]["idKhachHang"].ToString())).maKhachHang,
+                            tenKhachHang = _entities.vt_DMKhachHang.Find(int.Parse(dt.Rows[i]["idKhachHang"].ToString())).tenKhachHang,
                             noiDungSuaChua = dt.Rows[i]["noiDungSuaChua"].ToString(),
                             soLuong = int.Parse(dt.Rows[i]["soLuong"].ToString()),
                             donViTinh = dt.Rows[i]["donViTinh"].ToString(),
@@ -73,7 +73,7 @@ namespace QLDV.Models.DAL.XeSuaChuaTaiXuong
                 a.idXeVanTai = dh.idXeVanTai;
                 a.idKhachHang = dh.idKhachHang;
                 a.maXe = _entities.vt_XeVanTai.Find(dh.idXeVanTai).maSoXe;
-                a.maKhachHang = _entities.vt_DMKhachHang.Find(dh.idKhachHang).maKhachHang;
+                a.tenKhachHang = _entities.vt_DMKhachHang.Find(dh.idKhachHang).tenKhachHang;
                 a.noiDungSuaChua = dh.noiDungSuaChua;
 
                 a.soLuong = (int)dh.soLuong;

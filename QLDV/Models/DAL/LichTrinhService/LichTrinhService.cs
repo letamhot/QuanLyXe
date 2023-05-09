@@ -38,10 +38,10 @@ namespace QLDV.Models.DAL.LichTrinhService
                         {
                             id = int.Parse(dt.Rows[i]["id"].ToString()),
                             maChuyen = dt.Rows[i]["maChuyen"].ToString(),
-                            maLaiXe = _entities.vt_LaiXe.Find(int.Parse(dt.Rows[i]["idLaiXe"].ToString())).maLaiXe,
+                            tenLaiXe = _entities.vt_LaiXe.Find(int.Parse(dt.Rows[i]["idLaiXe"].ToString())).tenLaiXe,
                             idLaiXe = _entities.vt_LaiXe.Find(int.Parse(dt.Rows[i]["idLaiXe"].ToString())).id,
                             idKhachHang = _entities.vt_DMKhachHang.Find(int.Parse(dt.Rows[i]["idKhachHang"].ToString())).id,
-                            maKhachHang = _entities.vt_DMKhachHang.Find(int.Parse(dt.Rows[i]["idKhachHang"].ToString())).maKhachHang,
+                            tenKhachHang = _entities.vt_DMKhachHang.Find(int.Parse(dt.Rows[i]["idKhachHang"].ToString())).tenKhachHang,
                             thoiGianLapPhieu = (DateTime.Parse(dt.Rows[i]["thoiGianLapPhieu"].ToString())).ToString("dd/MM/yyyy"),
                             noiDungLamViec = dt.Rows[i]["noiDungLamViec"].ToString(),
                             noiDi = dt.Rows[i]["noiDi"].ToString(),
@@ -75,8 +75,8 @@ namespace QLDV.Models.DAL.LichTrinhService
                 a.id = dh.id;
                 a.idLaiXe = dh.idLaiXe;
                 a.idKhachHang = dh.idKhachHang;
-                a.maLaiXe = _entities.vt_LaiXe.Find(dh.idLaiXe).maLaiXe;
-                a.maKhachHang = _entities.vt_DMKhachHang.Find(dh.idKhachHang).maKhachHang;
+                a.tenLaiXe = _entities.vt_LaiXe.Find(dh.idLaiXe).tenLaiXe;
+                a.tenKhachHang = _entities.vt_DMKhachHang.Find(dh.idKhachHang).tenKhachHang;
                 a.thoiGianLapPhieu = ((DateTime)dh.thoiGianLapPhieu).ToString("dd/MM/yyyy");
                 a.noiDungLamViec = dh.noiDungLamViec;
                 

@@ -47,7 +47,7 @@ namespace QLDV.Controllers
                 {
                     vt_DangKiemGiayToXe _new = new vt_DangKiemGiayToXe();
                     _new.id = _objDangKiem.id;
-                    _new.idXeVanTai = xeVanTai.id;
+                    _new.idXeVanTai = _objDangKiem.idXeVanTai;
                     _new.kiemDinhSo = _objDangKiem.kiemDinhSo;
                     _new.ngayKiemDinh = _objDangKiem.ngayKiemDinh;
                     _new.loaiKiemDinh = _objDangKiem.loaiKiemDinh;
@@ -63,7 +63,7 @@ namespace QLDV.Controllers
                 {
                     vt_DangKiemGiayToXe _update = _entities.vt_DangKiemGiayToXe.Find(_objDangKiem.id);
                     _update.id = _objDangKiem.id;
-                    _update.idXeVanTai = xeVanTai.id;
+                    _update.idXeVanTai = _objDangKiem.idXeVanTai;
                     _update.kiemDinhSo = _objDangKiem.kiemDinhSo;
                     _update.ngayKiemDinh = _objDangKiem.ngayKiemDinh;
                     _update.loaiKiemDinh = _objDangKiem.loaiKiemDinh;

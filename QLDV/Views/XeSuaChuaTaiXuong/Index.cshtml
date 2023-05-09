@@ -54,6 +54,8 @@
                 </div>
                 <div class="modal-body" id="frmXesuachua">
                     <input type="hidden" id="idXesuachua" />
+                    <input type="hidden" id="idXeVanTai" />
+                    <input type="hidden" id="idKhachHang" />
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -204,7 +206,7 @@
                     }
                 },
                 { "data": "maXe" },
-                { "data": "maKhachHang" },
+                { "data": "tenKhachHang" },
                 { "data": "noiDungSuaChua" },
                 { "data": "soLuong" },
                 { "data": "donViTinh" },
@@ -366,6 +368,7 @@
 
                 html += '<option value = ' + item.id + '>' + item.maSoXe + '</option>';
 
+                $("#idXeVanTai").val(item.id);
 
 
             });
@@ -380,9 +383,9 @@
             $.each(data, function (key, item) {
                 //console.log("ds", data);
 
-                html += '<option value = ' + item.id + '>' + item.maKhachHang + '</option>';
+                html += '<option value = ' + item.id + '>' + item.tenKhachHang + '</option>';
 
-
+                $("#idKhachHang").val(item.id);
 
             });
             $('#cbbMaKhachHang').html(html);
@@ -420,6 +423,8 @@
         if (isValid) {
             var obj = {
                 id: $("#idXesuachua").val(),
+                idXeVanTai: $("#idXeVanTai").val(),
+                idKhachHang: $("#idKhachHang").val(),
                 NgayThang: $("#NgayThang").val(),
                 maSoXe: $("#cbbXeVanTai").val(),
                 MaKhachHang: $("#cbbMaKhachHang").val(),
