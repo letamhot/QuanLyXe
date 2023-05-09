@@ -150,6 +150,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaoCaoChiPhiXeController.cs" />
     <Compile Include="Controllers\BaocaoCongNoPhaiThuController.cs" />
+    <Compile Include="Controllers\BaoCaoTongHopController.cs" />
     <Compile Include="Controllers\CapToChucController.cs" />
     <Compile Include="Controllers\ChiPhiKhacController.cs" />
     <Compile Include="Controllers\ChiPhiLichTrinhXeController.cs" />
@@ -744,6 +745,7 @@
     <Content Include="Views\BaoCaoChiPhiXe\Index.cshtml" />
     <Content Include="Views\BaocaoCongNoPhaiThu\Index.cshtml" />
     <Content Include="Views\XeSuaChuaTaiXuong\Index.cshtml" />
+    <Content Include="Views\BaoCaoTongHop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
